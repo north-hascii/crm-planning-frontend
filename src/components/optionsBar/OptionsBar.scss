@@ -1,0 +1,33 @@
+.options-bar {
+  width: 100%;
+  margin: 0 auto;
+
+  //
+  border: 1px solid black;
+}
+
+.options-bar.admin {
+  display: flex;
+
+  .options-bar-item {
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    width: 150px;
+    padding: 10px 10px;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    //
+    border: 1px solid black;
+
+    &.selected {
+      background: red;
+    }
+  }
+}

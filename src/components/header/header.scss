@@ -1,17 +1,169 @@
 header {
+  display: flex;
+  justify-content: center;
 
+  padding: 30px 0;
+
+  background: #FFFFFF;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.16);
+  //border-bottom: 0.7px solid #4C4C4C;
 }
 
 .header-container {
   max-width: 1500px;
   margin: 0 auto;
   display: flex;
-  justify-content: center;
-
+  //justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  justify-content: space-evenly;
+  //justify-content: center;
   //
-  border: 1px solid black;
+  //border: 1px solid black;
 }
 
 .header-logo {
-  font-size: 40px;
+  cursor: pointer;
+  //display: flex;
+  //align-items: center;
+  //font-size: 40px;
+  //float: left;
+
+  font-family: 'Golos', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 29px;
+  /* identical to box height */
+
+  text-align: center;
+
+  color: #4C4C4C;
+}
+
+.header-container-items {
+  display: flex;
+}
+
+.header-container-item {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+
+  text-align: center;
+
+  text-transform: uppercase;
+
+  color: #4C4C4C;
+
+  &.selected {
+    text-decoration-line: underline;
+    color: #6B9EA4;
+
+  }
+
+  &:not(:first-child) {
+    margin-left: 56px;
+  }
+}
+
+.header-user-profile-label {
+  //position: relative;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+
+
+}
+
+.header-user-profile-label-text {
+  display: flex;
+
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+
+  text-align: center;
+
+  text-transform: uppercase;
+
+  color: #4C4C4C;
+
+  & > svg {
+    margin-right: 8px;
+  }
+}
+
+.header-user-profile-container {
+  position: absolute;
+  top: 89px;
+  right: 0;
+  width: 400px;
+  padding: 32px 0 32px 40px;
+  z-index: 1000;
+  background: #FFFFFF;
+  box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 0px 0px 0px 16px;
+  border-top: 1px solid rgba(76, 76, 76, 0.5);
+  &.visible {
+    display: initial;
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.header-user-profile-container-name {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+
+  letter-spacing: -0.017em;
+
+  color: #4C4C4C;
+
+  //border: 1px solid rgba(76, 76, 76, 0.5);
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: flex-start;
+}
+
+.header-user-profile-container-email,
+.header-user-profile-container-role {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+
+  letter-spacing: -0.017em;
+
+  color: #4C4C4C;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: flex-start;
 }

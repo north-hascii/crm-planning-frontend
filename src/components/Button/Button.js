@@ -1,0 +1,27 @@
+import React from 'react';
+import {buttonProps} from "./ButtonProps";
+import './Button.scss'
+
+function Button({
+                    text = 'Button',
+                    onClck = () => {
+
+                    },
+                    size = buttonProps.size.small,
+                    color = buttonProps.color.dark,
+                    bgColor = buttonProps.background_color.grey,
+                }) {
+
+    const customStyles = {
+        // backgroundColor: bgColor,
+        // color: color,
+    }
+    return (
+        <div className={`button ${size} ${color} ${bgColor}`} onClick={() => onClck()}
+             style={customStyles}>
+            {text}
+        </div>
+    );
+}
+
+export default Button;

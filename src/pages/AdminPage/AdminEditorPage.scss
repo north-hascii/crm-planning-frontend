@@ -1,0 +1,85 @@
+.editor-container {
+  padding: 40px 50px;
+  background: #F5F5F5;
+  border-radius: 16px;
+
+  display: flex;
+  //justify-content: space-between;
+
+  .button {
+    margin-top: 30px;
+  }
+}
+
+.editor-container-left {
+  float: left;
+  margin-right: 40px;
+}
+
+.editor-container-right {
+  float: right;
+}
+
+.editor-item {
+  margin-bottom: 12px;
+}
+
+.editor-item-text {
+  margin-bottom: 8px;
+
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  letter-spacing: -0.017em;
+
+  color: #4C4C4C;
+
+}
+
+.editor-item-input {
+  background: #FFFFFF;
+  border: 0;
+  border-radius: 8px;
+  font-size: 18px;
+  height: 48px;
+  outline-color: #6B9EA4;
+  padding: 0 40px 0 16px;
+  width: 400px;
+}
+
+.editor-selected-item-container {
+  display: flex;
+  margin-top: 12px;
+}
+
+.editor-selected-item {
+  position: relative;
+  padding: 16px 40px 16px 30px;
+
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 93.5%;
+  /* identical to box height, or 15px */
+
+
+  color: #4C4C4C;
+  border-radius: 8px;
+
+  background-color: #FFFFFF;
+  &:not(:last-of-type) {
+    margin-right: 16px;
+  }
+
+  &>.delete {
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

@@ -13,13 +13,20 @@ header {
   max-width: 1500px;
   margin: 0 auto;
   display: flex;
-  //justify-content: space-between;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  justify-content: space-evenly;
+  padding: 0 90px;
+  //justify-content: space-evenly;
   //justify-content: center;
   //
   //border: 1px solid black;
+
+  &.auth {
+    .header-logo {
+      margin: 0 auto;
+    }
+  }
 }
 
 .header-logo {
@@ -76,9 +83,9 @@ header {
   }
 }
 
-.header-user-profile-label {
+.header-user-profile-label-container {
   //position: relative;
-  cursor: pointer;
+  //cursor: pointer;
 
   display: flex;
   align-items: center;
@@ -88,7 +95,8 @@ header {
 
 }
 
-.header-user-profile-label-text {
+.header-user-profile-label {
+  cursor: pointer;
   display: flex;
 
   font-family: 'SF Pro Display', sans-serif;
@@ -109,7 +117,8 @@ header {
   }
 }
 
-.header-user-profile-container {
+.header-user-profile-window {
+  //cursor: pointer;
   position: absolute;
   top: 89px;
   right: 0;
@@ -120,6 +129,7 @@ header {
   box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
   border-radius: 0px 0px 0px 16px;
   border-top: 1px solid rgba(76, 76, 76, 0.5);
+
   &.visible {
     display: initial;
   }
@@ -127,9 +137,15 @@ header {
   &.hidden {
     display: none;
   }
+
+  & > .sub-line {
+    width: 360px;
+
+    margin-bottom: 16px;
+  }
 }
 
-.header-user-profile-container-name {
+.header-user-profile-window-name {
   font-family: 'SF Pro Display', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -147,10 +163,15 @@ header {
   align-items: center;
   text-align: center;
   justify-content: flex-start;
+
+  margin-bottom: 16px;
 }
 
-.header-user-profile-container-email,
-.header-user-profile-container-role {
+.header-user-profile-window-item-container {
+  margin-bottom: 24px;
+}
+
+.header-user-profile-window-item {
   font-family: 'SF Pro Display', sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -166,4 +187,19 @@ header {
   align-items: center;
   text-align: center;
   justify-content: flex-start;
+
+  //&:not(:last-child) {
+  //  margin-top: 16px;
+  //}
+
+}
+
+.header-user-profile-window-item {
+  margin-bottom: 20px;
+}
+
+.header-user-profile-window-item {
+  &:last-of-type {
+    margin-bottom: 0px;
+  }
 }

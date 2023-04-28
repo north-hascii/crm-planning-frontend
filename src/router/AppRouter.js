@@ -6,11 +6,7 @@ import {StoreContext} from "../index";
 import {observer} from "mobx-react-lite";
 
 const AppRouter = observer(() => {
-    // const {showPreloader} = usePreloader()
-    // const [isAuth, setIsAuth] = useState(false)
-
     const {user} = useContext(StoreContext)
-    // console.log(user.isAuth)
 
     return (<Routes>
 

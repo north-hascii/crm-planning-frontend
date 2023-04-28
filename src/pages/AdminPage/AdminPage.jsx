@@ -1,30 +1,58 @@
 import React from 'react';
 import './AdminPage.scss'
 import OptionsBar from "../../components/optionsBar/OptionsBar";
-import {getAllUsers} from "../../http/userApi";
-import {AUTH_ROUTE, localStorageParams} from "../../utils/consts";
-import {useNavigate} from "react-router-dom";
 import AdminTable from "../../components/adminTable/adminTable";
-import {getAllSpecialties} from "../../http/specialtyApi";
+import {adminOptions} from "./adminOptions";
 
 function AdminPage(props) {
-    const adminOptions = [
+    const adminOptionsArray = [
         {
-            name: 'users',
-            text: 'Работники'
+            type: adminOptions.users,
+            text: 'Пользователи',
         },
         {
-            name: 'roles',
-            text: 'Должности',
+            type: adminOptions.specialties,
+            text: 'Специальности',
         }
     ]
 
-    const [selectedTab, setSelectedTab] = React.useState(adminOptions[0].name)
+    const [selectedType, setSelectedType] = React.useState(adminOptionsArray[0].type)
+    // const [selected]
+
+    const table_col_names = {
+        users: [
+            'id',
+            'ФИО',
+            'Почта',
+            'Специальность',
+            'Роль',
+            'Статус',
+            '',
+            // '',
+        ],
+        specialties: [
+            '№ Должности',
+            'Название',
+            '',
+            '',
+            ''
+        ]
+    }
+
+    const adminPageTitles = {
+        users: 'Список пользователей',
+        specialties: 'Список специальностей',
+    }
 
     return (
         <div className={'admin-page'}>
-            <OptionsBar type={'admin'} options={adminOptions} markTab={(tab) => setSelectedTab(tab)}/>
-            <AdminTable table_type={selectedTab}/>
+            <OptionsBar type={'admin'} options={adminOptionsArray} markTab={(tab) => setSelectedType(tab)}/>
+            <div className={'admin-page-container'}>
+                <div className={'page-title'}>
+                    {adminPageTitles[selectedType]}
+                </div>
+                <AdminTable table_type={selectedType} table_col_names={table_col_names[selectedType]}/>
+            </div>
         </div>
     );
 }

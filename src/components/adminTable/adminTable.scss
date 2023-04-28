@@ -1,0 +1,99 @@
+.table-container {
+  padding: 16px;
+  background: #F5F5F5;
+  border-radius: 16px;
+
+  min-width: 1300px;
+}
+
+
+table {
+  table-layout: fixed;
+  //border-collapse: collapse;
+  //text-align: center;
+  //vertical-align: middle;
+  //border-radius: 8px;
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: 10px;
+  border: 1px solid #A2A2A2;
+}
+
+table.rounded-corners {
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: 10px;
+}
+
+
+th, td {
+  padding: 16px 32px;
+}
+
+th {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 105%;
+
+  letter-spacing: -0.017em;
+
+  color: #4C4C4C;
+
+  &.small {
+    width: 100px;
+  }
+  &.medium {
+    width: 220px;
+  }
+}
+
+
+.admin-table-col-names {
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  letter-spacing: -0.017em;
+
+  color: #4C4C4C;
+}
+
+.col-buttons-container {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  &>svg {
+    cursor: pointer;
+    &:not(:last-of-type) {
+      margin-right: 30px;
+    }
+  }
+}
+table.rounded-corners > thead > tr:not(:last-child) > th,
+table.rounded-corners > thead > tr:not(:last-child) > td,
+table.rounded-corners > tbody > tr:not(:last-child) > th,
+table.rounded-corners > tbody > tr:not(:last-child) > td,
+table.rounded-corners > tfoot > tr:not(:last-child) > th,
+table.rounded-corners > tfoot > tr:not(:last-child) > td,
+table.rounded-corners > tr:not(:last-child) > td,
+table.rounded-corners > tr:not(:last-child) > th,
+table.rounded-corners > thead:not(:last-child),
+table.rounded-corners > tbody:not(:last-child),
+table.rounded-corners > tfoot:not(:last-child) {
+  border-bottom: 1px solid #A2A2A2;
+}
+
+table th:not(:last-child),
+table td:not(:last-child) {
+  border-right: 1px solid #A2A2A2;
+}
+
+th {
+  width: 25%;
+}
+

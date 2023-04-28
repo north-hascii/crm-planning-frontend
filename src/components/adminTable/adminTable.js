@@ -2,15 +2,16 @@ import React from 'react';
 import './adminTable.scss'
 import {getAllUsers} from "../../http/userApi";
 import {getAllSpecialties} from "../../http/specialtyApi";
+import {adminOptions} from "../../pages/AdminPage/adminOptions";
 
 
-function AdminTable({table_type = ''}) {
+function AdminTable({table_type = '', table_col_names = {}}) {
     const [isLoading, setIsLoading] = React.useState(true)
     const [items, setItems] = React.useState([])
 
     React.useEffect(() => {
         setIsLoading(true)
-        if (table_type === 'users') {
+        if (table_type === adminOptions.users) {
             getAllUsers().then(data => {
                 setItems(data)
                 // setTimeout(() => {
@@ -22,7 +23,7 @@ function AdminTable({table_type = ''}) {
                 console.log("Error while getting data", err)
             })
         }
-        if (table_type === 'roles') {
+        if (table_type === adminOptions.specialties) {
             getAllSpecialties().then(data => {
                 setItems(data)
                 // setTimeout(() => {
@@ -39,24 +40,7 @@ function AdminTable({table_type = ''}) {
         }, 300)
     }, [table_type])
 
-    const table_col_names = {
-        users: [
-            '№ Работника',
-            'ФИО',
-            'Почта',
-            'Должности',
-            'Статус',
-            '',
-            '',
-        ],
-        roles: [
-            '№ Должности',
-            'Название',
-            '',
-            '',
-            ''
-        ]
-    }
+
     if (isLoading) {
         return (
             <div>
@@ -77,7 +61,7 @@ function AdminTable({table_type = ''}) {
                     )
                 })}
             </tr>
-            {table_type === 'users' &&
+            {table_type === adminOptions.users && items &&
                 items.map((item, index) => {
                     return (<tr key={index}>
                         <th>
@@ -105,7 +89,7 @@ function AdminTable({table_type = ''}) {
                 })
             }
 
-            {table_type === 'roles' &&
+            {table_type === adminOptions.specialties && items &&
                 items.map((item, index) => {
                     return (<tr key={index}>
                         <th>

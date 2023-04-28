@@ -1,45 +1,11 @@
-.admin-table {
-  th {
-    letter-spacing: 2px;
-  }
-
-  td {
-    letter-spacing: 1px;
-  }
-
-  tbody td {
-    text-align: center;
-  }
-
-  .admin-table-col-names {
-    background-color: #EDEDED !important;
-  }
-
-  tbody tr:nth-child(odd) {
-    background-color: #f5f5f5;
-  }
-
-  tbody tr:nth-child(even) {
-    //background-color: #EDEDED;
-  }
-
-
-
-
-  //
-  border: 1px solid black;
-}
-
-.admin-table-row {
+.admin-page {
+  //max-width: 1500px;
+  margin: 0 auto;
   display: flex;
-  flex-direction: row;
-}
+  justify-content: center;
+  flex-direction: column;
 
-.admin-table-row-item {
-
-  padding: 10px 20px;
-
-
-  //
-  border: 1px solid black;
+  header {
+    margin-bottom: 300px;
+  }
 }

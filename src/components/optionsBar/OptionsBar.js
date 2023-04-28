@@ -6,16 +6,18 @@ function OptionsBar({type = 'default', options = [], markTab = (name) => {}}) {
 
     return (
         <div className={`options-bar ${type}`}>
-            {options.map((item, index) => {
-                return (<div className={`options-bar-item ${item.name === selectedTab ? 'selected' : ''}`}
-                             onClick={() => {
-                                 setSelectedTab(item.name)
-                                 markTab(item.name)
-                             }}
-                             key={index}>
-                    {item.text}
-                </div>)
-            })}
+            <div className={'options-bar-container'}>
+                {options.map((item, index) => {
+                    return (<div className={`options-bar-item ${item.name === selectedTab ? 'selected' : ''}`}
+                                 onClick={() => {
+                                     setSelectedTab(item.name)
+                                     markTab(item.name)
+                                 }}
+                                 key={index}>
+                        {item.text}
+                    </div>)
+                })}
+            </div>
         </div>
     );
 }

@@ -1,30 +1,46 @@
 import React from 'react';
 import './AdminPage.scss'
 import OptionsBar from "../../components/optionsBar/OptionsBar";
-import {getAllUsers} from "../../http/userApi";
-import {AUTH_ROUTE, localStorageParams} from "../../utils/consts";
-import {useNavigate} from "react-router-dom";
 import AdminTable from "../../components/adminTable/adminTable";
-import {getAllSpecialties} from "../../http/specialtyApi";
+import {adminOptions} from "./adminOptions";
 
 function AdminPage(props) {
-    const adminOptions = [
+    const adminOptionsArray = [
         {
-            name: 'users',
-            text: 'Работники'
+            name: adminOptions.users,
+            text: 'Пользователи',
         },
         {
-            name: 'roles',
-            text: 'Должности',
+            name: adminOptions.specialties,
+            text: 'Специальности',
         }
     ]
 
-    const [selectedTab, setSelectedTab] = React.useState(adminOptions[0].name)
+    const [selectedTab, setSelectedTab] = React.useState(adminOptionsArray[0].name)
+
+    const table_col_names = {
+        users: [
+            '№ Работника',
+            'ФИО',
+            'Почта',
+            'Должности',
+            'Статус',
+            '',
+            '',
+        ],
+        specialties: [
+            '№ Должности',
+            'Название',
+            '',
+            '',
+            ''
+        ]
+    }
 
     return (
         <div className={'admin-page'}>
-            <OptionsBar type={'admin'} options={adminOptions} markTab={(tab) => setSelectedTab(tab)}/>
-            <AdminTable table_type={selectedTab}/>
+            <OptionsBar type={'admin'} options={adminOptionsArray} markTab={(tab) => setSelectedTab(tab)}/>
+            <AdminTable table_type={selectedTab} table_col_names={table_col_names}/>
         </div>
     );
 }

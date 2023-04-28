@@ -5,6 +5,9 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {observer} from 'mobx-react-lite'
 import mobx, {autorun} from "mobx";
 import {StoreContext} from "../../index";
+import Button from "../Button/Button";
+import {buttonProps} from "../Button/ButtonProps";
+import SubLine from "../SubLine/SubLine";
 
 const Header = observer(() => {
     const {user} = useContext(StoreContext)
@@ -56,7 +59,7 @@ const Header = observer(() => {
     const location = useLocation()
 
 
-    console.log(location.pathname)
+    // console.log(location.pathname)
 
     const [isUserProfileVisible, setIsUserProfileVisible] = React.useState(false)
 
@@ -89,9 +92,8 @@ const Header = observer(() => {
                     </div>)
                 })}
             </div>
-            <div className={'header-user-profile-label'}
-                 onClick={() => setIsUserProfileVisible(!isUserProfileVisible)}>
-                <div className={'header-user-profile-label-text'}>
+            <div className={'header-user-profile-label-container'}>
+                <div className={'header-user-profile-label'} onClick={() => setIsUserProfileVisible(!isUserProfileVisible)}>
                     <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="19" height="19" rx="9.5" fill="#6B9EA4"/>
                         <path
@@ -101,19 +103,20 @@ const Header = observer(() => {
 
                     Профиль
                 </div>
-                <div className={`header-user-profile-container ${isUserProfileVisible ? 'visible' : 'hidden'}`}>
-                    <div className={'header-user-profile-container-name'}>
+                <div className={`header-user-profile-window ${isUserProfileVisible ? 'visible' : 'hidden'}`}>
+                    <div className={'header-user-profile-window-name'}>
                         Мохов Сергей Александрович {}
                     </div>
-                    <div className={'header-user-profile-container-email'}>
-                        Почта: admin@gmail.com{}
+                    <SubLine/>
+                    <div className={'header-user-profile-window-item-container'}>
+                        <div className={'header-user-profile-window-item'}>
+                            Почта: admin@gmail.com{}
+                        </div>
+                        <div className={'header-user-profile-window-item'}>
+                            Уровень доступа: admin{}
+                        </div>
                     </div>
-                    <div className={'header-user-profile-container-role'}>
-                        Уровень доступа: admin{}
-                    </div>
-                    <div onClick={() => logOut()}>
-                        Выйти
-                    </div>
+                    <Button text={'Выйти'} size={buttonProps.size.small} onClck={logOut}/>
                 </div>
             </div>
         </div>}

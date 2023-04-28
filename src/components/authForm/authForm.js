@@ -6,6 +6,7 @@ import {resetPassword, signIn} from "../../http/authApi";
 import {HTTP_STATUS_CODES} from "../../http/HttpStatus";
 import {StoreContext} from "../../index";
 import {observer} from "mobx-react-lite";
+import SubLine from "../SubLine/SubLine";
 
 
 const AuthForm = observer(({formType = formTypes.loginForm}) => {
@@ -56,10 +57,10 @@ const AuthForm = observer(({formType = formTypes.loginForm}) => {
 
 
             <form className={'auth-form-container'} onSubmit={(e) => completeForm(e)}>
-
-                <svg width="auto" height="2" viewBox="0 0 604 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 1H604" stroke="#4C4C4C" stroke-width="0.7"/>
-                </svg>
+                <SubLine/>
+                {/*<svg width="100px" height="2" viewBox="0 0 604 2" fill="none" xmlns="http://www.w3.org/2000/svg">*/}
+                {/*    <path d="M0 1H604" stroke="#4C4C4C" strokeWidth="0.7"/>*/}
+                {/*</svg>*/}
                 <div className={'auth-form-field'}>
                     {/*<div className={'auth-form-field-title'}>*/}
                     {/*    Логин*/}

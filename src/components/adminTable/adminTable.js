@@ -52,7 +52,7 @@ function AdminTable({table_type = '', table_col_names = {}}) {
             </div>
         )
     }
-    // console.log(table_col_names)
+    // console.log(item.specialties.specialty_name].join())
 
     return (
         <div className={'table-container'}>
@@ -97,7 +97,8 @@ function AdminTable({table_type = '', table_col_names = {}}) {
                                 {item.email}
                             </th>
                             <th className={'medium'}>
-                                {[item.specialties].join()}
+                                {
+                                    [item.specialties.map(item => item.specialty_name)].join()}
                             </th>
                             <th className={'medium'}>
                                 {item.status}

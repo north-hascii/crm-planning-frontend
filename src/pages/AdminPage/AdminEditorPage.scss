@@ -52,12 +52,14 @@
 
 .editor-selected-item-container {
   display: flex;
+  flex-wrap: wrap;
   margin-top: 12px;
 }
 
 .editor-selected-item {
+  margin-bottom: 12px;
   position: relative;
-  padding: 16px 40px 16px 30px;
+  padding: 16px 40px 16px 16px;
 
   font-family: 'SF Pro Display', sans-serif;
   font-style: normal;

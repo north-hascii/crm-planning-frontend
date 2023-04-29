@@ -3,6 +3,9 @@ import './UserEditor.scss'
 import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
 import InputItems from "./InputItems";
+import {useNavigate} from "react-router-dom";
+import {getUserById} from "../../http/userApi";
+import {getAllSpecialties} from "../../http/specialtyApi";
 
 function UserEditor({user}) {
     const [firstName, setFirstName] = React.useState(user.first_name)
@@ -14,6 +17,30 @@ function UserEditor({user}) {
     const [isSpecialtyListVisible, setIsSpecialtyListVisible] = React.useState(false)
 
     const [specialtyList, setSpecialtyList] = React.useState(user.specialties)
+    const [specialtyIdList, setSpecialtyIdList] = React.useState(user.specialties.map(obj => obj.id))
+    const [availableSpecialtiesList, setAvailableSpecialtiesList] = React.useState([])
+
+    const [isLoading, setIsLoading] = React.useState(true)
+
+    React.useEffect(() => {
+        setIsLoading(true)
+        getAllSpecialties().then(data => {
+            console.log(data)
+            setAvailableSpecialtiesList(data)
+            setIsLoading(false)
+        }).catch(err => {
+            console.log("Error while getting data", err)
+            setIsLoading(false)
+        })
+    }, [])
+
+    if (isLoading && !user) {
+        return (
+            <div>
+                Loading
+            </div>
+        )
+    }
 
     const statusKeyValue = [
         {
@@ -130,6 +157,12 @@ function UserEditor({user}) {
                     <div className={'editor-search-item'}>
                         <div className={'input-search-container'}>
                             <input className={'editor-item-input'}/>
+                            <svg className={`input-search-hide ${isSpecialtyListVisible ? 'visible' : 'hidden'}`}
+                                 onClick={() => setIsSpecialtyListVisible(false)}
+                                width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.5916 10.4499C10.5142 10.3718 10.422 10.3098 10.3205 10.2675C10.2189 10.2252 10.11 10.2035 9.99998 10.2035C9.88997 10.2035 9.78105 10.2252 9.6795 10.2675C9.57795 10.3098 9.48578 10.3718 9.40831 10.4499L6.90831 12.9499C6.74697 13.1069 6.65457 13.3215 6.65145 13.5465C6.64832 13.7715 6.73472 13.9886 6.89164 14.1499C7.04856 14.3113 7.26315 14.4037 7.48819 14.4068C7.71324 14.4099 7.9303 14.3235 8.09164 14.1666L9.99998 12.2166L11.9083 14.1666C11.9858 14.2447 12.0779 14.3067 12.1795 14.349C12.281 14.3913 12.39 14.4131 12.5 14.4131C12.61 14.4131 12.7189 14.3913 12.8205 14.349C12.922 14.3067 13.0142 14.2447 13.0916 14.1666C13.1698 14.0891 13.2317 13.997 13.2741 13.8954C13.3164 13.7939 13.3381 13.685 13.3381 13.5749C13.3381 13.4649 13.3164 13.356 13.2741 13.2545C13.2317 13.1529 13.1698 13.0608 13.0916 12.9833L10.5916 10.4499ZM8.09164 9.54995L9.99998 7.63328L11.9083 9.54995C11.9858 9.62806 12.0779 9.69005 12.1795 9.73236C12.281 9.77467 12.39 9.79645 12.5 9.79645C12.61 9.79645 12.7189 9.77467 12.8205 9.73236C12.922 9.69005 13.0142 9.62806 13.0916 9.54995C13.1698 9.47248 13.2317 9.38031 13.2741 9.27876C13.3164 9.17721 13.3381 9.06829 13.3381 8.95828C13.3381 8.84827 13.3164 8.73935 13.2741 8.6378C13.2317 8.53625 13.1698 8.44408 13.0916 8.36662L10.5916 5.86662C10.5142 5.78851 10.422 5.72651 10.3205 5.68421C10.2189 5.6419 10.11 5.62012 9.99998 5.62012C9.88997 5.62012 9.78105 5.6419 9.6795 5.68421C9.57795 5.72651 9.48578 5.78851 9.40831 5.86662L6.90831 8.36662C6.75139 8.52354 6.66323 8.73636 6.66323 8.95828C6.66323 9.1802 6.75139 9.39303 6.90831 9.54995C7.06523 9.70687 7.27806 9.79502 7.49998 9.79502C7.7219 9.79502 7.93472 9.70687 8.09164 9.54995V9.54995Z" fill="#4C4C4C" fillOpacity="0.5"/>
+                            </svg>
+
                             <svg className={'input-search-button'} onClick={() => setIsSpecialtyListVisible(true)}
                                  width="15" height="15" viewBox="0 0 15 15" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -139,15 +172,18 @@ function UserEditor({user}) {
                             </svg>
                         </div>
                         <div className={`search-result-container ${isSpecialtyListVisible ? 'visible' : 'hidden'}`}>
-                            {availableSpecialties.map((item, index) => {
+                            {availableSpecialtiesList.map((item, index) => {
                                 return (
-                                    <div className={'search-result'} key={index} onClick={(item) => {
-                                        console.log(specialtyList)
-                                        if (!specialtyList.includes(item)) {
+                                    <div className={'search-result'} key={index} onClick={() => {
+                                        setIsSpecialtyListVisible(false)
+                                        console.log("spec list: ", specialtyList)
+                                        console.log("avai spec list: ", availableSpecialtiesList)
+                                        if (!specialtyIdList.includes(item.id)) {
                                             setSpecialtyList(specialtyList => [...specialtyList, item])
+                                            setSpecialtyIdList(specialtyList => [...specialtyIdList, item.id])
                                         }
                                     }}>
-                                        {item}
+                                        {item.specialty_name}
                                     </div>
                                 )
                             })}
@@ -156,7 +192,7 @@ function UserEditor({user}) {
                     <div className={'editor-selected-item-container'}>
                         {specialtyList && specialtyList.map((item, index) => {
                             return (<div className={'editor-selected-item'} key={index}>
-                                {item}
+                                {item.specialty_name}
                                 <svg className={'delete'} onClick={() => {
                                     setSpecialtyList(specialtyList.filter(i => i !== item));
                                 }}

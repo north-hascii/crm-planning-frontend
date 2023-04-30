@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import './header.scss'
-import {ADMIN_ROUTE, AUTH_ROUTE, HOME_ROUTE, localStorageParams, ORDER_ROUTE, userRoles} from "../../utils/consts";
+import {ADMIN_ROUTE, AUTH_ROUTE, HOME_ROUTE, localStorageParams, ORDER_INFO_ROUTE, userRoles} from "../../utils/consts";
 import {useLocation, useNavigate} from "react-router-dom";
 import {observer} from 'mobx-react-lite'
 import mobx, {autorun} from "mobx";
@@ -38,7 +38,7 @@ const Header = observer(() => {
     ]
 
     const tabsAndRoutes = {
-        'orders': ORDER_ROUTE,
+        'orders': ORDER_INFO_ROUTE,
         'admin': ADMIN_ROUTE,
     }
 

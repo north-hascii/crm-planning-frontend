@@ -3,8 +3,13 @@ import {
     ADMIN_USER_EDITOR,
     AUTH_ROUTE,
     HOME_ROUTE,
-    NOTFOUND_ROUTE, ORDER_ROUTE,
-    RESET_PASSWORD_ROUTE
+    NOTFOUND_ROUTE,
+    ORDER_INFO_ROUTE,
+    ORDER_EDIT_ROUTE,
+    RESET_PASSWORD_ROUTE,
+    ORDER_ROUTE,
+    ORDER_CALCULATION_INFO_ROUTE,
+    ORDER_CALCULATION_EDIT_ROUTE
 } from "../utils/consts";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -12,7 +17,10 @@ import ResetPasswordPage from "../pages/AuthPage/ResetPasswordPage";
 import HomePage from "../pages/HomePage";
 import AdminPage from "../pages/AdminPage/AdminPage";
 import AdminEditorPage from "../pages/AdminPage/AdminEditorPage";
-import OrderPage from "../pages/OrderPage/OrderPage";
+import OrderInfoPage from "../pages/OrderInfoPage/OrderInfoPage";
+import OrderEditPage from "../pages/OrderEditPage/OrderEditPage";
+import OrderCalculationInfoPage from "../pages/OrderCalculationInfoPage/OrderCalculationInfoPage";
+import OrderCalculationEditPage from "../pages/OrderCalculationEditPage/OrderCalculationEditPage";
 
 export const authRoutes = [
     {
@@ -28,8 +36,20 @@ export const authRoutes = [
         Component: <AdminEditorPage/>
     },
     {
-        path: ORDER_ROUTE + '/:id',
-        Component: <OrderPage/>
+        path: ORDER_INFO_ROUTE + '/:id',
+        Component: <OrderInfoPage/>
+    },
+    {
+        path: ORDER_EDIT_ROUTE + '/:id',
+        Component: <OrderEditPage/>
+    },
+    {
+        path: ORDER_CALCULATION_INFO_ROUTE + '/:id',
+        Component: <OrderCalculationInfoPage/>
+    },
+    {
+        path: ORDER_CALCULATION_EDIT_ROUTE + '/:id',
+        Component: <OrderCalculationEditPage/>
     }
 ]
 

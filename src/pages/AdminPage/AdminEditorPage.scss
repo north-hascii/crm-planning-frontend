@@ -11,6 +11,18 @@
   }
 }
 
+.flex-sb-row {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.flex-left-row {
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
+}
+
 .editor-container-left {
   float: left;
   margin-right: 40px;
@@ -18,6 +30,7 @@
 
 .editor-container-right {
   float: right;
+  width: 100%;
 }
 
 .editor-item {
@@ -36,7 +49,6 @@
   letter-spacing: -0.017em;
 
   color: #4C4C4C;
-
 }
 
 .editor-item-input {
@@ -48,6 +60,40 @@
   outline-color: #6B9EA4;
   padding: 0 40px 0 16px;
   width: 400px;
+}
+
+// TODO: Три нижних с -big можно как-то поменять
+.editor-item-big {
+  margin-bottom: 12px;
+  height: 53%;
+}
+
+.editor-item-text-big {
+  margin-bottom: 8px;
+
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  letter-spacing: -0.017em;
+
+  color: #4C4C4C;
+
+  text-align: left;
+  overflow: auto;
+}
+
+.editor-item-input-big {
+  background: #FFFFFF;
+  border: 0;
+  border-radius: 8px;
+  font-size: 18px;
+  outline-color: #6B9EA4;
+  padding: 0 40px 0 16px;
+  width: 100%;
+  height: 100%;
 }
 
 .editor-selected-item-container {

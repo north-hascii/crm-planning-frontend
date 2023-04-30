@@ -3,7 +3,7 @@ import {
     ADMIN_USER_EDITOR,
     AUTH_ROUTE,
     HOME_ROUTE,
-    NOTFOUND_ROUTE,
+    NOTFOUND_ROUTE, ORDER_ROUTE,
     RESET_PASSWORD_ROUTE
 } from "../utils/consts";
 import AuthPage from "../pages/AuthPage/AuthPage";
@@ -12,6 +12,7 @@ import ResetPasswordPage from "../pages/AuthPage/ResetPasswordPage";
 import HomePage from "../pages/HomePage";
 import AdminPage from "../pages/AdminPage/AdminPage";
 import AdminEditorPage from "../pages/AdminPage/AdminEditorPage";
+import OrderPage from "../pages/OrderPage/OrderPage";
 
 export const authRoutes = [
     {
@@ -25,6 +26,10 @@ export const authRoutes = [
     {
         path: ADMIN_USER_EDITOR + '/:id',
         Component: <AdminEditorPage/>
+    },
+    {
+        path: ORDER_ROUTE + '/:id',
+        Component: <OrderPage/>
     }
 ]
 

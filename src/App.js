@@ -19,7 +19,8 @@ const App = observer(() => {
                 const user_role = localStorage.getItem(localStorageParams.user_role)
                 user.setUserRole(user_role)
 
-            }setIsLoading(false)
+            }
+            setIsLoading(false)
     }, [])
 
     if (isLoading) {

@@ -3,20 +3,38 @@ import './AdminPage.scss'
 import OptionsBar from "../../components/optionsBar/OptionsBar";
 import AdminTable from "../../components/adminTable/adminTable";
 import {adminOptions} from "./adminOptions";
+import {ADMIN_ROUTE, ADMIN_SPECIALTY_ROUTE, ADMIN_USER_ROUTE} from "../../utils/consts";
+import {useNavigate} from "react-router-dom";
 
 function AdminPage(props) {
-    const adminOptionsArray = [
-        {
+    const adminSectionsAndTexts = {
+        users: {
             type: adminOptions.users,
             text: 'Пользователи',
         },
-        {
+        specialty: {
             type: adminOptions.specialties,
             text: 'Специальности',
         }
-    ]
+    }
+    const [selectedType, setSelectedType] = React.useState('')
 
-    const [selectedType, setSelectedType] = React.useState(adminOptionsArray[0].type)
+    const navigate = useNavigate()
+    React.useEffect(() => {
+        const route = window.location.pathname
+        if (route === ADMIN_ROUTE) {
+            navigate(ADMIN_USER_ROUTE)
+        }
+        if (route === ADMIN_USER_ROUTE) {
+            // setSelectedType(adminOptionsArray.admin.type)
+        }
+        if (route === ADMIN_SPECIALTY_ROUTE) {
+            // setSelectedType(adminOptionsArray.specialty.type)
+        }
+        console.log(route)
+    }, [])
+
+
     // const [selected]
 
     const table_col_names = {
@@ -44,9 +62,17 @@ function AdminPage(props) {
         specialties: 'Список специальностей',
     }
 
+    const adminSections = Object.entries(adminSectionsAndTexts).map(([key, value]) => ({
+        type: value.type,
+        text: value.text,
+    }));
+
+    // const arr = [...adminSectionsAndTexts].map(([name, value]) => ({ name, value }))
+    // Array.from(adminSectionsAndTexts, (item) => ({ item.type, item.text }))
+    console.log(adminSections)
     return (
         <div className={'admin-page'}>
-            <OptionsBar type={'admin'} options={adminOptionsArray} markTab={(tab) => setSelectedType(tab)}/>
+            <OptionsBar type={'admin'} options={adminSections} markTab={(tab) => setSelectedType(tab)}/>
             <div className={'admin-page-container'}>
                 <div className={'page-title'}>
                     {adminPageTitles[selectedType]}

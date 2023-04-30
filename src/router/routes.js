@@ -1,6 +1,6 @@
 import {
-    ADMIN_ROUTE,
-    ADMIN_USER_EDITOR,
+    ADMIN_ROUTE, ADMIN_SPECIALTY_ROUTE,
+    ADMIN_USER_EDITOR, ADMIN_USER_ROUTE,
     AUTH_ROUTE,
     HOME_ROUTE,
     NOTFOUND_ROUTE,
@@ -20,6 +20,14 @@ export const authRoutes = [
     },
     {
         path: ADMIN_ROUTE,
+        Component: <AdminPage/>
+    },
+    {
+        path: ADMIN_USER_ROUTE,
+        Component: <AdminPage/>
+    },
+    {
+        path: ADMIN_SPECIALTY_ROUTE,
         Component: <AdminPage/>
     },
     {

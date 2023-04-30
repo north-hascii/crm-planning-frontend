@@ -11,10 +11,9 @@ export const ADMIN_ROUTE = '/admin'
 
 export const ADMIN_USER_ROUTE = '/admin/user'
 
+export const ADMIN_SPECIALTY_ROUTE = '/admin/specialty'
+
 export const ADMIN_USER_EDITOR = '/admin/user'
-
-// export const
-
 
 export const formTypes = {
     loginForm: 'login-form',

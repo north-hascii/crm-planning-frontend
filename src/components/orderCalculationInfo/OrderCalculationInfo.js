@@ -20,7 +20,26 @@ function OrderEditor({order}) {
 
     return (
         <div className={'editor-container'}>
-            <CalculationStageInfo />
+            <div className={`search-result-container ${isSpecialtyListVisible ? 'visible' : 'hidden'}`}>
+                {availableSpecialtiesList && availableSpecialtiesList.length > 0 ? availableSpecialtiesList.map((item, index) => {
+                        return (
+                            <div className={'search-result enable'} key={index} onClick={() => {
+                                setIsSpecialtyListVisible(false)
+                                if (!specialtyIdList.includes(item.id)) {
+                                    setSpecialtyList(specialtyList => [...specialtyList, item])
+                                    setSpecialtyIdList(specialtyList => [...specialtyIdList, item.id])
+                                }
+                            }}>
+                                {item.specialty_name}
+                            </div>
+                        )
+                    })
+                    :
+                    <div className={`search-result`}>
+                        Поиск не дал результатов
+                    </div>
+                }
+            </div>
         </div>
     );
 }

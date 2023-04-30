@@ -24,6 +24,10 @@
   flex-direction: row;
 }
 
+.margin-bot-10 {
+  margin-bottom: 10px;
+}
+
 .editor-container-left {
   float: left;
   margin-right: 40px;
@@ -53,6 +57,7 @@
   letter-spacing: -0.017em;
 
   color: #4C4C4C;
+
 }
 
 .editor-item-input {
@@ -64,7 +69,8 @@
   outline-color: #6B9EA4;
   padding: 0 40px 0 16px;
   width: 400px;
-  &.editor-item-input-big {
+
+  &.big {
     width: 100%;
     height: 100%;
   }
@@ -90,17 +96,6 @@
   &.hidden {
     display: none;
   }
-}
-
-.editor-item-input-big {
-  background: #FFFFFF;
-  border: 0;
-  border-radius: 8px;
-  font-size: 18px;
-  outline-color: #6B9EA4;
-  padding: 0 40px 0 16px;
-  width: 100%;
-  height: 100%;
 }
 
 .editor-selected-item-container {

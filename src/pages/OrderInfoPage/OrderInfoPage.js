@@ -58,8 +58,8 @@ function OrderInfoPage(props) {
                             </svg>
                         </div>
                     </div>
-                    <OrderInfo order={order}/>
                 </div>
+                <OrderInfo order={order}/>
             </div>
         </div>
     )

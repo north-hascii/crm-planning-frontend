@@ -120,11 +120,11 @@ function OrderEditor({order}) {
 
             {/*{  TODO: EDIT Сделать нормальный css, у Тёмы лапки... Текст в левый угол; Положение кнопки пофиксить */}
             <div className={'editor-container-right'}>
-                <div className={'editor-item-big'}>
-                    <div className={'editor-item-text-big'}>
+                <div className={'editor-item big'}>
+                    <div className={'editor-item-text big'}>
                         Описание проекта
                     </div>
-                    <input className={'editor-item-input-big'}
+                    <input className={'editor-item-input big'}
                            required
                            name={'first_name'}
                            type={'text'}

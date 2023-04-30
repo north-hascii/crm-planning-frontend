@@ -82,8 +82,8 @@ function OrderEditor({order}) {
 
             {/*{  TODO: INFO Сделать нормальный css, у Тёмы лапки... Текст в левый угол; Положение кнопки пофиксить */}
             <div className={'editor-container-right'}>
-                <div className={'editor-item-big'}>
-                    <div className={'editor-item-text-big'}>
+                <div className={'editor-item big'}>
+                    <div className={'editor-item-text big'}>
                         Описание проекта
                     </div>
                     <div className={'editor-item-input'}>

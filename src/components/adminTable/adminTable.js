@@ -114,7 +114,12 @@ function AdminTable({table_type = '', table_col_names = {}}) {
                                 {item.email}
                             </th>
                             <th className={'medium'}>
+<<<<<<< Updated upstream
                                 {[item.specialties].join()}
+=======
+                                {
+                                    item.specialties.map(item => item.specialty_name).join('; ')}
+>>>>>>> Stashed changes
                             </th>
                             <th className={'medium'}>
                                 {item.status}

@@ -131,7 +131,8 @@ header {
   border-top: 1px solid rgba(76, 76, 76, 0.5);
 
   &.visible {
-    display: initial;
+    display: flex;
+    flex-direction: column;
   }
 
   &.hidden {

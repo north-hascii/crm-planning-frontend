@@ -16,7 +16,7 @@ function AdminEditorPage({}) {
     React.useEffect(() => {
         setIsLoading(true)
         getUserById(id).then(data => {
-            console.log(data)
+            // console.log(data)
             setUser(data)
             setIsLoading(false)
         }).catch(err => {

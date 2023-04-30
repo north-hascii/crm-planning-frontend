@@ -10,6 +10,7 @@ function Button({
                     size = buttonProps.size.small,
                     color = buttonProps.color.dark,
                     bgColor = buttonProps.background_color.grey,
+                    type = 'button'
                 }) {
 
     const customStyles = {
@@ -17,10 +18,12 @@ function Button({
         // color: color,
     }
     return (
-        <div className={`button ${size} ${color} ${bgColor}`} onClick={() => onClck()}
-             style={customStyles}>
+        <button className={`button ${size} ${color} ${bgColor}`} onClick={() => onClck()}
+             style={customStyles}
+        type={type}
+        >
             {text}
-        </div>
+        </button>
     );
 }
 

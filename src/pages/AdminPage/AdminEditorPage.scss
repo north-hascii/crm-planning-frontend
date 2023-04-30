@@ -6,6 +6,7 @@
   display: flex;
   //justify-content: space-between;
 
+  min-width: 950px;
   .button {
     margin-top: 30px;
   }
@@ -48,6 +49,28 @@
   outline-color: #6B9EA4;
   padding: 0 40px 0 16px;
   width: 400px;
+}
+
+.input-error  {
+  padding: 12px 0 6px 0;
+
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  letter-spacing: -0.017em;
+
+  color: red;
+
+  &.visible {
+    display: inherit;
+  }
+
+  &.hidden {
+    display: none;
+  }
 }
 
 .editor-selected-item-container {

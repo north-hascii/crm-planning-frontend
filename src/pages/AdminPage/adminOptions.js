@@ -1,4 +1,6 @@
 export const adminOptions = {
-    users: 'users',
-    specialties: 'specialties',
+    user: 'user',
+    specialty: 'specialty',
+    operation: 'operation',
+    material: 'material',
 }

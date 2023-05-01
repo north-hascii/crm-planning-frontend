@@ -1,15 +1,13 @@
 import {
     ADMIN_ROUTE,
-    ADMIN_USER_EDITOR,
     AUTH_ROUTE,
     HOME_ROUTE,
     NOTFOUND_ROUTE,
     ORDER_INFO_ROUTE,
     ORDER_EDIT_ROUTE,
     RESET_PASSWORD_ROUTE,
-    ORDER_ROUTE,
     ORDER_CALCULATION_INFO_ROUTE,
-    ORDER_CALCULATION_EDIT_ROUTE
+    ORDER_CALCULATION_EDIT_ROUTE, ADMIN_SPECIALTY_ROUTE, ADMIN_USER_ROUTE
 } from "../utils/consts";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -21,19 +19,34 @@ import OrderInfoPage from "../pages/OrderInfoPage/OrderInfoPage";
 import OrderEditPage from "../pages/OrderEditPage/OrderEditPage";
 import OrderCalculationInfoPage from "../pages/OrderCalculationInfoPage/OrderCalculationInfoPage";
 import OrderCalculationEditPage from "../pages/OrderCalculationEditPage/OrderCalculationEditPage";
+import UserEditor from "../components/userEditor/UserEditor";
+import SpecialtyEditorPage from "../pages/AdminPage/SpecialtyEditorPage";
 
 export const authRoutes = [
     {
         path: HOME_ROUTE,
         Component: <HomePage/>
     },
+
+    // {
+    //     path: ADMIN_ROUTE + '/',
+    //     Component: <AdminPage/>
+    // },
+    // {
+    //     path: ADMIN_SPECIALTY_ROUTE,
+    //     Component: <AdminPage/>
+    // },
     {
-        path: ADMIN_ROUTE,
+        path: ADMIN_ROUTE + '/:section',
         Component: <AdminPage/>
     },
     {
-        path: ADMIN_USER_EDITOR + '/:id',
+        path: ADMIN_USER_ROUTE + '/:id',
         Component: <AdminEditorPage/>
+    },
+    {
+        path: ADMIN_SPECIALTY_ROUTE + '/:id',
+        Component: <SpecialtyEditorPage/>
     },
     {
         path: ORDER_INFO_ROUTE + '/:id',

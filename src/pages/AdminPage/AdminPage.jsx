@@ -1,57 +1,131 @@
 import React from 'react';
 import './AdminPage.scss'
-import OptionsBar from "../../components/optionsBar/OptionsBar";
+import SectionBar from "../../components/optionsBar/SectionBar";
 import AdminTable from "../../components/adminTable/adminTable";
 import {adminOptions} from "./adminOptions";
+import {ADMIN_ROUTE} from "../../utils/consts";
+import {useNavigate, useParams} from "react-router-dom";
+import {getAllUsers} from "../../http/userApi";
+import {getAllSpecialties} from "../../http/specialtyApi";
+import {getAllMaterials} from "../../http/materialApi";
+import {getAllSOperations} from "../../http/operationApi";
 
 function AdminPage(props) {
+    const {section} = useParams()
+    const navigate = useNavigate()
+
+    const [isPageLoading, setIsPageLoading] = React.useState(true)
+    const [isTableLoading, setIsTableLoading] = React.useState(true)
+    const [selectedSection, setSelectedSection] = React.useState('')
+    const [tableItems, setTableItems] = React.useState([])
+
+
+    React.useEffect(() => {
+        if (section) {
+            setSelectedSection(section)
+        }
+        setIsPageLoading(false)
+    }, [])
+
+    React.useEffect(() => {
+        setIsTableLoading(true)
+        if (section) {
+            setSelectedSection(section)
+        }
+
+        if (section === adminOptions.user) {
+            getAllUsers().then(data => {
+                setTableItems(data)
+                setIsTableLoading(false)
+            }).catch(err => {
+                console.log("Error while getting data", err)
+                setIsTableLoading(false)
+            })
+        }
+        if (section === adminOptions.specialty) {
+            getAllSpecialties().then(data => {
+                setTableItems(data)
+                setIsTableLoading(false)
+            }).catch(err => {
+                console.log("Error while getting data", err)
+                setIsTableLoading(false)
+            })
+        }
+        if (section === adminOptions.operation) {
+            getAllSOperations().then(data => {
+                setTableItems(data)
+                console.log('opers: ', data)
+                setIsTableLoading(false)
+            }).catch(err => {
+                console.log("Error while getting data", err)
+                setIsTableLoading(false)
+            })
+        }
+        if (section === adminOptions.material) {
+            getAllMaterials().then(data => {
+                setTableItems(data)
+                setIsTableLoading(false)
+            }).catch(err => {
+                console.log("Error while getting data", err)
+                setIsTableLoading(false)
+            })
+        }
+    }, [selectedSection])
+
     const adminOptionsArray = [
         {
-            type: adminOptions.users,
+            type: adminOptions.user,
             text: 'Пользователи',
         },
         {
-            type: adminOptions.specialties,
+            type: adminOptions.specialty,
             text: 'Специальности',
+        },
+        {
+            type: adminOptions.operation,
+            text: 'Операции',
+        },
+        {
+            type: adminOptions.material,
+            text: 'Материалы',
         }
     ]
 
-    const [selectedType, setSelectedType] = React.useState(adminOptionsArray[0].type)
-    // const [selected]
-
-    const table_col_names = {
-        users: [
-            'id',
-            'ФИО',
-            'Почта',
-            'Специальность',
-            'Роль',
-            'Статус',
-            '',
-            // '',
-        ],
-        specialties: [
-            '№ Должности',
-            'Название',
-            '',
-            '',
-            ''
-        ]
-    }
-
     const adminPageTitles = {
-        users: 'Список пользователей',
-        specialties: 'Список специальностей',
+        user: 'Список пользователей',
+        specialty: 'Список специальностей',
+        operation: 'Список операций',
+        material: 'Список материалов',
     }
+
 
     return (
         <div className={'admin-page'}>
-            <OptionsBar type={'admin'} options={adminOptionsArray} markTab={(tab) => setSelectedType(tab)}/>
+            {!isPageLoading &&
+                <>
+                    <SectionBar type={'admin'} sections={adminOptionsArray} selectedSection={selectedSection}
+                                onPress={(section) => {
+                                    setSelectedSection(section)
+                                    navigate(ADMIN_ROUTE + '/' + section)
+                                }}/>
+                </>
+            }
             <div className={'admin-page-container'}>
-                <div className={'page-title'}>
-                    {adminPageTitles[selectedType]}
-                </div>
-                <AdminTable table_type={selectedType} table_col_names={table_col_names[selectedType]}/>
+                {!isPageLoading &&
+                    <>
+                        <div className={'page-title'}>
+                            {adminPageTitles[selectedSection]}
+                        </div>
+                    </>
+                }
+                {isTableLoading &&
+                    <div>
+                        Loading...
+                    </div>
+                }
+                {!isTableLoading &&
+                    <AdminTable tableType={selectedSection} tableItems={tableItems}/>
+                }
             </div>
         </div>
     );

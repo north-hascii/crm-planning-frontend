@@ -1,4 +1,4 @@
-.options-bar {
+.section-bar {
   width: 100%;
   margin: 0 auto;
 
@@ -11,28 +11,29 @@
 
 }
 
-//.options-bar.admin {
+//.section-bar.admin {
 //  display: flex;
 //
 //
 //}
 
-.options-bar-container {
+.section-bar-container {
   display: flex;
   max-width: 1500px;
   margin: 0 auto;
   padding: 14px 90px;
 }
 
-.options-bar-item {
+.section-bar-item {
   cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  //min-width: 160px;
-  //padding: 8px 16px;
+  //
+  padding: 8px 16px;
+
   border-radius: 8px;
 
   font-family: 'SF Pro Display', sans-serif;
@@ -45,6 +46,7 @@
   text-align: center;
 
   color: #4C4C4C;
+
 
   &:not(:last-of-type) {
     margin-right: 40px;

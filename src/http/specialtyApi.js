@@ -7,12 +7,12 @@ export const getAllSpecialties = async () => {
 }
 
 export const getSpecialtiesByPartName = async (name) => {
-    const {data} = await $authHost.get('manual/specialty/get-by-part-name?specialty_name=' + name)
+    const {data} = await $authHost.get('manual/specialty/get-all-by-part-name?specialty_name=' + name)
     return data
 }
 
 export const getSpecialtiesById = async (id) => {
-    const {data} = await $authHost.get('manual/specialty/get-id?id=' + id)
+    const {data} = await $authHost.get('manual/specialty/get-by-id?id=' + id)
     return data
 }
 

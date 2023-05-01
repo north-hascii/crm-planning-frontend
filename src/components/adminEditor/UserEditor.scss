@@ -84,3 +84,15 @@
     border-bottom-right-radius: 8px;
   }
 }
+
+.editor-item-textarea {
+  resize: none;
+  padding: 6px 20px 6px 16px;
+  background: #FFFFFF;
+  width: 600px;
+  height: 400px;
+
+  border-radius: 8px;
+  outline-color: #6B9EA4;
+  border: none;
+}

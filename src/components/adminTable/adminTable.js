@@ -5,6 +5,7 @@ import UserTable from "./UserTable";
 import SpecialtyTable from "./SpecialtyTable";
 import MaterialTable from "./MaterialTable";
 import OperationTable from "./OperationTable";
+import OrderTable from "./OrderTable";
 
 
 function AdminTable(
@@ -26,6 +27,9 @@ function AdminTable(
             }
             {tableType === adminOptions.material &&
                 <MaterialTable tableItems={tableItems}/>
+            }
+            {tableType === adminOptions.order &&
+                <OrderTable tableItems={tableItems}/>
             }
         </div>
     );

@@ -1,6 +1,14 @@
 import React, {useContext} from 'react';
 import './header.scss'
-import {ADMIN_ROUTE, AUTH_ROUTE, HOME_ROUTE, localStorageParams, ORDER_INFO_ROUTE, userRoles} from "../../utils/consts";
+import {
+    ADMIN_ROUTE,
+    AUTH_ROUTE,
+    HOME_ROUTE,
+    localStorageParams,
+    ORDER_INFO_ROUTE,
+    ORDER_ROUTE,
+    userRoles
+} from "../../utils/consts";
 import {useLocation, useNavigate} from "react-router-dom";
 import {observer} from 'mobx-react-lite'
 import mobx, {autorun} from "mobx";
@@ -28,7 +36,7 @@ const Header = observer(() => {
 
     const tabNamesAndTexts = [
         {
-            name: 'orders',
+            name: 'order',
             text: 'Заказы',
         },
         {
@@ -38,7 +46,7 @@ const Header = observer(() => {
     ]
 
     const tabsAndRoutes = {
-        'orders': ORDER_INFO_ROUTE,
+        'order': ORDER_ROUTE,
         'admin': ADMIN_ROUTE,
     }
 
@@ -57,16 +65,6 @@ const Header = observer(() => {
                 return item.name === 'admin'
             }).name)
         }
-        // setIsLoading(true)
-        // getUserById(id).then(data => {
-        //     console.log(data)
-        //     // user.set
-        //     setUser(data)
-        //     setIsLoading(false)
-        // }).catch(err => {
-        //     console.log("Error while getting data", err)
-        //     setIsLoading(false)
-        // })
     }, [])
 
     const location = useLocation()

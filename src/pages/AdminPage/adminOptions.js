@@ -3,4 +3,5 @@ export const adminOptions = {
     specialty: 'specialty',
     operation: 'operation',
     material: 'material',
+    order: 'order'
 }

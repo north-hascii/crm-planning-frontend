@@ -7,10 +7,10 @@ export const HOME_ROUTE = '/home'
 
 export const ORDER_ROUTE = '/order'
 
-export const ORDER_CALCULATION_INFO_ROUTE = '/order/info/calculation'
-export const ORDER_CALCULATION_EDIT_ROUTE = '/order/edit/calculation'
+export const ORDER_CALCULATION_VIEW_ROUTE = '/order/calculation/view'
+export const ORDER_CALCULATION_EDIT_ROUTE = '/order/calculation/edit'
 
-export const ORDER_INFO_ROUTE = '/order/info'
+export const ORDER_VIEW_ROUTE = '/order/view'
 export const ORDER_EDIT_ROUTE = '/order/edit'
 
 export const ADMIN_ROUTE = '/admin'

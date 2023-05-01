@@ -69,8 +69,10 @@ input[type=number] {
   width: 400px;
 
   &.quantity {
-    padding: 20px 30px;
-    width: 150px;
+    text-align: center;
+    padding: 20px 10px;
+    width: auto;
+    max-width: 100px;
   }
 
   &.big {
@@ -140,4 +142,9 @@ input[type=number] {
     top: 50%;
     transform: translateY(-50%);
   }
+}
+
+.increase-quantity-button, .decrease-quantity-button {
+  cursor: pointer;
+  margin-left: 12px;
 }

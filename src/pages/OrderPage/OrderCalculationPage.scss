@@ -1,0 +1,56 @@
+.editor-item-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.admin-page-container {
+  & > .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
+
+.calculation-product-container {
+  border: 3px solid #6B9EA4;
+  border-radius: 16px;
+  padding: 32px 48px;
+
+  //flex-direction: ;
+
+  //&.
+  //text-align: center;
+  //display: flex;
+  //justify-content: center;
+
+  & > .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
+.calculation-product-task {
+  display: flex;
+}
+.calculation-product-task-left {
+  float: left;
+  margin-right: 48px;
+}
+
+.calculation-product-task-right {
+  float: right;
+}
+
+.calculation-product-info {
+  display: flex;
+
+  & > .editor-item:first-of-type {
+    margin-right: 45px;
+  }
+}
+
+.calculation-product-task-container {
+  padding: 40px 48px;
+  background: #F5F5F5;
+  border-radius: 16px;
+}

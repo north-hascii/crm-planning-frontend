@@ -19,8 +19,8 @@ function UserEditor({user}) {
 
     const [isSpecialtyListVisible, setIsSpecialtyListVisible] = React.useState(false)
 
-    const [specialtyList, setSpecialtyList] = React.useState(user.specialties)
-    const [specialtyIdList, setSpecialtyIdList] = React.useState(user.specialties.map(obj => obj.id))
+    const [specialtyList, setSpecialtyList] = React.useState(user.specialties ? user.specialties : [])
+    const [specialtyIdList, setSpecialtyIdList] = React.useState(user.specialties ? user.specialties.map(obj => obj.id)  : [])
     const [availableSpecialtiesList, setAvailableSpecialtiesList] = React.useState([])
 
     const [isLoading, setIsLoading] = React.useState(true)
@@ -32,31 +32,7 @@ function UserEditor({user}) {
 
     const makeUpdateRequest = async (e) => {
         e.preventDefault()
-        console.log('make', specialtyList)
         updateUser(
-            // {
-            //     "id": 1,
-            //     "email": "admin@gmail.com",
-            //     "first_name": "Сергей1",
-            //     "second_name": "Мохов",
-            //     "third_name": "Александрович",
-            //     "user_role": "admin",
-            //     "status": "on vocation",
-            //     // "specialties": [
-            //     //     {
-            //     //         "id": 1,
-            //     //         "specialty_name": "Сварщик"
-            //     //     },
-            //     //     {
-            //     //         "id": 2,
-            //     //         "specialty_name": "Фрезеровщик"
-            //     //     },
-            //     //     {
-            //     //         "id": 3,
-            //     //         "specialty_name": "Маляр"
-            //     //     }
-            //     // ]
-            // }
             user.id,
             email,
             firstName,

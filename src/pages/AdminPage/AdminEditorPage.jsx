@@ -4,9 +4,9 @@ import {buttonProps} from "../../components/Button/ButtonProps";
 import './AdminEditorPage.scss'
 import {useNavigate, useParams} from "react-router-dom";
 import {getUserById} from "../../http/userApi";
-import UserEditor from "../../components/userEditor/UserEditor";
+import UserEditor from "../../components/adminEditor/UserEditor";
 
-function AdminEditorPage({}) {
+function AdminEditorPage() {
     const {id} = useParams()
 
     const [isLoading, setIsLoading] = React.useState(true)

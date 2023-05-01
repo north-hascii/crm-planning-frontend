@@ -7,7 +7,7 @@ import {
     ORDER_EDIT_ROUTE,
     RESET_PASSWORD_ROUTE,
     ORDER_CALCULATION_INFO_ROUTE,
-    ORDER_CALCULATION_EDIT_ROUTE, ADMIN_SPECIALTY_ROUTE, ADMIN_USER_ROUTE
+    ORDER_CALCULATION_EDIT_ROUTE, ADMIN_SPECIALTY_ROUTE, ADMIN_USER_ROUTE, ADMIN_MATERIAL_ROUTE
 } from "../utils/consts";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -19,8 +19,9 @@ import OrderInfoPage from "../pages/OrderInfoPage/OrderInfoPage";
 import OrderEditPage from "../pages/OrderEditPage/OrderEditPage";
 import OrderCalculationInfoPage from "../pages/OrderCalculationInfoPage/OrderCalculationInfoPage";
 import OrderCalculationEditPage from "../pages/OrderCalculationEditPage/OrderCalculationEditPage";
-import UserEditor from "../components/userEditor/UserEditor";
+import UserEditor from "../components/adminEditor/UserEditor";
 import SpecialtyEditorPage from "../pages/AdminPage/SpecialtyEditorPage";
+import MaterialEditorPage from "../pages/AdminPage/MaterialEditorPage";
 
 export const authRoutes = [
     {
@@ -47,6 +48,10 @@ export const authRoutes = [
     {
         path: ADMIN_SPECIALTY_ROUTE + '/:id',
         Component: <SpecialtyEditorPage/>
+    },
+    {
+        path: ADMIN_MATERIAL_ROUTE + '/:id',
+        Component: <MaterialEditorPage/>
     },
     {
         path: ORDER_INFO_ROUTE + '/:id',

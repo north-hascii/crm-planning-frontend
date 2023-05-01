@@ -6,6 +6,11 @@ export const getAllUsers = async () => {
     return data
 }
 
+export const getAllUsersByPartSecondName = async (secondName) => {
+    const {data} = await $authHost.get('/admin/user/get-all-by-part-name?second_name=' + secondName)
+    return data
+}
+
 export const getUserById = async (id) => {
     const {data} = await $authHost.get('/admin/user/get-by-id?id=' + id)
     return data

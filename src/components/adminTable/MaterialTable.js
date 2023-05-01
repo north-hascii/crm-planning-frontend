@@ -22,22 +22,13 @@ function MaterialTable({tableItems = []}) {
                 <th className={'table-col small'}>
                     id
                 </th>
-                <th className={'table-col medium'}>
-                    ФИО
+                <th className={'table-col large_1'}>
+                    Название материала
+                </th>
+                <th className={'table-col small'}>
+                    Единицы измерения
                 </th>
                 <th className={'table-col medium'}>
-                    Почта
-                </th>
-                <th className={'table-col medium'}>
-                    Специальность
-                </th>
-                <th className={'table-col medium'}>
-                    Статус
-                </th>
-                <th className={'table-col medium'}>
-                    Роль
-                </th>
-                <th className={'table-col medium'} >
                 </th>
             </tr>
 
@@ -47,21 +38,12 @@ function MaterialTable({tableItems = []}) {
                         {item.id}
                     </th>
                     <th className={'table-col medium'}>
-                        {item.first_name + ' ' + item.second_name + ' ' + item.third_name}
+                        {item.material_name}
                     </th>
                     <th className={'table-col medium'}>
-                        {item.email}
+                        {item.units}
                     </th>
                     <th className={'table-col medium'}>
-                        {item.specialties && item.specialties.map(item => item.specialty_name).join('; ')}
-                    </th>
-                    <th className={'table-col medium'}>
-                        {item.status}
-                    </th>
-                    <th className={'table-col medium'}>
-                        {item.user_role}
-                    </th>
-                    <th className={'table-col medium'} >
                         <div className={'col-buttons-container'}>
                             <svg onClick={() => redirectToEditor(item)} width="20" height="19"
                                  viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">

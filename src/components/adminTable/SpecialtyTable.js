@@ -14,6 +14,8 @@ function SpecialtyTable({tableItems = []}) {
         navigate(`${ADMIN_SPECIALTY_ROUTE}/${item.id}`)
     }
 
+    // console.log(tableItems)
+
     return (
         <table className={`table rounded-corners`}>
             <tbody>

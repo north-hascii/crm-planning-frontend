@@ -23,6 +23,8 @@ import MaterialEditorPage from "../pages/AdminPage/MaterialEditorPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
 import OrderItemPage from "../pages/OrderPage/OrderItemPage";
 import OrderCalculationPage from "../pages/OrderPage/OrderCalculationPage";
+import OrderViewerPage from "../pages/OrderPage/OrderViewerPage";
+import OrderEditorPage from "../pages/OrderPage/OrderEditorPage";
 
 export const authRoutes = [
     {
@@ -51,11 +53,11 @@ export const authRoutes = [
     },
     {
         path: ORDER_VIEW_ROUTE + '/:id',
-        Component: <OrderItemPage/>
+        Component: <OrderViewerPage/>
     },
     {
         path: ORDER_EDIT_ROUTE + '/:id',
-        Component: <OrderItemPage/>
+        Component: <OrderEditorPage/>
     },
     {
         path: ORDER_CALCULATION_EDIT_ROUTE + '/:id',

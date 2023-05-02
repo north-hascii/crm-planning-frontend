@@ -6,7 +6,7 @@ import {buttonProps} from "../../components/Button/ButtonProps";
 import {updateUser} from "../../http/userApi";
 import {getSpecialtiesByPartName} from "../../http/specialtyApi";
 
-function OrderViewer({order}) {
+function OrderViewer({order, manager}) {
     const {id} = useParams()
 
     const navigate = useNavigate()
@@ -24,6 +24,8 @@ function OrderViewer({order}) {
     // const [specialtyList, setSpecialtyList] = React.useState(user.specialties ? user.specialties : [])
     // const [specialtyIdList, setSpecialtyIdList] = React.useState(user.specialties ? user.specialties.map(obj => obj.id)  : [])
     // const [availableSpecialtiesList, setAvailableSpecialtiesList] = React.useState([])
+
+    const [orderState, setOrderState] = React.useState(order)
 
     const [isLoading, setIsLoading] = React.useState(true)
 
@@ -83,12 +85,17 @@ function OrderViewer({order}) {
 
     return (
         <div className={'viewer-container'}
-              // onSubmit={(e) => makeUpdateRequest(e)}
+            // onSubmit={(e) => makeUpdateRequest(e)}
         >
             <svg className={'navigate-to-editor-button'}
-                 onClick={() => navigate(ORDER_EDIT_ROUTE + '/' + id)}
+                 onClick={() => {
+                     console.log('click on edit')
+                     navigate(ORDER_EDIT_ROUTE + '/' + id)}
+            }
                  width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fillRule="evenodd" clipRule="evenodd" d="M24.0932 0.110767C23.6518 0.227024 23.4472 0.319973 23.054 0.582863C22.8019 0.751436 9.88133 13.6709 9.66213 13.9736C9.54286 14.1383 7.79791 20.3661 7.79831 20.6257C7.79876 20.9464 8.16808 21.3111 8.49236 21.3111C8.73969 21.3111 14.9461 19.5508 15.103 19.4361C15.1871 19.3747 18.1821 16.3798 21.7585 12.781C26.5073 8.00236 28.3239 6.13877 28.494 5.87126C28.9135 5.21167 29.0892 4.33142 28.9565 3.55455C28.9179 3.32893 28.7902 2.95292 28.6579 2.67578C28.4503 2.24101 28.3446 2.10897 27.626 1.38686C26.9063 0.663616 26.7767 0.558928 26.3433 0.350747C25.5776 -0.0171732 24.8667 -0.0929684 24.0932 0.110767ZM25.7392 1.65881C26.0488 1.81587 27.1995 2.97537 27.3705 3.30266C27.4838 3.51956 27.5046 3.6426 27.5052 4.1005C27.5061 4.78779 27.4019 5.00959 26.7586 5.68975L26.2943 6.1806L24.5749 4.45281L22.8555 2.72502L23.355 2.24791C23.6298 1.98553 23.9675 1.71597 24.1055 1.64884C24.5966 1.40994 25.2565 1.41399 25.7392 1.65881ZM2.69388 2.93839C1.50693 3.25861 0.595546 4.1107 0.173543 5.29476L0 5.78167V15.8972C0 25.5471 0.00476392 26.0283 0.104012 26.3515C0.313114 27.0324 0.541385 27.4128 1.04852 27.9256C1.40485 28.2859 1.6389 28.4677 1.9422 28.6197C2.77039 29.035 1.95661 29.0097 13.9231 28.992L24.6703 28.9762L25.0526 28.8267C26.1669 28.3911 26.9538 27.5836 27.3229 26.4971C27.4469 26.132 27.449 26.0745 27.4666 22.4509C27.4826 19.1493 27.4751 18.7573 27.3925 18.6002C27.2711 18.3692 27.0318 18.2337 26.7449 18.2337C26.5586 18.2337 26.4693 18.2729 26.2999 18.4288L26.0881 18.6238L26.0598 22.2328C26.0315 25.8284 26.0309 25.843 25.9018 26.164C25.6675 26.7463 25.2303 27.1857 24.6511 27.421L24.33 27.5514L13.9266 27.5666C7.05984 27.5766 3.4172 27.562 3.21145 27.5238C2.52822 27.3969 1.92224 26.9297 1.63754 26.3103L1.47455 25.9557V15.9257V5.89565L1.63907 5.53765C1.848 5.08293 2.33137 4.6195 2.79114 4.43303L3.11923 4.29996L6.69217 4.27147C10.6831 4.23967 10.4599 4.26417 10.6625 3.83516C10.7931 3.55871 10.7342 3.29343 10.4874 3.04535L10.2897 2.84675L6.64776 2.85051C3.62347 2.85359 2.95289 2.86852 2.69388 2.93839ZM23.5645 5.4969L25.237 7.17824L19.9488 12.4921L14.6607 17.8059L12.9875 16.1253C12.0672 15.201 11.3143 14.419 11.3143 14.3875C11.3143 14.3125 21.7603 3.81556 21.8348 3.81556C21.8663 3.81556 22.6447 4.57214 23.5645 5.4969ZM13.2287 18.5139C13.0235 18.5829 9.58483 19.5353 9.57536 19.5257C9.56923 19.5196 9.74147 18.8737 9.95806 18.0905C10.1747 17.3073 10.4061 16.4651 10.4723 16.2189L10.5927 15.7713L11.9463 17.1307C12.6929 17.8804 13.268 18.5007 13.2287 18.5139Z" fill="#4C4C4C"/>
+                <path fillRule="evenodd" clipRule="evenodd"
+                      d="M24.0932 0.110767C23.6518 0.227024 23.4472 0.319973 23.054 0.582863C22.8019 0.751436 9.88133 13.6709 9.66213 13.9736C9.54286 14.1383 7.79791 20.3661 7.79831 20.6257C7.79876 20.9464 8.16808 21.3111 8.49236 21.3111C8.73969 21.3111 14.9461 19.5508 15.103 19.4361C15.1871 19.3747 18.1821 16.3798 21.7585 12.781C26.5073 8.00236 28.3239 6.13877 28.494 5.87126C28.9135 5.21167 29.0892 4.33142 28.9565 3.55455C28.9179 3.32893 28.7902 2.95292 28.6579 2.67578C28.4503 2.24101 28.3446 2.10897 27.626 1.38686C26.9063 0.663616 26.7767 0.558928 26.3433 0.350747C25.5776 -0.0171732 24.8667 -0.0929684 24.0932 0.110767ZM25.7392 1.65881C26.0488 1.81587 27.1995 2.97537 27.3705 3.30266C27.4838 3.51956 27.5046 3.6426 27.5052 4.1005C27.5061 4.78779 27.4019 5.00959 26.7586 5.68975L26.2943 6.1806L24.5749 4.45281L22.8555 2.72502L23.355 2.24791C23.6298 1.98553 23.9675 1.71597 24.1055 1.64884C24.5966 1.40994 25.2565 1.41399 25.7392 1.65881ZM2.69388 2.93839C1.50693 3.25861 0.595546 4.1107 0.173543 5.29476L0 5.78167V15.8972C0 25.5471 0.00476392 26.0283 0.104012 26.3515C0.313114 27.0324 0.541385 27.4128 1.04852 27.9256C1.40485 28.2859 1.6389 28.4677 1.9422 28.6197C2.77039 29.035 1.95661 29.0097 13.9231 28.992L24.6703 28.9762L25.0526 28.8267C26.1669 28.3911 26.9538 27.5836 27.3229 26.4971C27.4469 26.132 27.449 26.0745 27.4666 22.4509C27.4826 19.1493 27.4751 18.7573 27.3925 18.6002C27.2711 18.3692 27.0318 18.2337 26.7449 18.2337C26.5586 18.2337 26.4693 18.2729 26.2999 18.4288L26.0881 18.6238L26.0598 22.2328C26.0315 25.8284 26.0309 25.843 25.9018 26.164C25.6675 26.7463 25.2303 27.1857 24.6511 27.421L24.33 27.5514L13.9266 27.5666C7.05984 27.5766 3.4172 27.562 3.21145 27.5238C2.52822 27.3969 1.92224 26.9297 1.63754 26.3103L1.47455 25.9557V15.9257V5.89565L1.63907 5.53765C1.848 5.08293 2.33137 4.6195 2.79114 4.43303L3.11923 4.29996L6.69217 4.27147C10.6831 4.23967 10.4599 4.26417 10.6625 3.83516C10.7931 3.55871 10.7342 3.29343 10.4874 3.04535L10.2897 2.84675L6.64776 2.85051C3.62347 2.85359 2.95289 2.86852 2.69388 2.93839ZM23.5645 5.4969L25.237 7.17824L19.9488 12.4921L14.6607 17.8059L12.9875 16.1253C12.0672 15.201 11.3143 14.419 11.3143 14.3875C11.3143 14.3125 21.7603 3.81556 21.8348 3.81556C21.8663 3.81556 22.6447 4.57214 23.5645 5.4969ZM13.2287 18.5139C13.0235 18.5829 9.58483 19.5353 9.57536 19.5257C9.56923 19.5196 9.74147 18.8737 9.95806 18.0905C10.1747 17.3073 10.4061 16.4651 10.4723 16.2189L10.5927 15.7713L11.9463 17.1307C12.6929 17.8804 13.268 18.5007 13.2287 18.5139Z"
+                      fill="#4C4C4C"/>
             </svg>
             <div className={'viewer-container-left'}>
                 <div className={'viewer-item'}>
@@ -96,7 +103,8 @@ function OrderViewer({order}) {
                         Название проекта
                     </div>
                     <div className={'viewer-item-input'}>
-                        Светофор  fdfdsfdsfsd fafdsfdsfsdfsdf fadfdsfdsfds fadfadfafad fadfadfafad fadfadfafad
+                        {orderState.order_name}
+                        {/*Светофор fdfdsfdsfsd fafdsfdsfsdfsdf fadfdsfdsfds fadfadfafad fadfadfafad fadfadfafad*/}
                     </div>
                 </div>
 
@@ -105,7 +113,8 @@ function OrderViewer({order}) {
                         ФИО заказчика:
                     </div>
                     <div className={'viewer-item-input'}>
-                        Петров Олег Александрович
+                        {orderState.customer_name}
+                        {/*Петров Олег Александрович*/}
                     </div>
                 </div>
 
@@ -114,7 +123,8 @@ function OrderViewer({order}) {
                         Компания заказчика
                     </div>
                     <div className={'viewer-item-input'}>
-                        ОАО Света 5 минут
+                        {orderState.customer_company}
+                        {/*ОАО Света 5 минут*/}
                     </div>
 
                 </div>
@@ -124,7 +134,18 @@ function OrderViewer({order}) {
                         Телефон для связи
                     </div>
                     <div className={'viewer-item-input'}>
-                        +79651167066
+                        {orderState.phone_customer}
+                        {/*+79651167066*/}
+                    </div>
+                </div>
+
+                <div className={'viewer-item'}>
+                    <div className={'viewer-item-text'}>
+                        Почта заказчика
+                    </div>
+                    <div className={'viewer-item-input'}>
+                        {order.email_customer}
+                        {/*a.lebedev@gmail.com*/}
                     </div>
                 </div>
 
@@ -133,7 +154,8 @@ function OrderViewer({order}) {
                         Ответственный за проект
                     </div>
                     <div className={'viewer-item-input'}>
-                        Виктор Петрович Баринов
+                        {manager.first_name + ' ' + manager.second_name + ' ' + manager.third_name + ' (' + manager.email + ')'}
+                        {/*Виктор Петрович Баринов*/}
                     </div>
                 </div>
 
@@ -228,14 +250,20 @@ function OrderViewer({order}) {
             <div className={'viewer-container-right'}>
                 <div className={'viewer-item'}>
                     <div className={'viewer-item-text'}>
-                       Описание проекта
+                        Описание проекта
                     </div>
                     <div className={'viewer-item-textarea'}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                        {orderState.description}
+                        {/*Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut*/}
+                        {/*labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco*/}
+                        {/*laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in*/}
+                        {/*voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat*/}
+                        {/*non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."*/}
                     </div>
                 </div>
             </div>
         </div>
     );
 }
+
 export default OrderViewer;

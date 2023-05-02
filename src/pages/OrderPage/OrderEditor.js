@@ -43,6 +43,13 @@ function OrderEditor(props) {
 
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>
+                        Почта заказчика
+                    </div>
+                    <input className={'editor-item-input'}/>
+                </div>
+
+                <div className={'editor-item'}>
+                    <div className={'editor-item-text'}>
                         Ответственный за проект
                     </div>
                     <input className={'editor-item-input'}/>

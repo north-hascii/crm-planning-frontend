@@ -16,52 +16,52 @@ function UserTable({tableItems = []}) {
     }
 
     return (
-        <table className={`table rounded-corners`}>
+        <table className={`admin-table rounded-corners`}>
             <tbody>
-            <tr className={'table-col-names'}>
-                <th className={'table-col small'}>
+            <tr className={'admin-table-col-names'}>
+                <th className={'admin-table-col small'}>
                     id
                 </th>
-                <th className={'table-col medium'}>
+                <th className={'admin-table-col medium'}>
                     ФИО
                 </th>
-                <th className={'table-col medium'}>
+                <th className={'admin-table-col medium'}>
                     Почта
                 </th>
-                <th className={'table-col medium'}>
+                <th className={'admin-table-col medium'}>
                     Специальность
                 </th>
-                <th className={'table-col medium'}>
+                <th className={'admin-table-col medium'}>
                     Статус
                 </th>
-                <th className={'table-col medium'}>
+                <th className={'admin-table-col medium'}>
                     Роль
                 </th>
-                <th className={'table-col medium'} >
+                <th className={'admin-table-col medium'} >
                 </th>
             </tr>
 
             {tableItems && tableItems.map((item, index) => {
                     return (<tr key={index}>
-                        <th className={'table-col small'}>
+                        <th className={'admin-table-col small'}>
                             {item.id}
                         </th>
-                        <th className={'table-col medium'}>
+                        <th className={'admin-table-col medium'}>
                             {item.first_name + ' ' + item.second_name + ' ' + item.third_name}
                         </th>
-                        <th className={'table-col medium'}>
+                        <th className={'admin-table-col medium'}>
                             {item.email}
                         </th>
-                        <th className={'table-col medium'}>
+                        <th className={'admin-table-col medium'}>
                             {item.specialties && item.specialties.map(item => item.specialty_name).join('; ')}
                         </th>
-                        <th className={'table-col medium'}>
+                        <th className={'admin-table-col medium'}>
                             {item.status}
                         </th>
-                        <th className={'table-col medium'}>
+                        <th className={'admin-table-col medium'}>
                             {item.user_role}
                         </th>
-                        <th className={'table-col medium'} >
+                        <th className={'admin-table-col medium'} >
                             <div className={'col-buttons-container'}>
                                 <svg onClick={() => redirectToEditor(item)} width="20" height="19"
                                      viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">

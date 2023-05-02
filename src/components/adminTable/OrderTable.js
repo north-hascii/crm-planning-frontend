@@ -19,43 +19,43 @@ function OrderTable({tableItems = []}) {
     // console.log(tableItems)
 
     return (
-        <table className={`table rounded-corners`}>
+        <table className={`admin-table rounded-corners`}>
             <tbody>
             <tr className={'table-col-names'}>
-                <th className={'table-col small'}>
+                <th className={'admin-table-col small'}>
                     id
                 </th>
-                <th className={'table-col large_3'}>
+                <th className={'admin-table-col large_3'}>
                     Название проекта
                 </th>
-                <th className={'table-col large_3'}>
+                <th className={'admin-table-col large_3'}>
                     Статус
                 </th>
-                <th className={'table-col large_3'}>
+                <th className={'admin-table-col large_3'}>
                     Заказчик
                 </th>
-                <th className={'table-col large_3'}>
+                <th className={'admin-table-col large_3'}>
                     Дата сдачи
                 </th>
-                <th className={'table-col medium'}>
+                <th className={'admin-table-col medium'}>
                 </th>
             </tr>
 
             {tableItems && tableItems.map((item, index) => {
                 return (<tr key={index}>
-                    <th className={'table-col small'}>
+                    <th className={'admin-table-col small'}>
                         {item.id}
                     </th>
-                    <th className={'table-col large_3'}>
+                    <th className={'admin-table-col large_3'}>
                         {item.order_name}
                     </th>
-                    <th className={'table-col large_3'}>
+                    <th className={'admin-table-col large_3'}>
                         {item.status}
                     </th>
-                    <th className={'table-col large_3'}>
+                    <th className={'admin-table-col large_3'}>
                         {item.customer_company}
                     </th>
-                    <th className={'table-col large_3'}>
+                    <th className={'admin-table-col large_3'}>
                         <Button
                             size={buttonProps.size.small}
                             bgColor={buttonProps.background_color.dark_v1}
@@ -63,7 +63,7 @@ function OrderTable({tableItems = []}) {
                             text={'Сформировать дату'}
                         />
                     </th>
-                    <th className={'table-col large_3'}>
+                    <th className={'admin-table-col large_3'}>
                         <Button
                             size={buttonProps.size.small}
                             bgColor={buttonProps.background_color.dark_v1}

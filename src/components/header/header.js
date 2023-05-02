@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import './header.scss'
 import {
     ADMIN_ROUTE,
-    AUTH_ROUTE,
+    AUTH_ROUTE, CALENDAR_ROUTE,
     HOME_ROUTE,
     localStorageParams,
     ORDER_INFO_ROUTE,
@@ -36,6 +36,10 @@ const Header = observer(() => {
 
     const tabNamesAndTexts = [
         {
+            name: 'calendar',
+            text: 'Календарь',
+        },
+        {
             name: 'order',
             text: 'Заказы',
         },
@@ -46,6 +50,7 @@ const Header = observer(() => {
     ]
 
     const tabsAndRoutes = {
+        'calendar': CALENDAR_ROUTE,
         'order': ORDER_ROUTE,
         'admin': ADMIN_ROUTE,
     }

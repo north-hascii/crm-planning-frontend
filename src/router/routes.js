@@ -10,7 +10,7 @@ import {
     ADMIN_USER_ROUTE,
     ADMIN_MATERIAL_ROUTE,
     ORDER_ROUTE,
-    ORDER_VIEW_ROUTE
+    ORDER_VIEW_ROUTE, ORDER_CREATE_ROUTE, ORDER_CALCULATION_ROUTE, CALENDAR_ROUTE
 } from "../utils/consts";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -25,6 +25,8 @@ import OrderItemPage from "../pages/OrderPage/OrderItemPage";
 import OrderCalculationPage from "../pages/OrderPage/OrderCalculationPage";
 import OrderViewerPage from "../pages/OrderPage/OrderViewerPage";
 import OrderEditorPage from "../pages/OrderPage/OrderEditorPage";
+import OrderCreatorPage from "../pages/OrderPage/OrderCreatorPage";
+import CalendarPage from "../pages/CalendarPage/CalendarPage";
 
 export const authRoutes = [
     {
@@ -52,6 +54,10 @@ export const authRoutes = [
         Component: <OrderPage/>
     },
     {
+        path: ORDER_CREATE_ROUTE,
+        Component: <OrderCreatorPage/>
+    },
+    {
         path: ORDER_VIEW_ROUTE + '/:id',
         Component: <OrderViewerPage/>
     },
@@ -60,8 +66,12 @@ export const authRoutes = [
         Component: <OrderEditorPage/>
     },
     {
-        path: ORDER_CALCULATION_EDIT_ROUTE + '/:id',
+        path: ORDER_CALCULATION_ROUTE,
         Component: <OrderCalculationPage/>
+    },
+    {
+        path: CALENDAR_ROUTE,
+        Component: <CalendarPage/>
     }
     // {
     //     path: ORDER_INFO_ROUTE + '/:id',

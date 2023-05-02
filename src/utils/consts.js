@@ -6,12 +6,15 @@ export const RESET_PASSWORD_ROUTE = '/reset-password'
 export const HOME_ROUTE = '/home'
 
 export const ORDER_ROUTE = '/order'
+export const CALENDAR_ROUTE = '/calendar'
 
 export const ORDER_CALCULATION_VIEW_ROUTE = '/order/calculation/view'
-export const ORDER_CALCULATION_EDIT_ROUTE = '/order/calculation/edit'
+export const ORDER_CALCULATION_ROUTE = '/order/calculation'
 
 export const ORDER_VIEW_ROUTE = '/order/view'
 export const ORDER_EDIT_ROUTE = '/order/edit'
+
+export const ORDER_CREATE_ROUTE = '/order/create'
 
 export const ADMIN_ROUTE = '/admin'
 

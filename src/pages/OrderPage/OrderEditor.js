@@ -1,10 +1,10 @@
 import React from 'react';
-import {ORDER_EDIT_ROUTE} from "../../utils/consts";
+import {ORDER_CALCULATION_ROUTE, ORDER_EDIT_ROUTE} from "../../utils/consts";
 import {useNavigate, useParams} from "react-router-dom";
 import Button from "../../components/Button/Button";
 import {buttonProps} from "../../components/Button/ButtonProps";
 
-function OrderEditor(props) {
+function OrderEditor({type = 'editor'}) {
     const {id} = useParams()
     const navigate = useNavigate()
 
@@ -134,13 +134,25 @@ function OrderEditor(props) {
                 {/*    </div>*/}
                 {/*</div>*/}
 
-                <Button text={'Сохранить'}
-                        size={buttonProps.size.small}
-                        color={buttonProps.color.light}
-                        bgColor={buttonProps.background_color.dark_v1}
-                        type={'submit'}
-                />
-
+                {type === 'editor' &&
+                    <Button text={'Сохранить'}
+                            size={buttonProps.size.small}
+                            color={buttonProps.color.light}
+                            bgColor={buttonProps.background_color.dark_v1}
+                            type={'submit'}
+                    />
+                }
+                {type === 'creator' &&
+                    <Button text={'Перейти к калькуляции'}
+                            size={buttonProps.size.small}
+                            color={buttonProps.color.light}
+                            bgColor={buttonProps.background_color.dark_v1}
+                            onClck={() => {
+                                navigate(ORDER_CALCULATION_ROUTE)
+                            }}
+                            type={'submit'}
+                    />
+                }
 
             </div>
             <div className={'editor-container-right'}>

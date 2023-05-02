@@ -228,8 +228,8 @@ function UserEditor({user}) {
                             return (<div className={'editor-selected-item'} key={index}>
                                 {item.specialty_name}
                                 <svg className={'delete'} onClick={() => {
-                                    setSpecialtyList(specialtyList.filter(itemTmp => itemTmp !== item));
-                                    setSpecialtyIdList(specialtyIdList.filter(id => id !== item.id));
+                                    setSpecialtyList(specialtyList.filter(itemTmp => itemTmp !== item))
+                                    setSpecialtyIdList(specialtyIdList.filter(id => id !== item.id))
                                 }}
                                      width="15" height="15" viewBox="0 0 15 15" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">

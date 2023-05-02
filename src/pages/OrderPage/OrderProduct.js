@@ -4,22 +4,30 @@ import {buttonProps} from "../../components/Button/ButtonProps";
 import {getSpecialtiesByPartName} from "../../http/specialtyApi";
 import ProductTask from "./ProductTask";
 
-function OrderProduct({tasks}) {
+function OrderProduct(
+    {
+        product,
+        // tasks,
+        onUpdate = (product) => {
 
-    const [tasksArray, setTasksArray] = React.useState(tasks)
+        },
+        onDelete = () => {
 
-    const [specInSearch, setSpecInSearch] = React.useState('')
+        }
+    }
+) {
 
-    const [isSpecInputValid, setIsSpecInputValid] = React.useState(true)
+    React.useEffect(() => {
+        setProductState(product)
+        setTasksArray(product.task_list)
+    }, [product.product_id])
 
-    const [isSpecialtyListVisible, setIsSpecialtyListVisible] = React.useState(false)
+    const [productState, setProductState] = React.useState(product)
 
-    const [specialtyList, setSpecialtyList] = React.useState([])
-    const [specialtyIdList, setSpecialtyIdList] = React.useState([])
-    const [availableSpecialtiesList, setAvailableSpecialtiesList] = React.useState([])
+    const [tasksArray, setTasksArray] = React.useState(product.task_list)
+    const [productName, setProductName] = React.useState('')
 
-
-    const [productCounter, setProductCounter] = React.useState(1)
+    const [productCount, setProductCount] = React.useState(1)
 
     const createEmptyTask = () => {
         let stage = 1
@@ -27,68 +35,81 @@ function OrderProduct({tasks}) {
         if (tasksArray.length > 0) {
             console.log('tasks', tasksArray)
             stage = tasksArray[tasksArray.length - 1].stage
-            // console.log('stage', stage)
         }
+
         return {
             "task_name": "",
             "stage": stage,
             "description": "",
             "operation_id": 0,
-            "count": 0,
+            "count": 1,
             "status": ""
         }
+    }
+
+    const updateProductName = (text) => {
+        product.product_name = text
+        setProductName(text)
+        onUpdate(product)
+    }
+
+    const addTasksToArray = () => {
+        product.task_list.push(createEmptyTask())
+        setTasksArray(product.task_list)
+        setProductState(product)
+        onUpdate(product)
     }
 
     const updateTasksArray = (task, index) => {
         let newArr = [...tasksArray]
         newArr[index] = task
-        setTasksArray(newArr)
+        product.task_list = newArr
+        setProductState(product)
+        onUpdate(product)
+        // setTasksArray(newArr)
     }
 
-    const clckOnSearchButton = () => {
-        if (specInSearch.length > 0) {
-            setIsSpecInputValid(true)
-            makeSpecsSearch()
-            return
-        }
-        setIsSpecInputValid(false)
+    const increaseProductCount = () => {
+        product.count = productCount + 1
+        setProductCount(productCount + 1)
+        onUpdate(product)
     }
 
-    const makeSpecsSearch = () => {
-        getSpecialtiesByPartName(specInSearch).then(data => {
-            setAvailableSpecialtiesList(data)
-            setIsSpecialtyListVisible(true)
-            // setIsLoading(false)
-        }).catch(err => {
-            console.log("Error while getting data", err)
-            setIsSpecialtyListVisible(true)
-            // setIsLoading(false)
-        })
-    }
 
-    const increaseCounter = () => {
-        setProductCounter(productCounter + 1)
-    }
-
-    const decreaseCounter = () => {
-        if (productCounter - 1 > 0) {
-            setProductCounter(productCounter - 1)
+    const decreaseProductCounter = () => {
+        console.log('pizdec pered delete')
+        if (productCount - 1 > 0) {
+            product.count = productCount - 1
+            setProductCount(productCount - 1)
+            onUpdate(product)
         }
     }
 
     return (
         <div className={'calculation-product-container'}>
+            <svg className={'calculation-delete-product-button'}
+                 onClick={() => {
+                     // onDelete(product.product_id)
+                     onDelete()
+                 }}
+                 width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M14.5772 12.5002L21.1397 5.94811C21.3358 5.75196 21.446 5.48592 21.446 5.20853C21.446 4.93113 21.3358 4.66509 21.1397 4.46894C20.9435 4.27279 20.6775 4.1626 20.4001 4.1626C20.1227 4.1626 19.8566 4.27279 19.6605 4.46894L13.1084 11.0314L6.55632 4.46894C6.36017 4.27279 6.09413 4.1626 5.81673 4.1626C5.53934 4.1626 5.2733 4.27279 5.07715 4.46894C4.881 4.66509 4.77081 4.93113 4.77081 5.20853C4.77081 5.48592 4.881 5.75196 5.07715 5.94811L11.6397 12.5002L5.07715 19.0523C4.97952 19.1491 4.90202 19.2643 4.84914 19.3913C4.79626 19.5182 4.76903 19.6543 4.76903 19.7919C4.76903 19.9294 4.79626 20.0655 4.84914 20.1925C4.90202 20.3194 4.97952 20.4346 5.07715 20.5314C5.17399 20.6291 5.2892 20.7066 5.41613 20.7595C5.54307 20.8123 5.67922 20.8396 5.81673 20.8396C5.95425 20.8396 6.0904 20.8123 6.21734 20.7595C6.34427 20.7066 6.45948 20.6291 6.55632 20.5314L13.1084 13.9689L19.6605 20.5314C19.7573 20.6291 19.8725 20.7066 19.9995 20.7595C20.1264 20.8123 20.2626 20.8396 20.4001 20.8396C20.5376 20.8396 20.6737 20.8123 20.8007 20.7595C20.9276 20.7066 21.0428 20.6291 21.1397 20.5314C21.2373 20.4346 21.3148 20.3194 21.3677 20.1925C21.4205 20.0655 21.4478 19.9294 21.4478 19.7919C21.4478 19.6543 21.4205 19.5182 21.3677 19.3913C21.3148 19.2643 21.2373 19.1491 21.1397 19.0523L14.5772 12.5002Z"
+                    fill="#4C4C4C"/>
+            </svg>
             <div className={'calculation-product-info'}>
                 <div className={'editor-item'}>
+                    {/*TODO: remove log*/}
                     <div className={'editor-item-text'} onClick={() => console.log(tasksArray)}>
                         Название продукта
+                        {/*{product.product_id}*/}
                     </div>
                     <input className={'editor-item-input green-border'}
                            required
                            name={'second_name'}
                            type={'text'}
-                        // value={secondName}
-                        // onChange={(e) => setSecondName(e.target.value)}
+                           value={productState.product_name}
+                           onChange={(e) => updateProductName(e.target.value)}
                     />
                 </div>
 
@@ -103,11 +124,11 @@ function OrderProduct({tasks}) {
                                type={'number'}
                                onChange={(e) => {
                                }}
-                               value={productCounter}
+                               value={productState.count}
                         />
 
                         <svg className={'increase-quantity-button'}
-                             onClick={() => increaseCounter()}
+                             onClick={() => increaseProductCount()}
                              width="20" height="20" viewBox="0 0 20 20" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd"
@@ -115,7 +136,7 @@ function OrderProduct({tasks}) {
                                   fill="#4C4C4C" fillOpacity="0.5"/>
                         </svg>
                         <svg className={'decrease-quantity-button'}
-                             onClick={() => decreaseCounter()}
+                             onClick={() => decreaseProductCounter()}
                              width="21" height="20" viewBox="0 0 21 20" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd"
@@ -136,7 +157,9 @@ function OrderProduct({tasks}) {
                         size={buttonProps.size.small}
                         color={buttonProps.color.light}
                         bgColor={buttonProps.background_color.dark_v1}
-                        onClck={() => setTasksArray([...tasksArray, createEmptyTask()])}
+                        onClck={() =>  {
+                            addTasksToArray()
+                        }}
                         type={'submit'}
                 />
             </div>

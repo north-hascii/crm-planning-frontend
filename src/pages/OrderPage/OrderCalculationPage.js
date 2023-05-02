@@ -68,71 +68,64 @@ const order =
     }
 
 function OrderCalculationPage() {
-    const [productList, setProductList] = React.useState(order.product_list)
-    const [firstName, setFirstName] = React.useState('user.first_name')
-    const [secondName, setSecondName] = React.useState('user.second_name')
-    const [thirdName, setThirdName] = React.useState('user.third_name')
-    const [email, setEmail] = React.useState('user.email')
-    const [status, setStatus] = React.useState('user.status')
-    const [specInSearch, setSpecInSearch] = React.useState('')
+    const [productList, setProductList] = React.useState([])
+    const [createdProductsCount, setCreatedProductCount] = React.useState(0)
+    // const [pro]
 
-    const [isSpecInputValid, setIsSpecInputValid] = React.useState(true)
-
-    const [isSpecialtyListVisible, setIsSpecialtyListVisible] = React.useState(false)
-
-    const [specialtyList, setSpecialtyList] = React.useState([])
-    const [specialtyIdList, setSpecialtyIdList] = React.useState([])
-    const [availableSpecialtiesList, setAvailableSpecialtiesList] = React.useState([])
-
-    const [productCounter, setProductCounter] = React.useState(1)
     const [isLoading, setIsLoading] = React.useState(true)
-    const increaseCounter = () => {
-        setProductCounter(productCounter + 1)
-    }
 
-    const decreaseCounter = () => {
-        if (productCounter - 1 > 0) {
-            setProductCounter(productCounter - 1)
+    React.useEffect(() => {
+        // console.log(productList)
+    }, [productList])
+
+    const createEmptyProduct = () => {
+        setCreatedProductCount(createdProductsCount + 1)
+        return {
+            "product_id": createdProductsCount + 1, // only frontend
+            "product_name": "",
+            "status": "",
+            "count": 1,
+            task_list: []
         }
     }
 
-
-    const clckOnSearchButton = () => {
-        if (specInSearch.length > 0) {
-            setIsSpecInputValid(true)
-            makeSpecsSearch()
-            return
-        }
-        setIsSpecInputValid(false)
+    const updateProductList = (product, index) => {
+        let newArr = [...productList]
+        newArr[index] = product
+        setProductList(newArr)
     }
 
-    const makeSpecsSearch = () => {
-        getSpecialtiesByPartName(specInSearch).then(data => {
-            setAvailableSpecialtiesList(data)
-            setIsSpecialtyListVisible(true)
-            setIsLoading(false)
-        }).catch(err => {
-            console.log("Error while getting data", err)
-            setIsSpecialtyListVisible(true)
-            setIsLoading(false)
-        })
+    const deleteFromProductList = (index) => {
+        console.log('delete product index', index)
+        const newArray = [...productList];
+        // console.log(newArray)
+        newArray.splice(index, 1);
+        // console.log(newArray)
+        setProductList(newArray);
     }
 
-    // const updateCounter = (num) => {
-    //     if (parseInt(num) > 0 && parseInt(num) < 100) {
-    //         setProductCounter(num)
-    //     }
+    // const deleteFromProductList = (id) => {
+    //     console.log('delete prod with id', id)
+    //     setProductList(productList.filter(item => item.product_id !== id))
+    //     // setCreatedProductCount(createdproductsCount - 1)
     // }
 
     return (
         <div className={'admin-page-edit'}>
             <div className={'admin-page-container'}>
-                <div className={'page-title'}>
+                <div className={'page-title'} onClick={() => console.log(productList)}>
                     Калькуляция
                 </div>
                 {productList.map((item, index) => {
+                    // console.log('show prod:', item)
                     return (
-                        <OrderProduct key={index} tasks={item.task_list}/>
+                        <OrderProduct
+                            key={index}
+                            product={item}
+                            tasks={item.task_list}
+                            onUpdate={(product) => updateProductList(product, index)}
+                            onDelete={() => deleteFromProductList(index)}
+                        />
                     )
                 })}
                 <div className={'button-container'}>
@@ -140,22 +133,7 @@ function OrderCalculationPage() {
                             size={buttonProps.size.small}
                             color={buttonProps.color.light}
                             bgColor={buttonProps.background_color.dark_v1}
-                            onClck={() => setProductList([...productList,  {
-                                "product_name": "",
-                                "status": "",
-                                "count": 0,
-                                task_list: []
-                                // "task_list": [
-                                //     {
-                                //         "task_name": "Обработать дерево",
-                                //         "stage": 1,
-                                //         "description": "some task description...",
-                                //         "operation_id": 1,
-                                //         "count": 1,
-                                //         "status": "start"
-                                //     },
-                                // ]
-                            }])}
+                            onClck={() => setProductList([...productList, createEmptyProduct()])}
                             type={'submit'}/>
                 </div>
             </div>

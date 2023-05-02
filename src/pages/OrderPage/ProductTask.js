@@ -10,7 +10,7 @@ function ProductTask({
 
                          }
                      }) {
-    const [taskState, setTaskState] = React.useState(task)
+    // const [taskState, setTaskState] = React.useState(task)
     const [specInSearch, setSpecInSearch] = React.useState('')
 
     const [isSpecInputValid, setIsSpecInputValid] = React.useState(true)
@@ -22,8 +22,12 @@ function ProductTask({
     const [availableSpecialtiesList, setAvailableSpecialtiesList] = React.useState([])
 
 
-    const [stageIndex, setStageIndex] = React.useState(taskState.stage ? taskState.stage : 1)
-    const [taskCount, setTaskCount] = React.useState(taskState.count ? taskState.count : 1)
+    const [initStageIndex, setInitStageIndex] = React.useState(task.stage ? task.stage : 1)
+    // const [initTaskCount, setInitTaskCount] = React.useState(taskState.count ? taskState.count : 1)
+    const [stageIndex, setStageIndex] = React.useState(task.stage ? task.stage : 1)
+    const [taskCount, setTaskCount] = React.useState(task.count ? task.count : 1)
+
+    const [taskComment, setTaskComment] = React.useState('')
 
     const clckOnSearchButton = () => {
         if (specInSearch.length > 0) {
@@ -47,32 +51,49 @@ function ProductTask({
     }
 
     const increaseStageIndex = () => {
+        if (Math.abs(initStageIndex - stageIndex) === 0) {
+            task.stage = stageIndex + 1
+            setStageIndex(stageIndex + 1)
+            onUpdate(task)
+        }
 
-        let tmp = taskState
-        tmp.stage = stageIndex + 1
-        setTaskState(tmp)
-        onUpdate(tmp)
-        setStageIndex(stageIndex + 1)
-    }
-
-    const increaseTaskCount = () => {
-        setTaskCount(taskCount + 1)
     }
 
     const decreaseStageIndex = () => {
-        if (stageIndex - 1 > 0) {
+        if (Math.abs(initStageIndex - stageIndex) === 1) {
+            task.stage = stageIndex - 1
             setStageIndex(stageIndex - 1)
+            onUpdate(task)
         }
     }
 
+    const increaseTaskCount = () => {
+        task.count = taskCount + 1
+        setTaskCount(taskCount + 1)
+        onUpdate(task)
+    }
+
+
     const decreaseTaskCounter = () => {
         if (taskCount - 1 > 0) {
+            task.count = taskCount - 1
             setTaskCount(taskCount - 1)
+            onUpdate(task)
         }
+    }
+
+    const updateTaskComment = (text) => {
+        task.description = text
+        setTaskComment(text)
+        onUpdate(task)
     }
 
     return (
         <div className={'calculation-product-task-container'}>
+            <svg className={'calculation-delete-product-button'}
+                 width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.5772 12.5002L21.1397 5.94811C21.3358 5.75196 21.446 5.48592 21.446 5.20853C21.446 4.93113 21.3358 4.66509 21.1397 4.46894C20.9435 4.27279 20.6775 4.1626 20.4001 4.1626C20.1227 4.1626 19.8566 4.27279 19.6605 4.46894L13.1084 11.0314L6.55632 4.46894C6.36017 4.27279 6.09413 4.1626 5.81673 4.1626C5.53934 4.1626 5.2733 4.27279 5.07715 4.46894C4.881 4.66509 4.77081 4.93113 4.77081 5.20853C4.77081 5.48592 4.881 5.75196 5.07715 5.94811L11.6397 12.5002L5.07715 19.0523C4.97952 19.1491 4.90202 19.2643 4.84914 19.3913C4.79626 19.5182 4.76903 19.6543 4.76903 19.7919C4.76903 19.9294 4.79626 20.0655 4.84914 20.1925C4.90202 20.3194 4.97952 20.4346 5.07715 20.5314C5.17399 20.6291 5.2892 20.7066 5.41613 20.7595C5.54307 20.8123 5.67922 20.8396 5.81673 20.8396C5.95425 20.8396 6.0904 20.8123 6.21734 20.7595C6.34427 20.7066 6.45948 20.6291 6.55632 20.5314L13.1084 13.9689L19.6605 20.5314C19.7573 20.6291 19.8725 20.7066 19.9995 20.7595C20.1264 20.8123 20.2626 20.8396 20.4001 20.8396C20.5376 20.8396 20.6737 20.8123 20.8007 20.7595C20.9276 20.7066 21.0428 20.6291 21.1397 20.5314C21.2373 20.4346 21.3148 20.3194 21.3677 20.1925C21.4205 20.0655 21.4478 19.9294 21.4478 19.7919C21.4478 19.6543 21.4205 19.5182 21.3677 19.3913C21.3148 19.2643 21.2373 19.1491 21.1397 19.0523L14.5772 12.5002Z" fill="#4C4C4C"/>
+            </svg>
             <div className={'calculation-product-task'}>
                 <div className={'calculation-product-task-left'}>
                     <div className={'editor-item'}>
@@ -80,7 +101,7 @@ function ProductTask({
                             Номер стадии
                         </div>
                         <div className={'editor-item-input-container'}>
-                            <input className={'editor-item-input green-border quantity'}
+                            <input className={'editor-item-input quantity'}
                                    required
                                    name={'second_name'}
                                    type={'number'}
@@ -112,7 +133,7 @@ function ProductTask({
                             Количество
                         </div>
                         <div className={'editor-item-input-container'}>
-                            <input className={'editor-item-input green-border quantity'}
+                            <input className={'editor-item-input quantity'}
                                    required
                                    name={'second_name'}
                                    type={'number'}
@@ -217,15 +238,18 @@ function ProductTask({
                             </div>
                         </div>
                     </div>
-                    <div className={'calculation-product-task-right'}>
-                        {/*<div className={'editor-item'}>*/}
-                        {/*    <div className={'editor-item-text'}>*/}
-                        {/*        Комментарий к операции*/}
-                        {/*    </div>*/}
-                        {/*    <textarea className={'editor-item-textarea'}/>*/}
-                        {/*    /!*    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."*!/*/}
-                        {/*    /!*</textarea>*!/*/}
-                        {/*</div>*/}
+
+                </div>
+                <div className={'calculation-product-task-right'}>
+                    <div className={'editor-item'}>
+                        <div className={'editor-item-text'}>
+                            Комментарий к операции
+                        </div>
+                        <textarea className={'editor-item-textarea calculation'}
+                                  onChange={(e) => updateTaskComment(e.target.value)}
+                        />
+                        {/*    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."*/}
+                        {/*</textarea>*/}
                     </div>
                 </div>
             </div>

@@ -95,4 +95,9 @@
   border-radius: 8px;
   outline-color: #6B9EA4;
   border: none;
+
+  &.calculation {
+    width: 600px;
+    height: 200px;
+  }
 }

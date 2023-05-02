@@ -27,7 +27,7 @@ function OrderProduct(
     React.useEffect(() => {
         setProductState(product)
         setTasksArray(product.task_list)
-    }, [product.product_id, productState, tasksArray])
+    }, [product.product_id, tasksArray])
 
     const createEmptyTask = () => {
         let stage = 1
@@ -49,9 +49,11 @@ function OrderProduct(
 
     const deleteFromTaskList = (index) => {
         console.log('delete task index', tasksArray[index])
-        // const newArray = [...tasksArray];
-        // newArray.splice(index, 1);
-        // setTasksArray(newArray);
+        const newArray = [...tasksArray]
+        newArray.splice(index, 1)
+        product.task_list = newArray
+        setTasksArray(newArray)
+        setProductState(product)
     }
 
     const updateProductName = (text) => {
@@ -61,8 +63,10 @@ function OrderProduct(
     }
 
     const addTasksToArray = () => {
-        product.task_list.push(createEmptyTask())
-        setTasksArray(product.task_list)
+        let newArr = [...tasksArray, createEmptyTask()]
+        setTasksArray(newArr)
+        // setTasksArray(product.task_list)
+        product.task_list = newArr
         setProductState(product)
         onUpdate(product)
     }

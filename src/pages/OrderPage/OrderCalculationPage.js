@@ -81,7 +81,7 @@ function OrderCalculationPage() {
     const createEmptyProduct = () => {
         setCreatedProductCount(createdProductsCount + 1)
         return {
-            "product_id": createdProductsCount + 1, // only frontend
+            // "product_id": createdProductsCount + 1, // only frontend
             "product_name": "",
             "status": "",
             "count": 1,

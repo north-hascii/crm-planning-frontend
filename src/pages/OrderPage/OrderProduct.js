@@ -17,17 +17,17 @@ function OrderProduct(
     }
 ) {
 
-    React.useEffect(() => {
-        setProductState(product)
-        setTasksArray(product.task_list)
-    }, [product.product_id])
-
     const [productState, setProductState] = React.useState(product)
 
     const [tasksArray, setTasksArray] = React.useState(product.task_list)
-    const [productName, setProductName] = React.useState('')
 
+    const [productName, setProductName] = React.useState('')
     const [productCount, setProductCount] = React.useState(1)
+
+    React.useEffect(() => {
+        setProductState(product)
+        setTasksArray(product.task_list)
+    }, [product.product_id, productState, tasksArray])
 
     const createEmptyTask = () => {
         let stage = 1
@@ -45,6 +45,13 @@ function OrderProduct(
             "count": 1,
             "status": ""
         }
+    }
+
+    const deleteFromTaskList = (index) => {
+        console.log('delete task index', tasksArray[index])
+        // const newArray = [...tasksArray];
+        // newArray.splice(index, 1);
+        // setTasksArray(newArray);
     }
 
     const updateProductName = (text) => {
@@ -77,7 +84,6 @@ function OrderProduct(
 
 
     const decreaseProductCounter = () => {
-        console.log('pizdec pered delete')
         if (productCount - 1 > 0) {
             product.count = productCount - 1
             setProductCount(productCount - 1)
@@ -147,9 +153,13 @@ function OrderProduct(
                 </div>
 
             </div>
+            {/*{console.log(product.task_id, product.task_list)}*/}
             {tasksArray.map((item, index) => {
                 return (
-                    <ProductTask task={item} onUpdate={(task) => updateTasksArray(task, index)} key={index}/>
+                    <ProductTask task={item}
+                                 onUpdate={(task) => updateTasksArray(task, index)}
+                                 onDelete={() => deleteFromTaskList(index)}
+                                 key={index}/>
                 )
             })}
             <div className={'button-container'}>

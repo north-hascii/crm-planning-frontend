@@ -4,6 +4,7 @@
   justify-content: center;
 
   width: fit-content;
+  background-color: #FFFFFF;
 
   border: 3px solid #6B9EA4;
   border-radius: 16px;
@@ -87,13 +88,20 @@
 }
 
 .calendar-widget-button-prev {
+  cursor: pointer;
   margin-right: 10px;
 }
 
 .calendar-widget-button-next {
+  cursor: pointer;
   margin-left: 10px;
 }
 
 .calendar-widget-select-month {
+  cursor: pointer;
   margin-right: 10px;
+}
+
+.calendar-widget-select-year {
+  cursor: pointer;
 }

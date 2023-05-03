@@ -184,7 +184,7 @@ function CalendarPage(props) {
         for (let i = 0; i < 7; i++) {
             weekDayAndTasks[i].sort((a, b) => {
                 if (a.start_date.getTime() === b.start_date.getTime()) {
-                    console.log('equal', a, b)
+                    // console.log('equal', a, b)
                     return a.end_date - b.end_date
                 }
                 return a.start_date - b.start_date
@@ -228,6 +228,7 @@ function CalendarPage(props) {
         // parseTasks(tasks)
     }, [])
 
+    // TODO: Фронт не проверяет сооветствуют ли 7 дней выбранной неделе!!!
     return (
         <div className={'admin-page'}>
             {/*{!isPageLoading &&*/}
@@ -275,92 +276,6 @@ function CalendarPage(props) {
                     }
                 </div>
 
-                {/*<div className={'timetable-container'}>*/}
-                {/*    <table>*/}
-                {/*        <thead>*/}
-                {/*        <tr>*/}
-                {/*            <th>*/}
-                {/*                Время*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Понедельник*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Вторник*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Среда*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Четверг*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Пятница*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Суббота*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Воскресенье*/}
-                {/*            </th>*/}
-                {/*        </tr>*/}
-                {/*        </thead>*/}
-                {/*        <tbody>*/}
-                {/*        <tr>*/}
-                {/*            <th>*/}
-                {/*                9:00-10:00*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 1*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 2*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 3*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 4*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 5*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 6*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 7*/}
-                {/*            </th>*/}
-                {/*        </tr>*/}
-                {/*        <tr>*/}
-                {/*            <th>*/}
-                {/*                9:00-10:00*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 1*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 2*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 3*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 4*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 5*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 6*/}
-                {/*            </th>*/}
-                {/*            <th>*/}
-                {/*                Задание 7*/}
-                {/*            </th>*/}
-                {/*        </tr>*/}
-                {/*        </tbody>*/}
-                {/*    </table>*/}
-                {/*</div>*/}
                 <div className={'timetable-container'}>
                     {weekDaysState.map((weekDay, index) => {
                         return (<div className={'timetable-day-container'} key={index}>
@@ -387,12 +302,6 @@ function CalendarPage(props) {
                                     </div>
                                 </div>)
                             })}
-                            {/*<div className={'timetable-item'}>*/}
-                            {/*    Задание 2*/}
-                            {/*</div>*/}
-                            {/*<div className={'timetable-item'}>*/}
-                            {/*    Задание 3*/}
-                            {/*</div>*/}
                         </div>)
                     })}
                 </div>

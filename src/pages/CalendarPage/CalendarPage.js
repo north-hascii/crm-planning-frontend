@@ -2,16 +2,154 @@ import React from 'react';
 import './CalendarPage.scss'
 import Calendar from "./Calendar";
 
+const tasks = [
+    {
+        "id": 5,
+        "task_name": "Обработать дерево 1 1",
+        "stage": 1,
+        "description": "some task description...",
+        "operation_id": 1,
+        "operation": {
+            "id": 0,
+            "operation_name": "",
+            "duration": 0,
+            "resource_id_list": null,
+            "resource_list": null,
+            "specialty_id_list": null,
+            "specialty_list": null
+        },
+        "count": 1,
+        "status": "start",
+        "executor_id": 0,
+        "executor": {
+            "id": 0,
+            "email": "worker2@gmail.com",
+            "password": "",
+            "first_name": "",
+            "second_name": "Петров",
+            "third_name": "",
+            "user_role": "",
+            "status": "",
+            "specialties": null
+        },
+        "start_date": "2023-05-03T13:30:45.678Z",
+        "end_date": "2023-05-03T14:30:45.678Z",
+        "product_id": 0
+    },
+    {
+        "id": 5,
+        "task_name": "Обработать дерево 1",
+        "stage": 1,
+        "description": "some task description...",
+        "operation_id": 1,
+        "operation": {
+            "id": 0,
+            "operation_name": "",
+            "duration": 0,
+            "resource_id_list": null,
+            "resource_list": null,
+            "specialty_id_list": null,
+            "specialty_list": null
+        },
+        "count": 1,
+        "status": "start",
+        "executor_id": 0,
+        "executor": {
+            "id": 0,
+            "email": "worker1@gmail.com",
+            "password": "",
+            "first_name": "",
+            "second_name": "Петров",
+            "third_name": "",
+            "user_role": "",
+            "status": "",
+            "specialties": null
+        },
+        "start_date": "2023-05-03T12:30:45.678Z",
+        "end_date": "2023-05-03T13:30:45.678Z",
+        "product_id": 0
+    },
+    {
+        "id": 5,
+        "task_name": "Обработать дерево 1 1",
+        "stage": 1,
+        "description": "some task description...",
+        "operation_id": 1,
+        "operation": {
+            "id": 0,
+            "operation_name": "",
+            "duration": 0,
+            "resource_id_list": null,
+            "resource_list": null,
+            "specialty_id_list": null,
+            "specialty_list": null
+        },
+        "count": 1,
+        "status": "start",
+        "executor_id": 0,
+        "executor": {
+            "id": 0,
+            "email": "worker3@gmail.com",
+            "password": "",
+            "first_name": "",
+            "second_name": "Петров",
+            "third_name": "",
+            "user_role": "",
+            "status": "",
+            "specialties": null
+        },
+        "start_date": "2023-05-04T14:30:45.678Z",
+        "end_date": "2023-05-04T15:30:45.678Z",
+        "product_id": 0
+    },
+    {
+        "id": 5,
+        "task_name": "Обработать дерево 1 1",
+        "stage": 1,
+        "description": "some task description...",
+        "operation_id": 1,
+        "operation": {
+            "id": 0,
+            "operation_name": "",
+            "duration": 0,
+            "resource_id_list": null,
+            "resource_list": null,
+            "specialty_id_list": null,
+            "specialty_list": null
+        },
+        "count": 1,
+        "status": "start",
+        "executor_id": 0,
+        "executor": {
+            "id": 0,
+            "email": "worker4@gmail.com",
+            "password": "",
+            "first_name": "",
+            "second_name": "Петров",
+            "third_name": "",
+            "user_role": "",
+            "status": "",
+            "specialties": null
+        },
+        "start_date": "2023-05-04T14:30:45.678Z",
+        "end_date": "2023-05-04T14:40:45.678Z",
+        "product_id": 0
+    },
+]
+
 function CalendarPage(props) {
     const [dateState, setDateState] = React.useState(null)
     const [isWidgetVisible, setIsWidgetVisigle] = React.useState(false)
     const [weekDaysState, setWeekDaysState] = React.useState([])
 
+    const [weekDayAndTasksState, setWeekDayAndTasksState] = React.useState([])
+
     const handleDateChanged = (date) => {
         setDateState(date)
         let weekDays = getWeekBeginAndEnd(date)
-        console.log(weekDays[0], weekDays[weekDays.length - 1])
+        parseTasks(tasks)
         setWeekDaysState(weekDays)
+
     }
 
     const getWeekBeginAndEnd = (date) => {
@@ -27,9 +165,34 @@ function CalendarPage(props) {
             weekDays.push(date)
         }
         return weekDays
-        // console.log(weekDays)
     }
 
+    const parseTasks = (tasks) => {
+        let weekDayAndTasks = [
+            [], [], [], [], [], [], []
+        ]
+        for (let i = 0; i < tasks.length; i++) {
+            const startDate = new Date(tasks[i].start_date)
+            let parsedTask = {
+                task_name: tasks[i].task_name,
+                start_date: new Date(tasks[i].start_date),
+                end_date: new Date(tasks[i].end_date),
+                executor_name: tasks[i].executor.second_name + ' (' + tasks[i].executor.email + ')',
+            }
+            weekDayAndTasks[startDate.getDay()].push(parsedTask)
+        }
+        for (let i = 0; i < 7; i++) {
+            weekDayAndTasks[i].sort((a, b) => {
+                if (a.start_date.getTime() === b.start_date.getTime()) {
+                    console.log('equal', a, b)
+                    return a.end_date - b.end_date
+                }
+                return a.start_date - b.start_date
+            })
+        }
+        setWeekDayAndTasksState(weekDayAndTasks)
+        // console.log(weekDayAndTasks)
+    }
     const formatDate = (date) => {
         const months = [
             'января',
@@ -52,6 +215,18 @@ function CalendarPage(props) {
 
         return `${day} ${month} ${year}`
     }
+
+    const formatDateTime = (date) => {
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+
+        return `${hours}:${minutes}`;
+    }
+
+
+    React.useEffect(() => {
+        // parseTasks(tasks)
+    }, [])
 
     return (
         <div className={'admin-page'}>
@@ -192,9 +367,26 @@ function CalendarPage(props) {
                             <div className={'timetable-day-label'}>
                                 {formatDate(weekDay)}
                             </div>
-                            <div className={'timetable-item'}>
-                                Задание {index + 1}
-                            </div>
+                            {weekDayAndTasksState[index] && weekDayAndTasksState[index].map((task, index) => {
+                                return (<div className={'timetable-item'} key={index}>
+                                    <div className={'timetable-item-left'}>
+                                        <div className={'timetable-item-start_time'}>
+                                            {formatDateTime(task.start_date)}
+                                        </div>
+                                        <div className={'timetable-item-end_time'}>
+                                            {formatDateTime(task.end_date)}
+                                        </div>
+                                    </div>
+                                    <div className={'timetable-item-right'}>
+                                        <div className={'timetable-item-name'}>
+                                            {task.task_name}
+                                        </div>
+                                        <div className={'timetable-item-name'}>
+                                            Исполнитель: {task.executor_name}
+                                        </div>
+                                    </div>
+                                </div>)
+                            })}
                             {/*<div className={'timetable-item'}>*/}
                             {/*    Задание 2*/}
                             {/*</div>*/}

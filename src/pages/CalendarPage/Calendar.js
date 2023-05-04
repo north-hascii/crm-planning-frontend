@@ -1,6 +1,6 @@
 import React from 'react';
 import './Calendar.scss'
-import * as calendar from './calendar'
+import * as calendar from './script'
 
 function Calendar({
                       onChange = (date) => {

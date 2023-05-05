@@ -54,7 +54,6 @@ function AdminPage(props) {
         if (section === adminOptions.operation) {
             getAllSOperations().then(data => {
                 setTableItems(data)
-                console.log('opers: ', data)
                 setIsTableLoading(false)
             }).catch(err => {
                 console.log("Error while getting data", err)

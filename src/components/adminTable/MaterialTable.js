@@ -16,34 +16,34 @@ function MaterialTable({tableItems = []}) {
     }
 
     return (
-        <table className={`table rounded-corners`}>
+        <table className={`admin-table rounded-corners`}>
             <tbody>
-            <tr className={'table-col-names'}>
-                <th className={'table-col small'}>
+            <tr className={'admin-table-col-names'}>
+                <th className={'admin-table-col small'}>
                     id
                 </th>
-                <th className={'table-col large_1'}>
+                <th className={'admin-table-col'}>
                     Название материала
                 </th>
-                <th className={'table-col small'}>
+                <th className={'admin-table-col'}>
                     Единицы измерения
                 </th>
-                <th className={'table-col medium'}>
+                <th className={'admin-table-col medium'}>
                 </th>
             </tr>
 
             {tableItems && tableItems.map((item, index) => {
                 return (<tr key={index}>
-                    <th className={'table-col small'}>
+                    <th className={'admin-table-col small'}>
                         {item.id}
                     </th>
-                    <th className={'table-col medium'}>
+                    <th className={'admin-table-col'}>
                         {item.material_name}
                     </th>
-                    <th className={'table-col medium'}>
+                    <th className={'admin-table-col'}>
                         {item.units}
                     </th>
-                    <th className={'table-col medium'}>
+                    <th className={'admin-table-col medium'}>
                         <div className={'col-buttons-container'}>
                             <svg onClick={() => redirectToEditor(item)} width="20" height="19"
                                  viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">

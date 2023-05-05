@@ -11,7 +11,7 @@ export const getSpecialtiesByPartName = async (name) => {
     return data
 }
 
-export const getSpecialtiesById = async (id) => {
+export const getSpecialtyById = async (id) => {
     const {data} = await $authHost.get('manual/specialty/get-by-id?id=' + id)
     return data
 }

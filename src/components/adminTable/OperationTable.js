@@ -11,50 +11,51 @@ function OperationTable({tableItems = []}) {
     }
 
     const redirectToEditor = (item) => {
+        console.log(`${ADMIN_OPERATION_ROUTE}/${item.id}`)
         navigate(`${ADMIN_OPERATION_ROUTE}/${item.id}`)
     }
 
     return (
-        <table className={`table rounded-corners`}>
+        <table className={`admin-table rounded-corners`}>
             <tbody>
-            <tr className={'table-col-names'}>
-                <th className={'table-col small'}>
+            <tr className={'admin-table-col-names'}>
+                <th className={'admin-table-col small'}>
                     id
                 </th>
-                <th className={'table-col medium'}>
+                <th className={'admin-table-col'}>
                     Название операции
                 </th>
-                <th className={'table-col medium'}>
+                <th className={'admin-table-col'}>
                     Материалы
                 </th>
-                <th className={'table-col medium'}>
+                <th className={'admin-table-col'}>
                     Специальности
                 </th>
-                <th className={'table-col medium'}>
+                <th className={'admin-table-col'}>
                     Время выполнения
                 </th>
-                <th className={'table-col medium'}>
+                <th className={'admin-table-col medium'}>
                 </th>
             </tr>
 
             {tableItems && tableItems.map((item, index) => {
                 return (<tr key={index}>
-                    <th className={'table-col small'}>
+                    <th className={'admin-table-col small'}>
                         {item.id}
                     </th>
-                    <th className={'table-col medium'}>
+                    <th className={'admin-table-col'}>
                         {item.operation_name}
                     </th>
-                    <th className={'table-col medium'}>
-                        {item.material_list}
+                    <th className={'admin-table-col'}>
+                        {item.resource_list && item.resource_list.map(resource => resource.material.material_name).join('; ')}
                     </th>
-                    <th className={'table-col medium'}>
-                        {item.specialty_list}
+                    <th className={'admin-table-col'}>
+                        {item.specialty_list && item.specialty_list.map(resource => resource.specialty_name).join('; ')}
                     </th>
-                    <th className={'table-col medium'}>
+                    <th className={'admin-table-col'}>
                         {item.duration}
                     </th>
-                    <th className={'table-col medium'}>
+                    <th className={'admin-table-col medium'}>
                         <div className={'col-buttons-container'}>
                             <svg onClick={() => redirectToEditor(item)} width="20" height="19"
                                  viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,7 +70,6 @@ function OperationTable({tableItems = []}) {
                                       fill="#4C4C4C"/>
                             </svg>
                         </div>
-
                     </th>
                 </tr>)
             })

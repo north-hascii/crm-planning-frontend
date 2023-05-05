@@ -22,19 +22,19 @@ function UserTable({tableItems = []}) {
                 <th className={'admin-table-col small'}>
                     id
                 </th>
-                <th className={'admin-table-col medium'}>
+                <th className={'admin-table-col'}>
                     ФИО
                 </th>
-                <th className={'admin-table-col medium'}>
+                <th className={'admin-table-col'}>
                     Почта
                 </th>
-                <th className={'admin-table-col medium'}>
+                <th className={'admin-table-col'}>
                     Специальность
                 </th>
-                <th className={'admin-table-col medium'}>
+                <th className={'admin-table-col'}>
                     Статус
                 </th>
-                <th className={'admin-table-col medium'}>
+                <th className={'admin-table-col'}>
                     Роль
                 </th>
                 <th className={'admin-table-col medium'} >
@@ -46,19 +46,19 @@ function UserTable({tableItems = []}) {
                         <th className={'admin-table-col small'}>
                             {item.id}
                         </th>
-                        <th className={'admin-table-col medium'}>
+                        <th className={'admin-table-col'}>
                             {item.first_name + ' ' + item.second_name + ' ' + item.third_name}
                         </th>
-                        <th className={'admin-table-col medium'}>
+                        <th className={'admin-table-col'}>
                             {item.email}
                         </th>
-                        <th className={'admin-table-col medium'}>
+                        <th className={'admin-table-col'}>
                             {item.specialties && item.specialties.map(item => item.specialty_name).join('; ')}
                         </th>
-                        <th className={'admin-table-col medium'}>
+                        <th className={'admin-table-col'}>
                             {item.status}
                         </th>
-                        <th className={'admin-table-col medium'}>
+                        <th className={'admin-table-col'}>
                             {item.user_role}
                         </th>
                         <th className={'admin-table-col medium'} >

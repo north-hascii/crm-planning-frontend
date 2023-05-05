@@ -23,10 +23,10 @@ function SpecialtyTable({tableItems = []}) {
                 <th className={'admin-table-col small'}>
                     id
                 </th>
-                <th className={'admin-table-col large_3'}>
+                <th className={'admin-table-col'} >
                     Название специальности
                 </th>
-                <th className={'admin-table-col medium'} colSpan={2}>
+                <th className={'admin-table-col medium'} >
                 </th>
             </tr>
 
@@ -35,7 +35,7 @@ function SpecialtyTable({tableItems = []}) {
                     <th className={'admin-table-col small'}>
                         {item.id}
                     </th>
-                    <th className={'admin-table-col large_3'}>
+                    <th className={'admin-table-col'} >
                         {item.specialty_name}
                     </th>
                     <th className={'admin-table-col medium'} >

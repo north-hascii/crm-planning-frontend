@@ -1,22 +1,22 @@
 import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import {getUserById} from "../../http/userApi";
-import UserEditor from "../../components/adminEditor/UserEditor";
+import {getSpecialtyById} from "../../http/specialtyApi";
 import SpecialtyEditor from "../../components/adminEditor/SpecialtyEditor";
-import {getSpecialtiesById, getSpecialtiesByPartName} from "../../http/specialtyApi";
+import OperationEditor from "../../components/adminEditor/OperationEditor";
+import {getOperationById} from "../../http/operationApi";
 
-function SpecialtyEditorPage(props) {
+function OperationEditorPage(props) {
     const {id} = useParams()
 
     const [isLoading, setIsLoading] = React.useState(true)
-    const [specialty, setSpecialty] = React.useState(null)
+    const [operation, setOperation] = React.useState(null)
     const navigate = useNavigate()
 
 
     React.useEffect(() => {
         setIsLoading(true)
-        getSpecialtiesById(id).then(data => {
-            setSpecialty(data)
+        getOperationById(id).then(data => {
+            setOperation(data)
             setIsLoading(false)
         }).catch(err => {
             console.log("Error while getting data", err)
@@ -24,7 +24,7 @@ function SpecialtyEditorPage(props) {
         })
     }, [])
 
-    if (isLoading && !specialty) {
+    if (isLoading && !operation) {
         return (
             <div>
                 Loading
@@ -36,12 +36,12 @@ function SpecialtyEditorPage(props) {
         <div className={'admin-page-edit'}>
             <div className={'admin-page-container'}>
                 <div className={'page-title'}>
-                    Редактирование специальности
+                    Редактирование операции
                 </div>
-                <SpecialtyEditor specialty={specialty}/>
+                <OperationEditor operation={operation}/>
             </div>
         </div>
     );
 }
 
-export default SpecialtyEditorPage;
+export default OperationEditorPage;

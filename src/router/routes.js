@@ -10,7 +10,7 @@ import {
     ADMIN_USER_ROUTE,
     ADMIN_MATERIAL_ROUTE,
     ORDER_ROUTE,
-    ORDER_VIEW_ROUTE, ORDER_CREATE_ROUTE, ORDER_CALCULATION_ROUTE, CALENDAR_ROUTE
+    ORDER_VIEW_ROUTE, ORDER_CREATE_ROUTE, ORDER_CALCULATION_ROUTE, CALENDAR_ROUTE, ADMIN_OPERATION_ROUTE
 } from "../utils/consts";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -27,6 +27,7 @@ import OrderViewerPage from "../pages/OrderPage/OrderViewerPage";
 import OrderEditorPage from "../pages/OrderPage/OrderEditorPage";
 import OrderCreatorPage from "../pages/OrderPage/OrderCreatorPage";
 import CalendarPage from "../pages/CalendarPage/CalendarPage";
+import OperationEditorPage from "../pages/AdminPage/OperationEditorPage";
 
 export const authRoutes = [
     {
@@ -44,6 +45,10 @@ export const authRoutes = [
     {
         path: ADMIN_SPECIALTY_ROUTE + '/:id',
         Component: <SpecialtyEditorPage/>
+    },
+    {
+      path: ADMIN_OPERATION_ROUTE + '/:id',
+      Component: <OperationEditorPage/>
     },
     {
         path: ADMIN_MATERIAL_ROUTE + '/:id',

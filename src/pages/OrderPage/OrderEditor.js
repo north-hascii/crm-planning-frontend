@@ -134,25 +134,25 @@ function OrderEditor({type = 'editor'}) {
                 {/*    </div>*/}
                 {/*</div>*/}
 
-                {type === 'editor' &&
-                    <Button text={'Сохранить'}
-                            size={buttonProps.size.small}
-                            color={buttonProps.color.light}
-                            bgColor={buttonProps.background_color.dark_v1}
-                            type={'submit'}
-                    />
-                }
-                {type === 'creator' &&
-                    <Button text={'Перейти к калькуляции'}
-                            size={buttonProps.size.small}
-                            color={buttonProps.color.light}
-                            bgColor={buttonProps.background_color.dark_v1}
-                            onClck={() => {
-                                navigate(ORDER_CALCULATION_ROUTE)
-                            }}
-                            type={'submit'}
-                    />
-                }
+                {/*{type === 'editor' &&*/}
+                {/*    <Button text={'Сохранить'}*/}
+                {/*            size={buttonProps.size.small}*/}
+                {/*            color={buttonProps.color.light}*/}
+                {/*            bgColor={buttonProps.background_color.dark_v1}*/}
+                {/*            type={'submit'}*/}
+                {/*    />*/}
+                {/*}*/}
+                {/*{type === 'creator' &&*/}
+                {/*    <Button text={'Перейти к калькуляции'}*/}
+                {/*            size={buttonProps.size.small}*/}
+                {/*            color={buttonProps.color.light}*/}
+                {/*            bgColor={buttonProps.background_color.dark_v1}*/}
+                {/*            onClck={() => {*/}
+                {/*                navigate(ORDER_CALCULATION_ROUTE)*/}
+                {/*            }}*/}
+                {/*            type={'submit'}*/}
+                {/*    />*/}
+                {/*}*/}
 
             </div>
             <div className={'editor-container-right'}>

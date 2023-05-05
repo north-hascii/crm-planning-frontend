@@ -41,3 +41,13 @@
 
   //margin-bottom: 32px;
 }
+
+.page-title-buttons-container {
+  display: flex;
+
+  &>.button {
+    &:not(:last-of-type) {
+      margin-right: 20px;
+    }
+  }
+}

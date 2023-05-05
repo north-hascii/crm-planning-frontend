@@ -243,8 +243,10 @@ function CalendarPage(props) {
             <div className={'admin-page-container'}>
                 {/*{!isPageLoading &&*/}
                 {/*    <>*/}
-                <div className={'page-title'}>
-                    Каледнарь
+                <div className={'page-title-container'}>
+                    <div className={'page-title'}>
+                        Каледнарь
+                    </div>
                 </div>
                 {/*    </>*/}
                 {/*}*/}

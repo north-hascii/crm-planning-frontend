@@ -10,5 +10,9 @@ export const buttonProps = {
     color: {
         dark: "dark-text",
         light: "light-text"
+    },
+    status: {
+        active: 'active',
+        inactive: 'inactive'
     }
 }

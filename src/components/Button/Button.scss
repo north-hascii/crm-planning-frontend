@@ -44,4 +44,8 @@ button {
   &.dark-text {
     color: #4C4C4C;
   }
+
+  &.active {
+    border: 2px solid #6B9EA4;
+  }
 }

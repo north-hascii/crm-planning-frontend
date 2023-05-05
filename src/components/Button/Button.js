@@ -9,7 +9,9 @@ function Button({
                     },
                     size = buttonProps.size.small,
                     color = buttonProps.color.dark,
-                    bgColor = buttonProps.background_color.grey,
+                    bgColor= buttonProps.background_color.grey,
+                    isActive = false,
+                    // status= buttonProps.status.inactive,
                     type = 'button'
                 }) {
 
@@ -18,7 +20,7 @@ function Button({
         // color: color,
     }
     return (
-        <button className={`button ${size} ${color} ${bgColor}`} onClick={() => onClck()}
+        <button className={`button ${size} ${color} ${bgColor} ${isActive ? 'active' : ''}`} onClick={() => onClck()}
              style={customStyles}
         type={type}
         >

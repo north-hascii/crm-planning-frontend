@@ -34,6 +34,10 @@ function SearchField({
                 }
             }) : [])
         }
+        // if (type === searchFieldProps.us) {
+        //     setItemsIdList(baseList ? baseList.map(obj => obj.id) : [])
+        // }
+
         setIsLoading(false)
     }, [])
 
@@ -41,6 +45,10 @@ function SearchField({
         // setIsCountersReady(false)
         // console.log('list changed:', itemsIdList, itemsList)
         if (type === searchFieldProps.specialty) {
+            onUpdate(itemsIdList)
+            return
+        }
+        if (type === searchFieldProps.user) {
             onUpdate(itemsIdList)
             return
         }

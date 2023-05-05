@@ -9,3 +9,18 @@ export const getAllMaterialsByPartName = async (name) => {
     const {data} = await $authHost.get('manual/material/get-all-by-part-name?material_name=' + name)
     return data
 }
+
+export const getMaterialById = async (id) => {
+    const {data} = await $authHost.get('manual/material/get-by-id?id=' + id)
+    return data
+}
+
+
+export const updateMaterial = async (id, material_name, units) => {
+    const {response} = await $authHost.put('/manual/material/update', {
+            "id": id,
+            "material_name": material_name,
+            "units": units
+        }
+    )
+}

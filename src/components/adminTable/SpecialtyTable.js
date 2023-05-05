@@ -1,20 +1,24 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
 import {ADMIN_SPECIALTY_ROUTE} from "../../utils/consts";
+import {deleteUserById} from "../../http/userApi";
+import {deleteSpecialtyById} from "../../http/specialtyApi";
 
 function SpecialtyTable({tableItems = []}) {
     const navigate = useNavigate()
 
-    // TODO
     const deleteTableItem = (item) => {
-        console.log(item)
+        deleteSpecialtyById(item.id).then(data => {
+            console.log(data)
+            window.location.reload()
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     const redirectToEditor = (item) => {
         navigate(`${ADMIN_SPECIALTY_ROUTE}/${item.id}`)
     }
-
-    // console.log(tableItems)
 
     return (
         <table className={`admin-table rounded-corners`}>

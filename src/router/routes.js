@@ -17,7 +17,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import ResetPasswordPage from "../pages/AuthPage/ResetPasswordPage";
 import HomePage from "../pages/HomePage";
 import AdminPage from "../pages/AdminPage/AdminPage";
-import AdminEditorPage from "../pages/AdminPage/AdminEditorPage";
+import UserEditorPage from "../pages/AdminPage/UserEditorPage";
 import SpecialtyEditorPage from "../pages/AdminPage/SpecialtyEditorPage";
 import MaterialEditorPage from "../pages/AdminPage/MaterialEditorPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
@@ -40,15 +40,19 @@ export const authRoutes = [
     },
     {
         path: ADMIN_ROUTE + '/user' + '/create',
-        Component: <AdminEditorPage mod={pageMods.creator}/>
+        Component: <UserEditorPage mod={pageMods.creator}/>
     },
     {
         path: ADMIN_USER_ROUTE + '/:id',
-        Component: <AdminEditorPage mod={pageMods.editor}/>
+        Component: <UserEditorPage mod={pageMods.editor}/>
     },
     {
         path: ADMIN_SPECIALTY_ROUTE + '/:id',
-        Component: <SpecialtyEditorPage/>
+        Component: <SpecialtyEditorPage mod={pageMods.editor}/>
+    },
+    {
+        path: ADMIN_ROUTE + '/specialty' + '/create',
+        Component: <SpecialtyEditorPage mod={pageMods.creator}/>
     },
     {
       path: ADMIN_OPERATION_ROUTE + '/:id',

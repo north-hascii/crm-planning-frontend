@@ -7,7 +7,6 @@ function UserTable({tableItems = []}) {
 
     const navigate = useNavigate()
 
-    // TODO
     const deleteTableItem = (item) => {
         deleteUserById(item.id).then(data => {
             console.log(data)

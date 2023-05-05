@@ -7,7 +7,7 @@ import {getUserById} from "../../http/userApi";
 import UserEditor from "../../components/adminEditor/UserEditor";
 import {pageMods} from "../../utils/consts";
 
-function AdminEditorPage({mod = pageMods.viewer}) {
+function UserEditorPage({mod = pageMods.viewer}) {
     const {id} = useParams()
 
     const [isLoading, setIsLoading] = React.useState(true)
@@ -45,18 +45,10 @@ function AdminEditorPage({mod = pageMods.viewer}) {
                         Редактирование пользователя
                     </div>
                 </div>
-
                 <UserEditor user={user} mod={mod}/>
-
-                {/*{user ?*/}
-                {/*    <UserEditor user={user}/>*/}
-                {/*    :*/}
-                {/*    <UserEditor/>*/}
-                {/*}*/}
-
             </div>
         </div>
     );
 }
 
-export default AdminEditorPage;
+export default UserEditorPage;

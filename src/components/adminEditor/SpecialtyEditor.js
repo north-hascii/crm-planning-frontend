@@ -1,17 +1,29 @@
 import React from 'react';
-import {updateSpecialty} from "../../http/specialtyApi";
+import {createSpecialty, updateSpecialty} from "../../http/specialtyApi";
 import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
 import SearchField from "../searchField/searchField";
 import {searchFieldProps} from "../searchField/searchFieldProps";
+import {pageMods} from "../../utils/consts";
+import {createUser} from "../../http/userApi";
 
-function SpecialtyEditor({specialty}) {
-    const [specName, setSpecName] = React.useState(specialty.specialty_name)
+function SpecialtyEditor({specialty, mod = pageMods.viewer}) {
+    const [specName, setSpecName] = React.useState(specialty ? specialty.specialty_name : '')
 
-    const [usersIdList, setUsersIdList] = React.useState(specialty.specialty_users ? specialty.specialty_users.map(obj => obj.id) : [])
+    const [usersList, setUsersList] = React.useState(specialty ? (specialty.specialty_users ? specialty.specialty_users : []) : [])
+    const [usersIdList, setUsersIdList] = React.useState(specialty ? (specialty.specialty_users ? specialty.specialty_users.map(obj => obj.id) : []) : [])
 
-    const makeUpdateRequest = async (e) => {
+    const clickOnSave = async (e) => {
         e.preventDefault()
+        if (mod === pageMods.editor) {
+            makeUpdateRequest()
+        }
+        if (mod === pageMods.creator) {
+            makeCreateRequest(e)
+        }
+    }
+
+    const makeUpdateRequest = () => {
         updateSpecialty(
             specialty.id,
             specName,
@@ -23,8 +35,19 @@ function SpecialtyEditor({specialty}) {
         })
     }
 
+    const makeCreateRequest = () => {
+        createSpecialty(
+            specName,
+            usersIdList
+        ).then(data => {
+            console.log(data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     return (
-        <form className={'editor-container'} onSubmit={(e) => makeUpdateRequest(e)}>
+        <form className={'editor-container'} onSubmit={(e) => clickOnSave(e)}>
             <div className={'editor-container-left'}>
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>
@@ -46,7 +69,7 @@ function SpecialtyEditor({specialty}) {
                 />
             </div>
             <div className={'editor-container-right'}>
-                <SearchField type={searchFieldProps.user} baseList={specialty.specialty_users} onUpdate={(items) => setUsersIdList(items)}/>
+                <SearchField type={searchFieldProps.user} baseList={usersList} onUpdate={(items) => setUsersIdList(items)}/>
             </div>
         </form>
     );

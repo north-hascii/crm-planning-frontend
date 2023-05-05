@@ -24,3 +24,16 @@ export const updateSpecialty = async (id, specialty_name, specialty_user_id_list
         }
     )
 }
+
+export const createSpecialty = async (specialty_name, specialty_user_id_list) => {
+    const {response} = await $authHost.post('/manual/specialty/create', {
+        "specialty_name": specialty_name,
+        "specialty_user_id_list": specialty_user_id_list,
+        }
+    )
+}
+
+export const deleteSpecialtyById = async (id) => {
+    const {data} = await $authHost.delete('/manual/specialty/delete?id=' + id)
+    return data
+}

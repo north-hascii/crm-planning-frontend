@@ -4,27 +4,31 @@ import {getUserById} from "../../http/userApi";
 import UserEditor from "../../components/adminEditor/UserEditor";
 import SpecialtyEditor from "../../components/adminEditor/SpecialtyEditor";
 import {getSpecialtyById, getSpecialtiesByPartName} from "../../http/specialtyApi";
+import {pageMods} from "../../utils/consts";
 
-function SpecialtyEditorPage(props) {
+function SpecialtyEditorPage({mod = pageMods.viewer}) {
     const {id} = useParams()
 
     const [isLoading, setIsLoading] = React.useState(true)
     const [specialty, setSpecialty] = React.useState(null)
-    const navigate = useNavigate()
-
 
     React.useEffect(() => {
-        setIsLoading(true)
-        getSpecialtyById(id).then(data => {
-            setSpecialty(data)
+        if (mod === pageMods.editor) {
+            setIsLoading(true)
+            getSpecialtyById(id).then(data => {
+                setSpecialty(data)
+                setIsLoading(false)
+            }).catch(err => {
+                console.log("Error while getting data", err)
+                setIsLoading(false)
+            })
+        }
+        if (mod === pageMods.creator) {
             setIsLoading(false)
-        }).catch(err => {
-            console.log("Error while getting data", err)
-            setIsLoading(false)
-        })
+        }
     }, [])
 
-    if (isLoading && !specialty) {
+    if (isLoading) {
         return (
             <div>
                 Loading
@@ -38,7 +42,7 @@ function SpecialtyEditorPage(props) {
                 <div className={'page-title'}>
                     Редактирование специальности
                 </div>
-                <SpecialtyEditor specialty={specialty}/>
+                <SpecialtyEditor specialty={specialty} mod={mod}/>
             </div>
         </div>
     );

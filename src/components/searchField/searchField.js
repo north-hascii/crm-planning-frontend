@@ -135,7 +135,7 @@ function SearchField({
     const formatSearchResult = (item) => {
         switch (type) {
             case searchFieldProps.user: {
-                return item.first_name + ' ' + item.second_name + ' ' + item.third_name + ' (' + item.email + ')'
+                return item.second_name + ' ' + item.first_name + ' ' + item.third_name + ' (' + item.email + ')'
             }
             case searchFieldProps.specialty: {
                 return item.specialty_name
@@ -204,7 +204,7 @@ function SearchField({
                                                 "amount": 1,
                                                 "material": item,
                                             }
-                                            console.log('add item', res)
+                                            // console.log('add item', res)
                                             setItemsList(itemsList => [...itemsList, res])
                                             setItemsIdList(itemsIdList => [...itemsIdList, res.material_id])
                                         }
@@ -228,7 +228,7 @@ function SearchField({
                         //
                         // })
                         return (
-                            <div className={'editor-selected-item-container withCounter'} key={index}>
+                            <div className={'editor-selected-item-container-withCounter'} key={index}>
                                 <div className={'editor-selected-item'} key={index}>
                                     {formatSearchResult(item)}
                                     {/*{item.material.material_name + ' (' + item.material.units + ')'}*/}
@@ -241,7 +241,7 @@ function SearchField({
                                         // console.log('add item', res)
                                         // setItemsList(itemsList => [...itemsList, res])
                                         // setItemsIdList(itemsIdList => [...itemsIdList, res.material_id])
-                                        console.log('remove item:', itemsIdList, itemsList, item)
+                                        // console.log('remove item:', itemsIdList, itemsList, item)
                                         setItemsList(itemsList.filter(itemTmp => itemTmp.material_id !== item.material_id))
                                         setItemsIdList(itemsIdList.filter(id => id !== item.material_id))
                                         setItemsCounterList((prevState) => [
@@ -332,7 +332,6 @@ function SearchField({
                 <div className={`search-result-container ${isListVisible ? 'visible' : 'hidden'}`}>
                     {availableItemsList && availableItemsList.length > 0 ? availableItemsList.map((item, index) => {
                             return (
-                                <>
                                     <div className={'search-result enable'} key={index} onClick={() => {
                                         setIsListVisible(false)
                                         if (!itemsIdList.includes(item.id)) {
@@ -342,8 +341,6 @@ function SearchField({
                                     }}>
                                         {formatSearchResult(item)}
                                     </div>
-                                </>
-
                             )
                         })
                         :

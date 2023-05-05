@@ -37,8 +37,11 @@ function MaterialEditorPage({mod = pageMods.viewer}) {
     return (
         <div className={'admin-page-edit'}>
             <div className={'admin-page-container'}>
-                <div className={'page-title'}>
-                    Редактирование материала
+                <div className={'page-title-container'}>
+                    <div className={'page-title'}>
+                        {mod === pageMods.editor && 'Редактирование материала'}
+                        {mod === pageMods.creator && 'Создание материала'}
+                    </div>
                 </div>
                 <MaterialEditor material={material} mod={mod}/>
             </div>

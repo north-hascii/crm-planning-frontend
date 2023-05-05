@@ -42,7 +42,8 @@ function UserEditorPage({mod = pageMods.viewer}) {
             <div className={'admin-page-container'}>
                 <div className={'page-title-container'}>
                     <div className={'page-title'}>
-                        Редактирование пользователя
+                        {mod === pageMods.editor && 'Редактирование пользователя'}
+                        {mod === pageMods.creator && 'Создание пользователя'}
                     </div>
                 </div>
                 <UserEditor user={user} mod={mod}/>

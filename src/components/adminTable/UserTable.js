@@ -9,7 +9,6 @@ function UserTable({tableItems = []}) {
 
     const deleteTableItem = (item) => {
         deleteUserById(item.id).then(data => {
-            console.log(data)
             window.location.reload()
         }).catch(err => {
             console.log(err)
@@ -52,7 +51,7 @@ function UserTable({tableItems = []}) {
                         {item.id}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.first_name + ' ' + item.second_name + ' ' + item.third_name}
+                        {item.second_name + ' ' + item.first_name + ' ' + item.third_name}
                     </th>
                     <th className={'admin-table-col'}>
                         {item.email}

@@ -39,9 +39,13 @@ function OperationEditorPage({mod = pageMods.viewer}) {
     return (
         <div className={'admin-page-edit'}>
             <div className={'admin-page-container'}>
-                <div className={'page-title'}>
-                    Редактирование операции
+                <div className={'page-title-container'}>
+                    <div className={'page-title'}>
+                        {mod === pageMods.editor && 'Редактирование операции'}
+                        {mod === pageMods.creator && 'Создание операции'}
+                    </div>
                 </div>
+
                 <OperationEditor operation={operation} mod={mod}/>
             </div>
         </div>

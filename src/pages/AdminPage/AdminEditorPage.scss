@@ -110,7 +110,15 @@ input[type=number] {
 .editor-selected-item-container {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
+  width: fit-content;
   margin-top: 12px;
+}
+
+.editor-selected-item-container-withCounter {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .editor-selected-item {

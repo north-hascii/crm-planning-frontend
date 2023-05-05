@@ -39,8 +39,11 @@ function SpecialtyEditorPage({mod = pageMods.viewer}) {
     return (
         <div className={'admin-page-edit'}>
             <div className={'admin-page-container'}>
-                <div className={'page-title'}>
-                    Редактирование специальности
+                <div className={'page-title-container'}>
+                    <div className={'page-title'}>
+                        {mod === pageMods.editor && 'Редактирование специальности'}
+                        {mod === pageMods.creator && 'Создание специальности'}
+                    </div>
                 </div>
                 <SpecialtyEditor specialty={specialty} mod={mod}/>
             </div>

@@ -102,7 +102,6 @@ function OperationEditor({operation, mod = pageMods.viewer}) {
                 />
             </div>
             <div className={'editor-container-right'}>
-                {console.log(resourcesList)}
                 <SearchField type={searchFieldProps.material} baseList={resourcesList}
                              onUpdate={(items) => setResourcesList(items)} backStruct={createResource()}/>
                 <SearchField type={searchFieldProps.specialty} baseList={specsList}

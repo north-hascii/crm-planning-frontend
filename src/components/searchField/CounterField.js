@@ -1,8 +1,15 @@
 import React from 'react';
 
-function CounterField({initValue = 1, onUpdate = Function.prototype}) {
+function CounterField({initValue = 1, counterArray = [], index = 0, onUpdate = Function.prototype}) {
 
     const [counter, setCounter] = React.useState(initValue)
+
+    React.useEffect(() => {
+        // console.log('поменялось')
+        if (index < counterArray.length) {
+            setCounter(initValue)
+        }
+    }, [index, counterArray])
 
     const updateCount = (value) => {
         let val = parseInt(value)

@@ -4,6 +4,7 @@ import {getAllUsersByPartSecondName} from "../../http/userApi";
 import {getSpecialtiesByPartName} from "../../http/specialtyApi";
 import CounterField from "./CounterField";
 import {getAllMaterialsByPartName} from "../../http/materialApi";
+import counterField from "./CounterField";
 
 function SearchField({
                          type = searchFieldProps.user, baseList = [], onUpdate = (items) => Function.prototype,
@@ -15,22 +16,39 @@ function SearchField({
 
     const [itemsList, setItemsList] = React.useState(baseList ? baseList : [])
     const [itemsIdList, setItemsIdList] = React.useState(baseList ? baseList.map(obj => obj.id) : [])
+    const [itemsCounterList, setItemsCounterList] = React.useState([])
     const [availableItemsList, setAvailableItemsList] = React.useState([])
     const [isListVisible, setIsListVisible] = React.useState(false)
+
+    const [isLoading, setIsLoading] = React.useState(true)
+
+    const [isCountersReady, setIsCountersReady] = React.useState(true)
 
     React.useEffect(() => {
         if (type === searchFieldProps.material) {
             setItemsIdList(baseList ? baseList.map(obj => obj.material_id) : [])
+            setItemsCounterList(baseList ? baseList.map(obj => {
+                return {
+                    "id": obj.id,
+                    "amount": obj.amount,
+                }
+            }) : [])
         }
+        setIsLoading(false)
     }, [])
 
     React.useEffect(() => {
-        console.log('list changed:', itemsIdList, itemsList)
+        // setIsCountersReady(false)
+        // console.log('list changed:', itemsIdList, itemsList)
         if (type === searchFieldProps.specialty) {
             onUpdate(itemsIdList)
             return
         }
         onUpdate(itemsList)
+        // setTimeout(() => {
+        //     setIsCountersReady(true)
+        // }, 1000)
+
     }, [itemsIdList, itemsList])
 
     const clickOnSearchButton = () => {
@@ -123,6 +141,14 @@ function SearchField({
         }
     }
 
+    if (isLoading) {
+        return (
+            <div>
+                Loading...
+            </div>
+        )
+    }
+
     if (type === searchFieldProps.material) {
         return (
             <div className={'editor-item'}>
@@ -188,7 +214,7 @@ function SearchField({
                     </div>
                 </div>
                 <div className={'editor-selected-item-container'}>
-                    {/*{console.log('itemsList', itemsList)}*/}
+                    {/*{console.log('counterList', itemsCounterList)}*/}
                     {itemsList && itemsList.map((item, index) => {
                         // const [resource, setResource] = React.useState({
                         //
@@ -208,8 +234,13 @@ function SearchField({
                                         // setItemsList(itemsList => [...itemsList, res])
                                         // setItemsIdList(itemsIdList => [...itemsIdList, res.material_id])
                                         console.log('remove item:', itemsIdList, itemsList, item)
-                                        setItemsList(itemsList.filter(itemTmp => itemTmp.material_id !== item.material_id));
-                                        setItemsIdList(itemsIdList.filter(id => id !== item.material_id));
+                                        setItemsList(itemsList.filter(itemTmp => itemTmp.material_id !== item.material_id))
+                                        setItemsIdList(itemsIdList.filter(id => id !== item.material_id))
+                                        setItemsCounterList((prevState) => [
+                                                ...prevState.slice(0, index),
+                                                ...prevState.slice(index + 1),
+                                            ]
+                                        )
                                         // setTimeout(() => {
                                         //     console.log('after remove item:', itemsIdList, itemsList, item)
                                         // }, 5000)
@@ -222,27 +253,29 @@ function SearchField({
                                             fill="#4C4C4C"/>
                                     </svg>
                                 </div>
-                                {/*{console.log(item.amount)}*/}
-                                <CounterField initValue={item.amount} onUpdate={(val) => {
-                                    // console.log('counter upd', index, val)
-                                    // console.log('counter upd', itemsList)
-                                    setItemsList((prevState) => [
-                                        ...prevState.slice(0, index),
-                                        {
-                                            "id": index + 1,
-                                            "material_id": itemsList[index].material_id,
-                                            "amount": item.count,
-                                            "material": {
-                                                "id": itemsList[index].material_id,
-                                                "material_name": itemsList[index].material.material_name,
-                                                "units": itemsList[index].material.units,
-                                            }
-                                        },
-                                        ...prevState.slice(index + 1),
-                                    ]
-                                    )
+                                {/*{console.log('before create counter with index = ', index, itemsCounterList[index])}*/}
+                                {isCountersReady &&
+                                    <CounterField initValue={item.amount} counterArray={itemsCounterList.map(obj => obj.amount)}
+                                                   index={index} onUpdate={(val) => {
+                                        setItemsList((prevState) => [
+                                                ...prevState.slice(0, index),
+                                                {
+                                                    "id": index + 1,
+                                                    "material_id": itemsList[index].material_id,
+                                                    "amount": val,
+                                                    "material": {
+                                                        "id": itemsList[index].material_id,
+                                                        "material_name": itemsList[index].material.material_name,
+                                                        "units": itemsList[index].material.units,
+                                                    }
+                                                },
+                                                ...prevState.slice(index + 1),
+                                            ]
+                                        )
+                                    }
+                                    }/>
                                 }
-                                }/>
+
                             </div>
                         )
                     })}

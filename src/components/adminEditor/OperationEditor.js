@@ -8,7 +8,8 @@ import {searchFieldProps} from "../searchField/searchFieldProps";
 import {updateOperation} from "../../http/operationApi";
 
 function OperationEditor({operation}) {
-    const [specName, setSpecName] = React.useState(operation.specialty_name)
+    const [operationName, setOperationName] = React.useState(operation.operation_name)
+    const [operationDuration, setOperationDuration] = React.useState(operation.duration)
     const [specsIdList, setSpecsIdList] = React.useState(operation.specialty_list ? operation.specialty_list.map(obj => obj.id) : [])
     const [resourcesList, setResourcesList] = React.useState(operation.resource_list ? operation.resource_list.map(obj => {
         return {
@@ -23,8 +24,8 @@ function OperationEditor({operation}) {
         console.log('editor specs list:', specsIdList)
         updateOperation(
             operation.id,
-            operation.operation_name,
-            operation.duration,
+            operationName,
+            operationDuration,
             resourcesList,
             specsIdList,
         ).then(data => {
@@ -52,8 +53,8 @@ function OperationEditor({operation}) {
                            required
                            name={'specialty_name'}
                            type={'text'}
-                           value={specName}
-                           onChange={(e) => setSpecName(e.target.value)}
+                           value={operationName}
+                           onChange={(e) => setOperationName(e.target.value)}
                     />
                 </div>
                 <div className={'editor-item'}>
@@ -64,8 +65,8 @@ function OperationEditor({operation}) {
                            required
                            name={'specialty_name'}
                            type={'number'}
-                           value={specName}
-                           onChange={(e) => setSpecName(e.target.value)}
+                           value={operationDuration}
+                           onChange={(e) => setOperationDuration(e.target.value)}
                     />
                 </div>
                 <Button text={'Сохранить'}

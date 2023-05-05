@@ -30,3 +30,17 @@ export const updateUser = async (id, email, first_name, second_name, third_name,
     )
 }
 
+export const createUser = async (email, password, first_name, second_name, third_name, role, status, specsIds) => {
+    const {response} = await $authHost.post('/admin/user/create', {
+            "email": email,
+            "password": password,
+            "first_name": first_name,
+            "second_name": second_name,
+            "third_name": third_name,
+            "user_role": role,
+            "status": status,
+            "specialty_id_list": specsIds
+        }
+    )
+}
+

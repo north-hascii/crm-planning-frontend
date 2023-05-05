@@ -19,6 +19,14 @@
   //padding: 100px 0 0 0;
 }
 
+.page-title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 32px;
+}
+
 .page-title {
   font-family: 'SF Pro Display', sans-serif;
   font-style: normal;
@@ -31,5 +39,5 @@
 
   color: #4C4C4C;
 
-  margin-bottom: 32px;
+  //margin-bottom: 32px;
 }

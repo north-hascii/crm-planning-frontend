@@ -3,12 +3,14 @@ import './AdminPage.scss'
 import SectionBar from "../../components/optionsBar/SectionBar";
 import AdminTable from "../../components/adminTable/adminTable";
 import {adminOptions} from "./adminOptions";
-import {ADMIN_ROUTE} from "../../utils/consts";
+import {ADMIN_ROUTE, ORDER_CREATE_ROUTE} from "../../utils/consts";
 import {useNavigate, useParams} from "react-router-dom";
 import {getAllUsers} from "../../http/userApi";
 import {getAllSpecialties} from "../../http/specialtyApi";
 import {getAllMaterials} from "../../http/materialApi";
 import {getAllSOperations} from "../../http/operationApi";
+import {buttonProps} from "../../components/Button/ButtonProps";
+import Button from "../../components/Button/Button";
 
 function AdminPage(props) {
     const {section} = useParams()
@@ -111,11 +113,20 @@ function AdminPage(props) {
             }
             <div className={'admin-page-container'}>
                 {!isPageLoading &&
-                    <>
+                    <div className={'page-title-container'}>
                         <div className={'page-title'}>
                             {adminPageTitles[selectedSection]}
                         </div>
-                    </>
+                        <Button text={'Создать'}
+                                size={buttonProps.size.small}
+                                color={buttonProps.color.light}
+                                bgColor={buttonProps.background_color.dark_v1}
+                                onClck={() => {
+                                    navigate(ADMIN_ROUTE + '/' + section + '/' + 'create')
+                                }}
+                                type={'submit'}
+                        />
+                    </div>
                 }
                 {isTableLoading &&
                     <div>

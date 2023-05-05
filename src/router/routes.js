@@ -10,7 +10,7 @@ import {
     ADMIN_USER_ROUTE,
     ADMIN_MATERIAL_ROUTE,
     ORDER_ROUTE,
-    ORDER_VIEW_ROUTE, ORDER_CREATE_ROUTE, ORDER_CALCULATION_ROUTE, CALENDAR_ROUTE, ADMIN_OPERATION_ROUTE
+    ORDER_VIEW_ROUTE, ORDER_CREATE_ROUTE, ORDER_CALCULATION_ROUTE, CALENDAR_ROUTE, ADMIN_OPERATION_ROUTE, pageMods
 } from "../utils/consts";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -39,8 +39,12 @@ export const authRoutes = [
         Component: <AdminPage/>
     },
     {
+        path: ADMIN_ROUTE + '/user' + '/create',
+        Component: <AdminEditorPage mod={pageMods.creator}/>
+    },
+    {
         path: ADMIN_USER_ROUTE + '/:id',
-        Component: <AdminEditorPage/>
+        Component: <AdminEditorPage mod={pageMods.editor}/>
     },
     {
         path: ADMIN_SPECIALTY_ROUTE + '/:id',

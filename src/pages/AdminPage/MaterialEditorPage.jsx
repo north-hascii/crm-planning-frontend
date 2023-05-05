@@ -1,7 +1,5 @@
 import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import {getOperationById} from "../../http/operationApi";
-import OperationEditor from "../../components/adminEditor/OperationEditor";
 import MaterialEditor from "../../components/adminEditor/MaterialEditor";
 import {getMaterialById} from "../../http/materialApi";
 
@@ -10,8 +8,6 @@ function MaterialEditorPage(props) {
 
     const [isLoading, setIsLoading] = React.useState(true)
     const [material, setMaterial] = React.useState(null)
-    const navigate = useNavigate()
-
 
     React.useEffect(() => {
         setIsLoading(true)

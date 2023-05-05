@@ -4,43 +4,54 @@ import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
 import InputItems from "./InputItems";
 import {useNavigate} from "react-router-dom";
-import {getUserById, updateUser} from "../../http/userApi";
+import {createUser, getUserById, updateUser} from "../../http/userApi";
 import {getAllSpecialties, getSpecialtiesByPartName} from "../../http/specialtyApi";
 import {searchFieldProps} from "../searchField/searchFieldProps";
 import SearchField from "../searchField/searchField";
+import {pageMods, userRoles, userStatuses} from "../../utils/consts";
 
-function UserEditor({user}) {
-    const [firstName, setFirstName] = React.useState(user.first_name)
-    const [secondName, setSecondName] = React.useState(user.second_name)
-    const [thirdName, setThirdName] = React.useState(user.third_name)
-    const [email, setEmail] = React.useState(user.email)
-    const [status, setStatus] = React.useState(user.status)
+function UserEditor({user, mod = pageMods.viewer}) {
+    const [firstName, setFirstName] = React.useState(user ? user.first_name : '')
+    const [secondName, setSecondName] = React.useState(user ? user.second_name : '')
+    const [thirdName, setThirdName] = React.useState(user ? user.third_name : '')
+    const [email, setEmail] = React.useState(user ? user.email : '')
+    const [password, setPassword] = React.useState('')
+    const [status, setStatus] = React.useState(user ? user.status : userStatuses.working)
+    const [role, setRole] = React.useState(user ? user.user_role : userRoles.user)
     const [specInSearch, setSpecInSearch] = React.useState('')
 
     const [isSpecInputValid, setIsSpecInputValid] = React.useState(true)
 
     const [isSpecialtyListVisible, setIsSpecialtyListVisible] = React.useState(false)
 
-    const [specialtyList, setSpecialtyList] = React.useState(user.specialties ? user.specialties : [])
-    const [specialtyIdList, setSpecialtyIdList] = React.useState(user.specialties ? user.specialties.map(obj => obj.id)  : [])
+    const [specialtyList, setSpecialtyList] = React.useState(user ? (user.specialties ? user.specialties : []) : [])
+    const [specialtyIdList, setSpecialtyIdList] = React.useState(user ? (user.specialties ? user.specialties.map(obj => obj.id) : []) : [])
     const [availableSpecialtiesList, setAvailableSpecialtiesList] = React.useState([])
 
     const [isLoading, setIsLoading] = React.useState(true)
 
     React.useEffect(() => {
         setIsLoading(true)
-
     }, [])
 
-    const makeUpdateRequest = async (e) => {
+    const clickOnSave = async (e) => {
         e.preventDefault()
+        if (mod === pageMods.editor) {
+            makeUpdateRequest()
+        }
+        if (mod === pageMods.creator) {
+            makeCreateRequest(e)
+        }
+    }
+
+    const makeUpdateRequest = () => {
         updateUser(
             user.id,
             email,
             firstName,
             secondName,
             thirdName,
-            user.user_role,
+            role,
             status,
             specialtyIdList
         ).then(data => {
@@ -50,26 +61,43 @@ function UserEditor({user}) {
         })
     }
 
-    const clckOnSearchButton = () => {
-        if (specInSearch.length > 0) {
-            setIsSpecInputValid(true)
-            makeSpecsSearch()
-            return
-        }
-        setIsSpecInputValid(false)
-    }
-
-    const makeSpecsSearch = () => {
-        getSpecialtiesByPartName(specInSearch).then(data => {
-            setAvailableSpecialtiesList(data)
-            setIsSpecialtyListVisible(true)
-            setIsLoading(false)
+    const makeCreateRequest = () => {
+        createUser(
+            email,
+            password,
+            firstName,
+            secondName,
+            thirdName,
+            role,
+            status,
+            specialtyIdList
+        ).then(data => {
+            console.log(data)
         }).catch(err => {
-            console.log("Error while getting data", err)
-            setIsSpecialtyListVisible(true)
-            setIsLoading(false)
+            console.log(err)
         })
     }
+
+    // const clckOnSearchButton = () => {
+    //     if (specInSearch.length > 0) {
+    //         setIsSpecInputValid(true)
+    //         makeSpecsSearch()
+    //         return
+    //     }
+    //     setIsSpecInputValid(false)
+    // }
+    //
+    // const makeSpecsSearch = () => {
+    //     getSpecialtiesByPartName(specInSearch).then(data => {
+    //         setAvailableSpecialtiesList(data)
+    //         setIsSpecialtyListVisible(true)
+    //         setIsLoading(false)
+    //     }).catch(err => {
+    //         console.log("Error while getting data", err)
+    //         setIsSpecialtyListVisible(true)
+    //         setIsLoading(false)
+    //     })
+    // }
 
     const statusKeyValue = [
         {
@@ -90,8 +118,15 @@ function UserEditor({user}) {
         }
     ]
 
+    const roleKeyValue = [
+        'admin',
+        'manager',
+        'worker',
+        'user',
+    ]
+
     return (
-        <form className={'editor-container'} onSubmit={(e) => makeUpdateRequest(e)}>
+        <form className={'editor-container'} onSubmit={(e) => clickOnSave(e)}>
             <div className={'editor-container-left'}>
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>
@@ -144,12 +179,44 @@ function UserEditor({user}) {
                            onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
+                {mod === pageMods.creator
+                    && <>
+                        <div className={'editor-item'}>
+                            <div className={'editor-item-text'}>
+                                Пароль
+                            </div>
+                            <input className={'editor-item-input'}
+                                   required
+                                   name={'email'}
+                                   type={'text'}
+                                   value={password}
+                                   onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+
+
+                    </>
+                }
+                <div className={'editor-item'}>
+                    <div className={'editor-item-text'}>
+                        Роль
+                    </div>
+                    <select defaultValue={role.toString()}
+                            onChange={(e) => setRole(e.target.value)}
+                    >
+                        {roleKeyValue.map((item, index) => {
+                            return (
+                                <option value={item} key={index}>{item}</option>
+                            )
+                        })}
+                    </select>
+                </div>
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>
                         Статус
                     </div>
                     <select defaultValue={status.toString()}
-                        onChange={(e) => setStatus(e.target.value)}
+                            onChange={(e) => setStatus(e.target.value)}
                     >
                         {statusKeyValue.map((item, index) => {
                             return (
@@ -167,10 +234,12 @@ function UserEditor({user}) {
                 />
             </div>
             <div className={'editor-container-right'}>
-                <SearchField type={searchFieldProps.specialty} baseList={user.specialties} onUpdate={(items) => setSpecialtyIdList(items)}/>
+                <SearchField type={searchFieldProps.specialty} baseList={specialtyList}
+                             onUpdate={(items) => setSpecialtyIdList(items)}/>
             </div>
         </form>
-    );
+    )
+        ;
 }
 
 export default UserEditor;

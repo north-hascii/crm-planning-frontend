@@ -48,3 +48,17 @@ export const userRoles = {
     manager: 'manager',
     user: 'user',
 }
+
+export const userStatuses = {
+    working: 'working',
+    trip: 'on business trip',
+    vocation: 'on vocation',
+    fired: 'fired',
+}
+
+
+export const pageMods = {
+    viewer: 'viewer',
+    editor: 'editor',
+    creator: 'creator'
+}

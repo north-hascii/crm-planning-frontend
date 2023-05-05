@@ -4,27 +4,31 @@ import {getSpecialtyById} from "../../http/specialtyApi";
 import SpecialtyEditor from "../../components/adminEditor/SpecialtyEditor";
 import OperationEditor from "../../components/adminEditor/OperationEditor";
 import {getOperationById} from "../../http/operationApi";
+import {pageMods} from "../../utils/consts";
+import {getMaterialById} from "../../http/materialApi";
 
-function OperationEditorPage(props) {
+function OperationEditorPage({mod = pageMods.viewer}) {
     const {id} = useParams()
 
     const [isLoading, setIsLoading] = React.useState(true)
     const [operation, setOperation] = React.useState(null)
-    const navigate = useNavigate()
-
 
     React.useEffect(() => {
-        setIsLoading(true)
-        getOperationById(id).then(data => {
-            setOperation(data)
+        if (mod === pageMods.editor) {
+            getOperationById(id).then(data => {
+                setOperation(data)
+            }).catch(err => {
+                console.log("Error while getting data", err)
+            }).finally(() => {
+                setIsLoading(false)
+            })
+        }
+        if (mod === pageMods.creator) {
             setIsLoading(false)
-        }).catch(err => {
-            console.log("Error while getting data", err)
-            setIsLoading(false)
-        })
+        }
     }, [])
 
-    if (isLoading && !operation) {
+    if (isLoading) {
         return (
             <div>
                 Loading
@@ -38,7 +42,7 @@ function OperationEditorPage(props) {
                 <div className={'page-title'}>
                     Редактирование операции
                 </div>
-                <OperationEditor operation={operation}/>
+                <OperationEditor operation={operation} mod={mod}/>
             </div>
         </div>
     );

@@ -2,25 +2,31 @@ import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import MaterialEditor from "../../components/adminEditor/MaterialEditor";
 import {getMaterialById} from "../../http/materialApi";
+import {pageMods} from "../../utils/consts";
+import {getUserById} from "../../http/userApi";
 
-function MaterialEditorPage(props) {
+function MaterialEditorPage({mod = pageMods.viewer}) {
     const {id} = useParams()
 
     const [isLoading, setIsLoading] = React.useState(true)
     const [material, setMaterial] = React.useState(null)
 
     React.useEffect(() => {
-        setIsLoading(true)
-        getMaterialById(id).then(data => {
-            setMaterial(data)
+        if (mod === pageMods.editor) {
+            getMaterialById(id).then(data => {
+                setMaterial(data)
+            }).catch(err => {
+                console.log("Error while getting data", err)
+            }).finally(() => {
+                setIsLoading(false)
+            })
+        }
+        if (mod === pageMods.creator) {
             setIsLoading(false)
-        }).catch(err => {
-            console.log("Error while getting data", err)
-            setIsLoading(false)
-        })
+        }
     }, [])
 
-    if (isLoading && !material) {
+    if (isLoading) {
         return (
             <div>
                 Loading
@@ -34,7 +40,7 @@ function MaterialEditorPage(props) {
                 <div className={'page-title'}>
                     Редактирование материала
                 </div>
-                <MaterialEditor material={material}/>
+                <MaterialEditor material={material} mod={mod}/>
             </div>
         </div>
     );

@@ -24,3 +24,17 @@ export const updateMaterial = async (id, material_name, units) => {
         }
     )
 }
+
+export const createMaterial = async (material_name, units) => {
+    const {response} = await $authHost.post('/manual/material/create', {
+        "material_name": material_name,
+        "units": units
+        }
+    )
+}
+
+export const deleteMaterialById = async (id) => {
+    const {data} = await $authHost.delete('/manual/material/delete?id=' + id)
+    return data
+}
+

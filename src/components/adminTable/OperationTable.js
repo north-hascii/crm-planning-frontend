@@ -1,15 +1,19 @@
 import React from 'react';
 import {ADMIN_OPERATION_ROUTE} from "../../utils/consts";
 import {useNavigate} from "react-router-dom";
+import {deleteMaterialById} from "../../http/materialApi";
+import {deleteOperationById} from "../../http/operationApi";
 
 function OperationTable({tableItems = []}) {
     const navigate = useNavigate()
 
-    // TODO
     const deleteTableItem = (item) => {
-        console.log(item)
+        deleteOperationById(item.id).then(data => {
+            window.location.reload()
+        }).catch(err => {
+            console.log(err)
+        })
     }
-
     const redirectToEditor = (item) => {
         console.log(`${ADMIN_OPERATION_ROUTE}/${item.id}`)
         navigate(`${ADMIN_OPERATION_ROUTE}/${item.id}`)

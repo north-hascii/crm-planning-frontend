@@ -141,7 +141,7 @@ function SearchField({
                 return item.specialty_name
             }
             case searchFieldProps.material: {
-                return item.material_name + ' (' + item.units + ')'
+                return item.material.material_name + ' (' + item.material.units + ')'
             }
             default: {
                 return 'Формат вывода не задан'
@@ -230,8 +230,8 @@ function SearchField({
                         return (
                             <div className={'editor-selected-item-container withCounter'} key={index}>
                                 <div className={'editor-selected-item'} key={index}>
-                                    {/*{formatSearchResult(item)}*/}
-                                    {item.material.material_name + ' (' + item.material.units + ')'}
+                                    {formatSearchResult(item)}
+                                    {/*{item.material.material_name + ' (' + item.material.units + ')'}*/}
                                     <svg className={'delete'} onClick={() => {
                                         // let res = {
                                         //     "material_id": item.id,

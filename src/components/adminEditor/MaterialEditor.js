@@ -4,14 +4,25 @@ import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
 import SearchField from "../searchField/searchField";
 import {searchFieldProps} from "../searchField/searchFieldProps";
-import {updateMaterial} from "../../http/materialApi";
+import {createMaterial, updateMaterial} from "../../http/materialApi";
+import {pageMods} from "../../utils/consts";
+import {createUser} from "../../http/userApi";
 
-function MaterialEditor({material}) {
-    const [materialName, setMaterialName] = React.useState(material.material_name)
-    const [materialUnits, setMaterialUnits] = React.useState(material.units)
+function MaterialEditor({material, mod = pageMods.viewer}) {
+    const [materialName, setMaterialName] = React.useState(material ? (material.material_name ? material.material_name : '') : '')
+    const [materialUnits, setMaterialUnits] = React.useState(material ? (material.units ? material.units : '') : '')
 
-    const makeUpdateRequest = async (e) => {
+    const clickOnSave = async (e) => {
         e.preventDefault()
+        if (mod === pageMods.editor) {
+            makeUpdateRequest()
+        }
+        if (mod === pageMods.creator) {
+            makeCreateRequest(e)
+        }
+    }
+
+    const makeUpdateRequest = () => {
         updateMaterial(
             material.id,
             materialName,
@@ -23,8 +34,19 @@ function MaterialEditor({material}) {
         })
     }
 
+    const makeCreateRequest = () => {
+        createMaterial(
+            materialName,
+            materialUnits,
+        ).then(data => {
+            console.log(data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     return (
-        <form className={'editor-container'} onSubmit={(e) => makeUpdateRequest(e)}>
+        <form className={'editor-container'} onSubmit={(e) => clickOnSave(e)}>
             <div className={'editor-container-left'}>
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>

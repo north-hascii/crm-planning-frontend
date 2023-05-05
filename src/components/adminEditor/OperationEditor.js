@@ -5,25 +5,50 @@ import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
 import SearchField from "../searchField/searchField";
 import {searchFieldProps} from "../searchField/searchFieldProps";
-import {updateOperation} from "../../http/operationApi";
+import {createOperation, updateOperation} from "../../http/operationApi";
+import {pageMods} from "../../utils/consts";
+import {createMaterial} from "../../http/materialApi";
 
-function OperationEditor({operation}) {
-    const [operationName, setOperationName] = React.useState(operation.operation_name)
-    const [operationDuration, setOperationDuration] = React.useState(operation.duration)
-    const [specsIdList, setSpecsIdList] = React.useState(operation.specialty_list ? operation.specialty_list.map(obj => obj.id) : [])
-    const [resourcesList, setResourcesList] = React.useState(operation.resource_list ? operation.resource_list.map(obj => {
-        return {
-            "material_id": obj.material.id,
-            "amount": obj.amount,
-        }
-    }) : [])
+function OperationEditor({operation, mod = pageMods.viewer}) {
+    const [operationName, setOperationName] = React.useState(operation ? (operation.operation_name ? operation.operation_name : '') : '')
+    const [operationDuration, setOperationDuration] = React.useState(operation ? (operation.duration ? operation.duration : '') : '')
+    const [specsIdList, setSpecsIdList] = React.useState(operation ? operation.specialty_list ? operation.specialty_list.map(obj => obj.id) : [] : [])
+    const [specsList, setSpecsList] = React.useState(operation ? operation.specialty_list ? operation.specialty_list : [] : [])
+    // const [resourcesList, setResourcesList] = React.useState(operation ? operation.resource_list ? (
+    //     operation.resource_list.map(obj => { return {
+    //             "material_id": obj.material.id,
+    //             "amount": obj.amount,
+    //         }}
+    //     )) : [] : [])
+    const [resourcesList, setResourcesList] = React.useState(operation ? operation.resource_list ? (
+        operation.resource_list) : [] : [])
 
-    const makeUpdateRequest = async (e) => {
+    const clickOnSave = async (e) => {
         e.preventDefault()
-        console.log('editor res list:', resourcesList)
-        console.log('editor specs list:', specsIdList)
+        if (mod === pageMods.editor) {
+            makeUpdateRequest()
+        }
+        if (mod === pageMods.creator) {
+            makeCreateRequest(e)
+        }
+    }
+
+    const makeUpdateRequest = () => {
         updateOperation(
             operation.id,
+            operationName,
+            operationDuration,
+            resourcesList,
+            specsIdList,
+        ).then(data => {
+            console.log(data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    const makeCreateRequest = () => {
+        createOperation(
             operationName,
             operationDuration,
             resourcesList,
@@ -43,7 +68,7 @@ function OperationEditor({operation}) {
     }
 
     return (
-        <form className={'editor-container'} onSubmit={(e) => makeUpdateRequest(e)}>
+        <form className={'editor-container'} onSubmit={(e) => clickOnSave(e)}>
             <div className={'editor-container-left'}>
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>
@@ -77,9 +102,10 @@ function OperationEditor({operation}) {
                 />
             </div>
             <div className={'editor-container-right'}>
-                <SearchField type={searchFieldProps.material} baseList={operation.resource_list}
+                {console.log(resourcesList)}
+                <SearchField type={searchFieldProps.material} baseList={resourcesList}
                              onUpdate={(items) => setResourcesList(items)} backStruct={createResource()}/>
-                <SearchField type={searchFieldProps.specialty} baseList={operation.specialty_list}
+                <SearchField type={searchFieldProps.specialty} baseList={specsList}
                              onUpdate={(items) => setSpecsIdList(items)}/>
             </div>
         </form>

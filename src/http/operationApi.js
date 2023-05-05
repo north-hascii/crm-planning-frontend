@@ -20,3 +20,18 @@ export const updateOperation = async (id, operation_name, duration, resource_lis
         }
     )
 }
+
+export const createOperation = async (operation_name, duration, resource_list, specialty_id_list) => {
+    const {response} = await $authHost.post('/manual/operation/create', {
+            "operation_name": operation_name,
+            "duration": parseInt(duration),
+            "resource_list": resource_list,
+            "specialty_id_list": specialty_id_list,
+        }
+    )
+}
+
+export const deleteOperationById = async (id) => {
+    const {data} = await $authHost.delete('/manual/operation/delete?id=' + id)
+    return data
+}

@@ -1,14 +1,19 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
 import {ADMIN_MATERIAL_ROUTE} from "../../utils/consts";
+import {deleteSpecialtyById} from "../../http/specialtyApi";
+import {deleteMaterialById} from "../../http/materialApi";
 
 function MaterialTable({tableItems = []}) {
 
     const navigate = useNavigate()
 
-    // TODO
     const deleteTableItem = (item) => {
-        console.log(item)
+        deleteMaterialById(item.id).then(data => {
+            window.location.reload()
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     const redirectToEditor = (item) => {

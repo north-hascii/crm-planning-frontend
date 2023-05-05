@@ -56,11 +56,19 @@ export const authRoutes = [
     },
     {
       path: ADMIN_OPERATION_ROUTE + '/:id',
-      Component: <OperationEditorPage/>
+      Component: <OperationEditorPage mod={pageMods.editor}/>
+    },
+    {
+        path: ADMIN_ROUTE + '/operation' + '/create',
+        Component: <OperationEditorPage mod={pageMods.creator}/>
     },
     {
         path: ADMIN_MATERIAL_ROUTE + '/:id',
-        Component: <MaterialEditorPage/>
+        Component: <MaterialEditorPage mod={pageMods.editor}/>
+    },
+    {
+        path: ADMIN_ROUTE + '/material' + '/create',
+        Component: <MaterialEditorPage mod={pageMods.creator}/>
     },
     {
         path: ORDER_ROUTE,

@@ -3,11 +3,24 @@ import {ORDER_CALCULATION_ROUTE, ORDER_EDIT_ROUTE} from "../../utils/consts";
 import {useNavigate, useParams} from "react-router-dom";
 import Button from "../../components/Button/Button";
 import {buttonProps} from "../../components/Button/ButtonProps";
+import {searchFieldProps} from "../../components/searchField/searchFieldProps";
+import SearchField from "../../components/searchField/searchField";
 
-function OrderEditor({type = 'editor'}) {
-    const {id} = useParams()
-    const navigate = useNavigate()
+function OrderEditor({type = 'editor', order, onUpdate = (obj) => {}}) {
+    // const []
+    const [orderName, setOrderName] = React.useState(order.order_name)
+    const [customerName, setCustomerName] = React.useState(order.customer_name)
+    const [customerCompany, setCustomerCompany] = React.useState(order.customer_company)
+    const [customerPhone, setCustomerPhone] = React.useState(order.phone_customer)
+    const [customerEmail, setCustomerEmail] = React.useState(order.email_customer)
+    const [orderDescription, setOrderDescription] = React.useState(order.description)
+    const [managers, setManagers] = React.useState(order.manager ? [order.manager] : []) // contains 1 object
 
+    // React.useEffect(() => {
+    //     // order.order_name = orderName
+    //     // onUpdate(order)
+    //     console.log(managers)
+    // }, [managers])
     return (
         <div className={'editor-container'}
             // onSubmit={(e) => makeUpdateRequest(e)}
@@ -17,43 +30,107 @@ function OrderEditor({type = 'editor'}) {
                     <div className={'editor-item-text'}>
                         Название проекта
                     </div>
-                    <input className={'editor-item-input'}/>
+                    <input className={'editor-item-input'}
+                           required
+                           name={'order_name'}
+                           type={'text'}
+                           value={orderName}
+                           onChange={(e) => {
+                               let val = e.target.value
+                               order.order_name = val
+                               setOrderName(val)
+                               onUpdate(order)
+                           }}
+                    />
                 </div>
 
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>
                         ФИО заказчика:
                     </div>
-                    <input className={'editor-item-input'}/>
+                    <input className={'editor-item-input'}
+                           required
+                           name={'customer_name'}
+                           type={'text'}
+                           value={customerName}
+                           onChange={(e) => {
+                               let val = e.target.value
+                               order.customer_name = val
+                               setCustomerName(val)
+                               onUpdate(order)
+                           }}
+                    />
                 </div>
 
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>
                         Компания заказчика
                     </div>
-                    <input className={'editor-item-input'}/>
+                    <input className={'editor-item-input'}
+                           required
+                           name={'customer_company'}
+                           type={'text'}
+                           value={customerCompany}
+                           onChange={(e) => {
+                               let val = e.target.value
+                               order.customer_company = val
+                               setCustomerCompany(val)
+                               onUpdate(order)
+                           }}
+                    />
                 </div>
 
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>
                         Телефон для связи
                     </div>
-                    <input className={'editor-item-input'}/>
+                    <input className={'editor-item-input'}
+                           required
+                           name={'phone_customer'}
+                           type={'number'}
+                           value={customerPhone}
+                           onChange={(e) => {
+                               let val = e.target.value
+                               order.phone_customer = val
+                               setCustomerPhone(val)
+                               onUpdate(order)
+                           }}
+                    />
                 </div>
 
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>
                         Почта заказчика
                     </div>
-                    <input className={'editor-item-input'}/>
+                    <input className={'editor-item-input'}
+                           required
+                           name={'email_customer'}
+                           type={'text'}
+                           value={customerEmail}
+                           onChange={(e) => {
+                               let val = e.target.value
+                               order.email_customer = val
+                               setCustomerEmail(val)
+                               onUpdate(order)
+                           }}
+                    />
                 </div>
 
-                <div className={'editor-item'}>
-                    <div className={'editor-item-text'}>
-                        Ответственный за проект
-                    </div>
-                    <input className={'editor-item-input'}/>
-                </div>
+                {/*<div className={'editor-item'}>*/}
+                {/*<div className={'editor-item-text'}>*/}
+                {/*    Ответственный за проект*/}
+                {/*</div>*/}
+                <SearchField type={searchFieldProps.manager} baseList={managers}
+                             onUpdate={(items) => {
+                                 order.manager = items[0]
+                                 // order.manager_id = order.manager.id
+                                 setManagers(items)
+                                 onUpdate(order)
+                             }
+                             // setManagers(items)
+                } listLimit={1}/>
+                {/*<input className={'editor-item-input'}/>*/}
+                {/*</div>*/}
 
                 {/*<div className={'editor-item'}>*/}
                 {/*    <div className={'editor-item-text'}>*/}
@@ -160,7 +237,16 @@ function OrderEditor({type = 'editor'}) {
                     <div className={'editor-item-text'}>
                         Описание проекта
                     </div>
-                    <textarea className={'editor-item-textarea'}/>
+                    <textarea className={'editor-item-textarea'}
+                              value={orderDescription}
+                              onChange={(e) => {
+                                  let val = e.target.value
+                                  order.description = val
+                                  setOrderDescription(val)
+                                  onUpdate(order)
+                              }}
+
+                    />
                     {/*    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."*/}
                     {/*</textarea>*/}
                 </div>

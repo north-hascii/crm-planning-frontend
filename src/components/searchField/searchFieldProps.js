@@ -3,4 +3,5 @@ export const searchFieldProps = {
     specialty: 'specialty',
     operation: 'operation',
     material: 'material',
+    manager: 'manager',
 }

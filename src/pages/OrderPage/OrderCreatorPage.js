@@ -22,14 +22,39 @@ function OrderCreatorPage(props) {
 
     const [products, setProducts] = React.useState([])
 
+    const createEmptyOrder = () => {
+        return {
+            "order_name": '',
+            "status": '',
+            "customer_company": '',
+            "customer_name": '',
+            "phone_customer": '',
+            "email_customer": '',
+            "description": '',
+            "manager_id": -1,
+            "start_date": '',
+            "product_list": [],
+        }
+    }
+
 
     React.useEffect(() => {
+        console.log('create empty order')
+        setOrder(createEmptyOrder())
         setIsLoading(false)
     }, [])
 
     React.useEffect(() => {
         console.log(section)
     }, [section])
+
+    React.useEffect(() => {
+        console.log('parent got order', order)
+    },[order])
+
+    React.useEffect(() => {
+        console.log('parent got products', products)
+    },[products])
 
     // const changeSection = (section) => {
     //     setSection(section)
@@ -70,16 +95,28 @@ function OrderCreatorPage(props) {
                                 size={buttonProps.size.small}
                                 color={buttonProps.color.light}
                                 bgColor={buttonProps.background_color.dark_v1}
-                                onClck={() => {}}
+                                onClck={() => {
+                                }}
                             // type={'submit'}
                         />
                     </div>
                 </div>
                 {section === sections.info &&
-                <OrderEditor order={order} manager={manager} type={'creator'}/>
+                    <OrderEditor order={order} manager={manager} type={'creator'} onUpdate={(ord) => {
+                        console.log('try to upd order for parent', ord)
+                        // setIsLoading(true)
+                        setOrder(ord)
+
+                        setTimeout(() => {
+                            // setIsLoading(false)
+                        }, 3000)
+                    }}/>
                 }
                 {section === sections.calculation &&
-                <OrderCalculationEditor products={products} onUpdate={(items) => setProducts(items)}/>
+                    <OrderCalculationEditor products={products} onUpdate={(items) => {
+                        // console.log('try to upd order for parent')
+                        setProducts(items)
+                    }}/>
                 }
             </div>
         </div>

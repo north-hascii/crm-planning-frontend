@@ -8,7 +8,7 @@ import counterField from "./CounterField";
 
 function SearchField({
                          type = searchFieldProps.user, baseList = [], onUpdate = (items) => Function.prototype,
-                         backStruct = null
+                         backStruct = null, listLimit = -1,
                      }) {
 
     const [itemInSearch, setItemInSearch] = React.useState('')
@@ -96,6 +96,15 @@ function SearchField({
                 setIsListVisible(true)
             })
         }
+        if (type === searchFieldProps.manager) {
+            getAllUsersByPartSecondName(itemInSearch).then(data => {
+                setAvailableItemsList(data)
+            }).catch(err => {
+                console.log("Error while getting data", err)
+            }).finally(() => {
+                setIsListVisible(true)
+            })
+        }
     }
 
     const getFieldTitle = () => {
@@ -108,6 +117,9 @@ function SearchField({
             }
             case searchFieldProps.material: {
                 return 'Материалы'
+            }
+            case searchFieldProps.manager: {
+                return 'Ответственный менеджер'
             }
             default: {
                 return 'Заголовок не задан'
@@ -126,6 +138,9 @@ function SearchField({
             case searchFieldProps.material: {
                 return 'Введите название материала'
             }
+            case searchFieldProps.manager: {
+                return 'Введите фамилию менеджера'
+            }
             default: {
                 return 'Placeholder не задан'
             }
@@ -142,6 +157,9 @@ function SearchField({
             }
             case searchFieldProps.material: {
                 return item.material.material_name + ' (' + item.material.units + ')'
+            }
+            case searchFieldProps.manager: {
+                return item.second_name + ' ' + item.first_name + ' ' + item.third_name + ' (' + item.email + ')'
             }
             default: {
                 return 'Формат вывода не задан'
@@ -263,8 +281,9 @@ function SearchField({
                                 </div>
                                 {/*{console.log('before create counter with index = ', index, itemsCounterList[index])}*/}
                                 {isCountersReady &&
-                                    <CounterField initValue={item.amount} counterArray={itemsCounterList.map(obj => obj.amount)}
-                                                   index={index} onUpdate={(val) => {
+                                    <CounterField initValue={item.amount}
+                                                  counterArray={itemsCounterList.map(obj => obj.amount)}
+                                                  index={index} onUpdate={(val) => {
                                         setItemsList((prevState) => [
                                                 ...prevState.slice(0, index),
                                                 {
@@ -332,15 +351,24 @@ function SearchField({
                 <div className={`search-result-container ${isListVisible ? 'visible' : 'hidden'}`}>
                     {availableItemsList && availableItemsList.length > 0 ? availableItemsList.map((item, index) => {
                             return (
-                                    <div className={'search-result enable'} key={index} onClick={() => {
-                                        setIsListVisible(false)
+                                <div className={'search-result enable'} key={index} onClick={() => {
+                                    setIsListVisible(false)
+                                    if (listLimit > -1 && itemsIdList.length < listLimit) {
                                         if (!itemsIdList.includes(item.id)) {
                                             setItemsList(itemsList => [...itemsList, item])
                                             setItemsIdList(itemsIdList => [...itemsIdList, item.id])
                                         }
-                                    }}>
-                                        {formatSearchResult(item)}
-                                    </div>
+                                        // return
+                                    }
+                                    if (listLimit === -1) {
+                                        if (!itemsIdList.includes(item.id)) {
+                                            setItemsList(itemsList => [...itemsList, item])
+                                            setItemsIdList(itemsIdList => [...itemsIdList, item.id])
+                                        }
+                                    }
+                                }}>
+                                    {formatSearchResult(item)}
+                                </div>
                             )
                         })
                         :

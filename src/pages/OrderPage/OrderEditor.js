@@ -6,7 +6,10 @@ import {buttonProps} from "../../components/Button/ButtonProps";
 import {searchFieldProps} from "../../components/searchField/searchFieldProps";
 import SearchField from "../../components/searchField/searchField";
 
-function OrderEditor({type = 'editor', order, onUpdate = (obj) => {}}) {
+function OrderEditor({
+                         type = 'editor', order, onUpdate = (obj) => {
+    }
+                     }) {
     // const []
     const [orderName, setOrderName] = React.useState(order.order_name)
     const [customerName, setCustomerName] = React.useState(order.customer_name)
@@ -122,13 +125,18 @@ function OrderEditor({type = 'editor', order, onUpdate = (obj) => {}}) {
                 {/*</div>*/}
                 <SearchField type={searchFieldProps.manager} baseList={managers}
                              onUpdate={(items) => {
-                                 order.manager = items[0]
-                                 // order.manager_id = order.manager.id
+
+                                 // console.log('get manager', items[0])
+                                 if (items[0]) {
+                                     order.manager = items[0]
+                                     order.manager_id = items[0].id
+                                 }
+
                                  setManagers(items)
                                  onUpdate(order)
                              }
-                             // setManagers(items)
-                } listLimit={1}/>
+                                 // setManagers(items)
+                             } listLimit={1}/>
                 {/*<input className={'editor-item-input'}/>*/}
                 {/*</div>*/}
 

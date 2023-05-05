@@ -11,3 +11,8 @@ export const getOrderById = async (id) => {
     return data
 }
 
+export const createOrder = async (order) => {
+    console.log('before POST', order)
+    const {response} = await $authHost.post('/manual/specialty/create', order
+    )
+}

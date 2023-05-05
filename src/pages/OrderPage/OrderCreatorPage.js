@@ -1,14 +1,14 @@
 import React from 'react';
 import {useParams} from "react-router-dom";
-import {getOrderById} from "../../http/orderApi";
-import {getUserById} from "../../http/userApi";
+import {createOrder, getOrderById} from "../../http/orderApi";
+import {createUser, getUserById, updateUser} from "../../http/userApi";
 import OrderEditor from "./OrderEditor";
 import {buttonProps} from "../../components/Button/ButtonProps";
 import Button from "../../components/Button/Button";
 import OrderCalculationEditor from "./OrderCalculationEditor";
+import {pageMods} from "../../utils/consts";
 
-function OrderCreatorPage(props) {
-    const {id} = useParams()
+function OrderCreatorPage() {
 
     const sections = {
         info: 'info',
@@ -54,11 +54,48 @@ function OrderCreatorPage(props) {
 
     React.useEffect(() => {
         console.log('parent got products', products)
+        // let tmp = order
+        // tmp.product_list = products
+        // setOrder(tmp)
     },[products])
 
-    // const changeSection = (section) => {
-    //     setSection(section)
+    // const clickOnSave = async (e) => {
+    //     e.preventDefault()
+    //     if (mod === pageMods.editor) {
+    //         makeUpdateRequest()
+    //     }
+    //     if (mod === pageMods.creator) {
+    //         makeCreateRequest(e)
+    //     }
     // }
+    //
+    // const makeUpdateRequest = () => {
+    //     updateUser(
+    //         user.id,
+    //         email,
+    //         firstName,
+    //         secondName,
+    //         thirdName,
+    //         role,
+    //         status,
+    //         specialtyIdList
+    //     ).then(data => {
+    //         console.log(data)
+    //     }).catch(err => {
+    //         console.log(err)
+    //     })
+    // }
+
+    const makeCreateRequest =  () => {
+        // e.preventDefault()
+        createOrder(
+            order
+        ).then(data => {
+            console.log(data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
     if (isLoading) {
         return (
@@ -67,10 +104,12 @@ function OrderCreatorPage(props) {
             </div>
         )
     }
+
     return (
         <div className={'admin-page-edit'}>
             <div className={'admin-page-container'}>
                 <div className={'page-title-container'}>
+
                     <div className={'page-title'}>
                         Создание заказа
                     </div>
@@ -96,6 +135,7 @@ function OrderCreatorPage(props) {
                                 color={buttonProps.color.light}
                                 bgColor={buttonProps.background_color.dark_v1}
                                 onClck={() => {
+                                    makeCreateRequest()
                                 }}
                             // type={'submit'}
                         />
@@ -103,19 +143,21 @@ function OrderCreatorPage(props) {
                 </div>
                 {section === sections.info &&
                     <OrderEditor order={order} manager={manager} type={'creator'} onUpdate={(ord) => {
-                        console.log('try to upd order for parent', ord)
+                        // console.log('try to upd order for parent', ord)
                         // setIsLoading(true)
                         setOrder(ord)
 
-                        setTimeout(() => {
+                        // setTimeout(() => {
                             // setIsLoading(false)
-                        }, 3000)
+                        // }, 3000)
                     }}/>
                 }
                 {section === sections.calculation &&
                     <OrderCalculationEditor products={products} onUpdate={(items) => {
                         // console.log('try to upd order for parent')
+                        order.product_list = items
                         setProducts(items)
+                        setOrder(order)
                     }}/>
                 }
             </div>

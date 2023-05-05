@@ -44,3 +44,8 @@ export const createUser = async (email, password, first_name, second_name, third
     )
 }
 
+export const deleteUserById = async (id) => {
+    const {data} = await $authHost.delete('/admin/user/delete?id=' + id)
+    return data
+}
+

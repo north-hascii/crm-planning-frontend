@@ -25,16 +25,16 @@ function OrderTable({tableItems = []}) {
                 <th className={'admin-table-col small'}>
                     id
                 </th>
-                <th className={'admin-table-col large_3'}>
+                <th className={'admin-table-col'}>
                     Название проекта
                 </th>
-                <th className={'admin-table-col large_3'}>
+                <th className={'admin-table-col'}>
                     Статус
                 </th>
-                <th className={'admin-table-col large_3'}>
+                <th className={'admin-table-col'}>
                     Заказчик
                 </th>
-                <th className={'admin-table-col large_3'}>
+                <th className={'admin-table-col'}>
                     Дата сдачи
                 </th>
                 <th className={'admin-table-col medium'}>
@@ -46,16 +46,16 @@ function OrderTable({tableItems = []}) {
                     <th className={'admin-table-col small'}>
                         {item.id}
                     </th>
-                    <th className={'admin-table-col large_3'}>
+                    <th className={'admin-table-col'}>
                         {item.order_name}
                     </th>
-                    <th className={'admin-table-col large_3'}>
+                    <th className={'admin-table-col'}>
                         {item.status}
                     </th>
-                    <th className={'admin-table-col large_3'}>
+                    <th className={'admin-table-col'}>
                         {item.customer_company}
                     </th>
-                    <th className={'admin-table-col large_3'}>
+                    <th className={'admin-table-col'}>
                         <Button
                             size={buttonProps.size.small}
                             bgColor={buttonProps.background_color.dark_v1}
@@ -63,7 +63,7 @@ function OrderTable({tableItems = []}) {
                             text={'Сформировать дату'}
                         />
                     </th>
-                    <th className={'admin-table-col large_3'}>
+                    <th className={'admin-table-col medium'}>
                         <Button
                             size={buttonProps.size.small}
                             bgColor={buttonProps.background_color.dark_v1}

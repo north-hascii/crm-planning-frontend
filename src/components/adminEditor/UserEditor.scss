@@ -14,9 +14,11 @@
   right: 45px;
   top: 50%;
   transform: translateY(-50%);
+
   &.visible {
     display: initial;
   }
+
   &.hidden {
     display: none;
   }
@@ -65,6 +67,10 @@
   padding: 4px 8px 4px 8px;
 
   color: #4C4C4C;
+
+  &.enable {
+    cursor: pointer;
+  }
 
   &.enable:hover {
     background-color: #F5F5F5;

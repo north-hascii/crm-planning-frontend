@@ -5,6 +5,7 @@ import {getSpecialtiesByPartName} from "../../http/specialtyApi";
 import CounterField from "./CounterField";
 import {getAllMaterialsByPartName} from "../../http/materialApi";
 import counterField from "./CounterField";
+import {getAllOperationsByPartName, getOperationById} from "../../http/operationApi";
 
 function SearchField({
                          type = searchFieldProps.user, baseList = [], onUpdate = (items) => Function.prototype,
@@ -98,6 +99,15 @@ function SearchField({
         }
         if (type === searchFieldProps.manager) {
             getAllUsersByPartSecondName(itemInSearch).then(data => {
+                setAvailableItemsList(data)
+            }).catch(err => {
+                console.log("Error while getting data", err)
+            }).finally(() => {
+                setIsListVisible(true)
+            })
+        }
+        if (type === searchFieldProps.operation) {
+            getAllOperationsByPartName(itemInSearch).then(data => {
                 setAvailableItemsList(data)
             }).catch(err => {
                 console.log("Error while getting data", err)

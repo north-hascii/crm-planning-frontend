@@ -10,6 +10,11 @@ export const getOperationById = async (id) => {
     return data
 }
 
+export const getAllOperationsByPartName = async (name) => {
+    const {data} = await $authHost.get('manual/operation/get-all-by-part-name?operation_name=' + name)
+    return data
+}
+
 export const updateOperation = async (id, operation_name, duration, resource_list, specialty_id_list) => {
     const {response} = await $authHost.put('/manual/operation/update', {
             "id": id,

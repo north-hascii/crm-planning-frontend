@@ -25,12 +25,12 @@ function OrderCreatorPage() {
     const createEmptyOrder = () => {
         return {
             "order_name": '',
-            "status": '',
+            "status": 'waiting',
             "customer_company": '',
             "customer_name": '',
             "phone_customer": '',
             "email_customer": '',
-            "description": '',
+            "description": 'text',
             "manager_id": -1,
             "start_date": '',
             "product_list": [],
@@ -88,6 +88,7 @@ function OrderCreatorPage() {
 
     const makeCreateRequest =  () => {
         // e.preventDefault()
+        order.start_date = new Date()
         createOrder(
             order
         ).then(data => {

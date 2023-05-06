@@ -13,6 +13,6 @@ export const getOrderById = async (id) => {
 
 export const createOrder = async (order) => {
     console.log('before POST', order)
-    const {response} = await $authHost.post('/manual/specialty/create', order
+    const {response} = await $authHost.post('/manual/order/create', order
     )
 }

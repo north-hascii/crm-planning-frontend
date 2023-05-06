@@ -131,6 +131,9 @@ function SearchField({
             case searchFieldProps.manager: {
                 return 'Ответственный менеджер'
             }
+            case searchFieldProps.operation: {
+                return 'Операция'
+            }
             default: {
                 return 'Заголовок не задан'
             }
@@ -151,6 +154,9 @@ function SearchField({
             case searchFieldProps.manager: {
                 return 'Введите фамилию менеджера'
             }
+            case searchFieldProps.operation: {
+                return 'Введите название операции'
+            }
             default: {
                 return 'Placeholder не задан'
             }
@@ -170,6 +176,9 @@ function SearchField({
             }
             case searchFieldProps.manager: {
                 return item.second_name + ' ' + item.first_name + ' ' + item.third_name + ' (' + item.email + ')'
+            }
+            case searchFieldProps.operation: {
+                return item.operation_name + ' (' + item.duration + ' мин)'
             }
             default: {
                 return 'Формат вывода не задан'

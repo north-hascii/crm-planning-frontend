@@ -105,7 +105,7 @@ function OperationEditor({operation, mod = pageMods.viewer}) {
                 <SearchField type={searchFieldProps.material} baseList={resourcesList}
                              onUpdate={(items) => setResourcesList(items)} backStruct={createResource()}/>
                 <SearchField type={searchFieldProps.specialty} baseList={specsList}
-                             onUpdate={(items) => setSpecsIdList(items)}/>
+                             onUpdate={(items) => setSpecsIdList(items)} listLimit={1}/>
             </div>
         </form>
     );

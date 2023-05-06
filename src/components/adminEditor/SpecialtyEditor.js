@@ -69,7 +69,7 @@ function SpecialtyEditor({specialty, mod = pageMods.viewer}) {
                 />
             </div>
             <div className={'editor-container-right'}>
-                <SearchField type={searchFieldProps.user} baseList={usersList} onUpdate={(items) => setUsersIdList(items)} listLimit={1}/>
+                <SearchField type={searchFieldProps.user} baseList={usersList} onUpdate={(items) => setUsersIdList(items)}/>
             </div>
         </form>
     );

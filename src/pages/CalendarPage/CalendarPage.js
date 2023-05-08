@@ -1,141 +1,143 @@
 import React from 'react';
 import './CalendarPage.scss'
 import Calendar from "./Calendar";
+import {getAllMaterials} from "../../http/materialApi";
+import {getAllTasksInInterval} from "../../http/calendarApi";
 
-const tasks = [
-    {
-        "id": 5,
-        "task_name": "Обработать дерево 1 1",
-        "stage": 1,
-        "description": "some task description...",
-        "operation_id": 1,
-        "operation": {
-            "id": 0,
-            "operation_name": "",
-            "duration": 0,
-            "resource_id_list": null,
-            "resource_list": null,
-            "specialty_id_list": null,
-            "specialty_list": null
-        },
-        "count": 1,
-        "status": "start",
-        "executor_id": 0,
-        "executor": {
-            "id": 0,
-            "email": "worker2@gmail.com",
-            "password": "",
-            "first_name": "",
-            "second_name": "Петров",
-            "third_name": "",
-            "user_role": "",
-            "status": "",
-            "specialties": null
-        },
-        "start_date": "2023-05-03T13:30:45.678Z",
-        "end_date": "2023-05-03T14:30:45.678Z",
-        "product_id": 0
-    },
-    {
-        "id": 5,
-        "task_name": "Обработать дерево 1",
-        "stage": 1,
-        "description": "some task description...",
-        "operation_id": 1,
-        "operation": {
-            "id": 0,
-            "operation_name": "",
-            "duration": 0,
-            "resource_id_list": null,
-            "resource_list": null,
-            "specialty_id_list": null,
-            "specialty_list": null
-        },
-        "count": 1,
-        "status": "start",
-        "executor_id": 0,
-        "executor": {
-            "id": 0,
-            "email": "worker1@gmail.com",
-            "password": "",
-            "first_name": "",
-            "second_name": "Петров",
-            "third_name": "",
-            "user_role": "",
-            "status": "",
-            "specialties": null
-        },
-        "start_date": "2023-05-03T12:30:45.678Z",
-        "end_date": "2023-05-03T13:30:45.678Z",
-        "product_id": 0
-    },
-    {
-        "id": 5,
-        "task_name": "Обработать дерево 1 1",
-        "stage": 1,
-        "description": "some task description...",
-        "operation_id": 1,
-        "operation": {
-            "id": 0,
-            "operation_name": "",
-            "duration": 0,
-            "resource_id_list": null,
-            "resource_list": null,
-            "specialty_id_list": null,
-            "specialty_list": null
-        },
-        "count": 1,
-        "status": "start",
-        "executor_id": 0,
-        "executor": {
-            "id": 0,
-            "email": "worker3@gmail.com",
-            "password": "",
-            "first_name": "",
-            "second_name": "Петров",
-            "third_name": "",
-            "user_role": "",
-            "status": "",
-            "specialties": null
-        },
-        "start_date": "2023-05-04T14:30:45.678Z",
-        "end_date": "2023-05-04T15:30:45.678Z",
-        "product_id": 0
-    },
-    {
-        "id": 5,
-        "task_name": "Обработать дерево 1 1",
-        "stage": 1,
-        "description": "some task description...",
-        "operation_id": 1,
-        "operation": {
-            "id": 0,
-            "operation_name": "",
-            "duration": 0,
-            "resource_id_list": null,
-            "resource_list": null,
-            "specialty_id_list": null,
-            "specialty_list": null
-        },
-        "count": 1,
-        "status": "start",
-        "executor_id": 0,
-        "executor": {
-            "id": 0,
-            "email": "worker4@gmail.com",
-            "password": "",
-            "first_name": "",
-            "second_name": "Петров",
-            "third_name": "",
-            "user_role": "",
-            "status": "",
-            "specialties": null
-        },
-        "start_date": "2023-05-04T14:30:45.678Z",
-        "end_date": "2023-05-04T14:40:45.678Z",
-        "product_id": 0
-    },
-]
+// const tasks = [
+//     {
+//         "id": 5,
+//         "task_name": "Обработать дерево 1 1",
+//         "stage": 1,
+//         "description": "some task description...",
+//         "operation_id": 1,
+//         "operation": {
+//             "id": 0,
+//             "operation_name": "",
+//             "duration": 0,
+//             "resource_id_list": null,
+//             "resource_list": null,
+//             "specialty_id_list": null,
+//             "specialty_list": null
+//         },
+//         "count": 1,
+//         "status": "start",
+//         "executor_id": 0,
+//         "executor": {
+//             "id": 0,
+//             "email": "worker2@gmail.com",
+//             "password": "",
+//             "first_name": "",
+//             "second_name": "Петров",
+//             "third_name": "",
+//             "user_role": "",
+//             "status": "",
+//             "specialties": null
+//         },
+//         "start_date": "2023-05-03T13:30:45.678Z",
+//         "end_date": "2023-05-03T14:30:45.678Z",
+//         "product_id": 0
+//     },
+//     {
+//         "id": 5,
+//         "task_name": "Обработать дерево 1",
+//         "stage": 1,
+//         "description": "some task description...",
+//         "operation_id": 1,
+//         "operation": {
+//             "id": 0,
+//             "operation_name": "",
+//             "duration": 0,
+//             "resource_id_list": null,
+//             "resource_list": null,
+//             "specialty_id_list": null,
+//             "specialty_list": null
+//         },
+//         "count": 1,
+//         "status": "start",
+//         "executor_id": 0,
+//         "executor": {
+//             "id": 0,
+//             "email": "worker1@gmail.com",
+//             "password": "",
+//             "first_name": "",
+//             "second_name": "Петров",
+//             "third_name": "",
+//             "user_role": "",
+//             "status": "",
+//             "specialties": null
+//         },
+//         "start_date": "2023-05-03T12:30:45.678Z",
+//         "end_date": "2023-05-03T13:30:45.678Z",
+//         "product_id": 0
+//     },
+//     {
+//         "id": 5,
+//         "task_name": "Обработать дерево 1 1",
+//         "stage": 1,
+//         "description": "some task description...",
+//         "operation_id": 1,
+//         "operation": {
+//             "id": 0,
+//             "operation_name": "",
+//             "duration": 0,
+//             "resource_id_list": null,
+//             "resource_list": null,
+//             "specialty_id_list": null,
+//             "specialty_list": null
+//         },
+//         "count": 1,
+//         "status": "start",
+//         "executor_id": 0,
+//         "executor": {
+//             "id": 0,
+//             "email": "worker3@gmail.com",
+//             "password": "",
+//             "first_name": "",
+//             "second_name": "Петров",
+//             "third_name": "",
+//             "user_role": "",
+//             "status": "",
+//             "specialties": null
+//         },
+//         "start_date": "2023-05-04T14:30:45.678Z",
+//         "end_date": "2023-05-04T15:30:45.678Z",
+//         "product_id": 0
+//     },
+//     {
+//         "id": 5,
+//         "task_name": "Обработать дерево 1 1",
+//         "stage": 1,
+//         "description": "some task description...",
+//         "operation_id": 1,
+//         "operation": {
+//             "id": 0,
+//             "operation_name": "",
+//             "duration": 0,
+//             "resource_id_list": null,
+//             "resource_list": null,
+//             "specialty_id_list": null,
+//             "specialty_list": null
+//         },
+//         "count": 1,
+//         "status": "start",
+//         "executor_id": 0,
+//         "executor": {
+//             "id": 0,
+//             "email": "worker4@gmail.com",
+//             "password": "",
+//             "first_name": "",
+//             "second_name": "Петров",
+//             "third_name": "",
+//             "user_role": "",
+//             "status": "",
+//             "specialties": null
+//         },
+//         "start_date": "2023-05-04T14:30:45.678Z",
+//         "end_date": "2023-05-04T14:40:45.678Z",
+//         "product_id": 0
+//     },
+// ]
 
 function CalendarPage(props) {
     const [dateState, setDateState] = React.useState(null)
@@ -147,9 +149,21 @@ function CalendarPage(props) {
     const handleDateChanged = (date) => {
         setDateState(date)
         let weekDays = getWeekBeginAndEnd(date)
-        parseTasks(tasks)
+        // parseTasks(tasks)
         setWeekDaysState(weekDays)
+        console.log(weekDays)
+        getAllTasksInInterval(
+            weekDays[0],
+            weekDays[weekDays.length - 1]
+        ).then(data => {
+            console.log('calendar got', data)
+            if (data) {
+                parseTasks(data)
+            }
 
+        }).catch(err => {
+            console.log("Error while getting data", err)
+        })
     }
 
     const getWeekBeginAndEnd = (date) => {
@@ -159,7 +173,7 @@ function CalendarPage(props) {
         console.log(startOfWeek)
 
         let weekDays = [startOfWeek]
-        for (let i = 1; i < 7; i++) {
+        for (let i = 1; i < 8; i++) {
             const date = new Date(startOfWeek)
             date.setDate(date.getDate() + i)
             weekDays.push(date)
@@ -177,7 +191,8 @@ function CalendarPage(props) {
                 task_name: tasks[i].task_name,
                 start_date: new Date(tasks[i].start_date),
                 end_date: new Date(tasks[i].end_date),
-                executor_name: tasks[i].executor.second_name + ' (' + tasks[i].executor.email + ')',
+                executor_name: tasks[i].executor_id
+                // executor_name: tasks[i].executor.second_name + ' (' + tasks[i].executor.email + ')',
             }
             weekDayAndTasks[startDate.getDay()].push(parsedTask)
         }

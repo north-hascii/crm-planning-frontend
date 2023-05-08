@@ -189,6 +189,7 @@ function ProductTask({
                                      // console.log('get manager', items[0])
                                      if (items[0]) {
                                          task.operation = items[0]
+                                         task.task_name = task.operation.operation_name
                                          task.operation_id = items[0].id
                                      }
 

@@ -30,7 +30,7 @@ function OrderCreatorPage() {
             "customer_name": '',
             "phone_customer": '',
             "email_customer": '',
-            "description": 'text',
+            "description": '',
             "manager_id": -1,
             "start_date": '',
             "product_list": [],
@@ -86,15 +86,25 @@ function OrderCreatorPage() {
     //     })
     // }
 
-    const makeCreateRequest =  () => {
-        // e.preventDefault()
+    const makeCreateRequest =  (e) => {
+        e.preventDefault()
+        if (order.manager_id === -1) {
+            alert('Необходимо назначить менеджера')
+            return
+        }
+        if (order.product_list.length === 0) {
+            alert('Необходимо создать продукты')
+            return
+        }
         order.start_date = new Date()
         createOrder(
             order
         ).then(data => {
             console.log(data)
+            alert('Заказ создан успешно.')
         }).catch(err => {
             console.log(err)
+            alert('Не удалось создать заказ. Возможно проблема в калькуляции:)')
         })
     }
 
@@ -109,58 +119,63 @@ function OrderCreatorPage() {
     return (
         <div className={'admin-page-edit'}>
             <div className={'admin-page-container'}>
-                <div className={'page-title-container'}>
 
-                    <div className={'page-title'}>
-                        Создание заказа
+                <form onSubmit={(e) => makeCreateRequest(e)}>
+                    <div className={'page-title-container'}>
+                        <div className={'page-title'}>
+                            Создание заказа
+                        </div>
+                        <div className={'page-title-buttons-container'}>
+                            <Button text={'Контактные данные'}
+                                    size={buttonProps.size.small}
+                                    color={buttonProps.color.dark}
+                                    bgColor={buttonProps.background_color.grey}
+                                    isActive={section === sections.info}
+                                    onClck={() => setSection(sections.info)}
+                                // type={'submit'}
+                            />
+                            <Button text={'Калькуляция'}
+                                    size={buttonProps.size.small}
+                                    color={buttonProps.color.dark}
+                                    bgColor={buttonProps.background_color.grey}
+                                    isActive={section === sections.calculation}
+                                    onClck={() => setSection(sections.calculation)}
+                                // type={'submit'}
+                            />
+                            <Button text={'Сохранить заказ'}
+                                    size={buttonProps.size.small}
+                                    color={buttonProps.color.light}
+                                    bgColor={buttonProps.background_color.dark_v1}
+                                // onClck={() => {
+                                //     // makeCreateRequest()
+                                // }}
+                                    type={'submit'}
+                            />
+                        </div>
                     </div>
-                    <div className={'page-title-buttons-container'}>
-                        <Button text={'Контактные данные'}
-                                size={buttonProps.size.small}
-                                color={buttonProps.color.dark}
-                                bgColor={buttonProps.background_color.grey}
-                                isActive={section === sections.info}
-                                onClck={() => setSection(sections.info)}
-                            // type={'submit'}
-                        />
-                        <Button text={'Калькуляция'}
-                                size={buttonProps.size.small}
-                                color={buttonProps.color.dark}
-                                bgColor={buttonProps.background_color.grey}
-                                isActive={section === sections.calculation}
-                                onClck={() => setSection(sections.calculation)}
-                            // type={'submit'}
-                        />
-                        <Button text={'Сохранить заказ'}
-                                size={buttonProps.size.small}
-                                color={buttonProps.color.light}
-                                bgColor={buttonProps.background_color.dark_v1}
-                                onClck={() => {
-                                    makeCreateRequest()
-                                }}
-                            // type={'submit'}
-                        />
-                    </div>
-                </div>
-                {section === sections.info &&
-                    <OrderEditor order={order} manager={manager} mod={pageMods.editor} onUpdate={(ord) => {
-                        // console.log('try to upd order for parent', ord)
-                        // setIsLoading(true)
-                        setOrder(ord)
+                    {section === sections.info &&
+                        <OrderEditor order={order} manager={manager} mod={pageMods.creator} onUpdate={(ord) => {
+                            // console.log('try to upd order for parent', ord)
+                            // setIsLoading(true)
+                            setOrder(ord)
 
-                        // setTimeout(() => {
+                            // setTimeout(() => {
                             // setIsLoading(false)
-                        // }, 3000)
-                    }}/>
-                }
-                {section === sections.calculation &&
-                    <OrderCalculationEditor products={products} onUpdate={(items) => {
-                        // console.log('try to upd order for parent')
-                        order.product_list = items
-                        setProducts(items)
-                        setOrder(order)
-                    }}/>
-                }
+                            // }, 3000)
+                        }}
+
+                        />
+                    }
+                    {section === sections.calculation &&
+                        <OrderCalculationEditor products={products} onUpdate={(items) => {
+                            // console.log('try to upd order for parent')
+                            order.product_list = items
+                            setProducts(items)
+                            setOrder(order)
+                        }}/>
+                    }
+                </form>
+
             </div>
         </div>
     );

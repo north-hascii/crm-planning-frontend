@@ -26,8 +26,10 @@ function OrderEditor({
             order
         ).then(data => {
             console.log(data)
+            alert('Заказ обновлен успешно.')
         }).catch(err => {
             console.log(err)
+            alert('Не удалось обновить заказ.')
         })
     }
 
@@ -119,7 +121,7 @@ function OrderEditor({
                     <input className={'editor-item-input'}
                            required
                            name={'email_customer'}
-                           type={'text'}
+                           type={'email'}
                            value={customerEmail}
                            onChange={(e) => {
                                let val = e.target.value
@@ -236,7 +238,7 @@ function OrderEditor({
                             color={buttonProps.color.light}
                             bgColor={buttonProps.background_color.dark_v1}
                             type={'submit'}
-                            onClck={() => updateOrder(order)}
+                            onClck={() => makeUpdateRequest()}
                     />
                 }
                 {/*{type === 'creator' &&*/}
@@ -259,6 +261,7 @@ function OrderEditor({
                     </div>
                     <textarea className={'editor-item-textarea'}
                               value={orderDescription}
+                              required
                               onChange={(e) => {
                                   let val = e.target.value
                                   order.description = val

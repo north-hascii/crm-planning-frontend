@@ -174,7 +174,6 @@ function OrderProduct(
                         onClck={() =>  {
                             addTasksToArray()
                         }}
-                        type={'submit'}
                 />
             </div>
         </div>

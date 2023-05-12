@@ -91,7 +91,7 @@ const Header = observer(() => {
             </div>
         </div>
         }
-        {user.userRole === userRoles.admin && <div className={'header-container'}>
+        {user.isAuth && <div className={'header-container'}>
             <div className={'header-logo'} onClick={() => {
                 setSelectedTab('')
                 navigate(HOME_ROUTE)

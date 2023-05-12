@@ -1,6 +1,7 @@
 import React from 'react';
 import './Calendar.scss'
 import * as calendar from './script'
+import CalendarTaskWindow from "./CalendarTaskWindow";
 
 function Calendar({
                       onChange = (date) => {

@@ -1,0 +1,76 @@
+.calendar-task-window-container {
+  //background: rgba(0,0,0,.7);
+  //height: 100vh;
+  //position: fixed;
+  //width: 100vw;
+  //z-index: 10;
+  //
+  //top: 0;
+
+  &.hidden {
+    display: none;
+    //opacity: 0;
+  }
+
+  &.visible {
+    //opacity: 1;
+    display: initial;
+  }
+}
+
+.calendar-task-window {
+  align-items: center;
+  background: #F5F5F5;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 20px 20px;
+  top: 30%;
+  width: 600px;
+  z-index: 10;
+  transform: translate(50%, 0%);
+
+  position: fixed;
+
+  box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
+  &.hidden {
+    display: none;
+    //opacity: 0;
+  }
+
+  &.visible {
+    //opacity: 1;
+    display: initial;
+  }
+
+}
+
+.calendar-task-window-title {
+  text-align: center;
+  font-family: 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
+
+  letter-spacing: -0.017em;
+
+  color: #4C4C4C;
+
+}
+
+.calendar-task-window-content {
+  padding: 10px 0;
+}
+
+.close-calendar-task-window{
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 20px;
+  height: 20px;
+}

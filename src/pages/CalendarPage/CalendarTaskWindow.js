@@ -1,6 +1,6 @@
 import React from 'react';
 import './CalendarTaskWindow.scss'
-import {formatDateTime} from './script'
+import {formatDateTime} from '../../utils/util'
 
 function CalendarTaskWindow({isVisible = false, onClose = Function.prototype, task = null}) {
     React.useEffect(() => {

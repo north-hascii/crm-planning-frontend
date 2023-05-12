@@ -11,6 +11,12 @@ export const getOrderById = async (id) => {
     return data
 }
 
+export const getOrderEndDateById = async (id) => {
+    const {data} = await $authHost.get('/manual/order/get-time?id=' + id)
+    return data
+}
+
+
 export const getAllOrdersByPartName = async (orderName) => {
     const {data} = await $authHost.get('/manual/order/get-all-by-part-name?order_name=' + orderName)
     return data
@@ -19,5 +25,11 @@ export const getAllOrdersByPartName = async (orderName) => {
 export const createOrder = async (order) => {
     console.log('before POST', order)
     const {response} = await $authHost.post('/manual/order/create', order
+    )
+}
+
+export const updateOrder = async (order) => {
+    console.log('before POST', order)
+    const {response} = await $authHost.put('/manual/order/update-contact', order
     )
 }

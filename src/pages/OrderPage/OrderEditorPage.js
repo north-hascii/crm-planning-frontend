@@ -4,6 +4,7 @@ import {getOrderById} from "../../http/orderApi";
 import {getUserById} from "../../http/userApi";
 import OrderViewer from "./OrderViewer";
 import OrderEditor from "./OrderEditor";
+import {pageMods} from "../../utils/consts";
 
 function OrderEditorPage(props) {
     const {id} = useParams()
@@ -46,7 +47,7 @@ function OrderEditorPage(props) {
                 <div className={'page-title'}>
                     Редактирование заказа
                 </div>
-                <OrderEditor order={order} manager={manager}/>
+                <OrderEditor order={order} manager={manager} mod={pageMods.editor}/>
             </div>
         </div>
     );

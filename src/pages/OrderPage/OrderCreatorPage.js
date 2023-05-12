@@ -143,7 +143,7 @@ function OrderCreatorPage() {
                     </div>
                 </div>
                 {section === sections.info &&
-                    <OrderEditor order={order} manager={manager} type={'creator'} onUpdate={(ord) => {
+                    <OrderEditor order={order} manager={manager} mod={pageMods.editor} onUpdate={(ord) => {
                         // console.log('try to upd order for parent', ord)
                         // setIsLoading(true)
                         setOrder(ord)

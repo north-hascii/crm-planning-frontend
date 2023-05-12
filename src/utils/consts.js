@@ -152,6 +152,9 @@ export const headerNavigationOnRole = {
             label: 'Календарь',
             route: appRoutes.calendar.CALENDAR_ROUTE
         },
+    ],
+    user: [
+
     ]
     // calendar: {
     //     section: pages.calendar,

@@ -9,7 +9,7 @@ import {
     getAllWorkerTasksInInterval
 } from "../../http/calendarApi";
 import CalendarTaskWindow from "./CalendarTaskWindow";
-import {formatDateTime} from './script'
+import {formatDateTime} from '../../utils/util'
 import {buttonProps} from "../../components/Button/ButtonProps";
 import {ORDER_CREATE_ROUTE, userRoles} from "../../utils/consts";
 import Button from "../../components/Button/Button";

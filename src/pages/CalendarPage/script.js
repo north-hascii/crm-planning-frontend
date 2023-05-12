@@ -15,7 +15,7 @@ const Month = {
     August: 7,
     September: 8,
     October: 9,
-    Novermber: 10,
+    November: 10,
     December: 11
 };
 
@@ -73,9 +73,9 @@ export function getMonthData(year, month) {
     return result;
 }
 
-export const formatDateTime = (date) => {
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-
-    return `${hours}:${minutes}`;
-}
+// export const formatDateTime = (date) => {
+//     const hours = date.getHours().toString().padStart(2, '0');
+//     const minutes = date.getMinutes().toString().padStart(2, '0');
+//
+//     return `${hours}:${minutes}`;
+// }

@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
 import InputItems from "./InputItems";
 import {useNavigate} from "react-router-dom";
-import {createUser, getUserById, updateUser} from "../../http/userApi";
+import {createUser, getUserById, updateUser, updateUserWithPassword} from "../../http/userApi";
 import {getAllSpecialties, getSpecialtiesByPartName} from "../../http/specialtyApi";
 import {searchFieldProps} from "../searchField/searchFieldProps";
 import SearchField from "../searchField/searchField";
@@ -46,23 +46,44 @@ function UserEditor({user, mod = pageMods.viewer}) {
     }
 
     const makeUpdateRequest = () => {
-        updateUser(
-            userId,
-            email,
-            firstName,
-            secondName,
-            thirdName,
-            role,
-            status,
-            specialtyIdList
-        ).then(data => {
-            console.log(data)
-            alert('Пользователь успешно обновлен.')
-            window.location.reload()
-        }).catch(err => {
-            console.log(err)
-            alert('Не удалось обновить пользователя.')
-        })
+        if (password.length === 0) {
+            updateUser(
+                userId,
+                email,
+                firstName,
+                secondName,
+                thirdName,
+                role,
+                status,
+                specialtyIdList
+            ).then(data => {
+                console.log(data)
+                alert('Пользователь успешно обновлен.')
+                window.location.reload()
+            }).catch(err => {
+                console.log(err)
+                alert('Не удалось обновить пользователя.')
+            })
+        } else {
+            updateUserWithPassword(userId,
+                email,
+                password,
+                firstName,
+                secondName,
+                thirdName,
+                role,
+                status,
+                specialtyIdList
+            ).then(data => {
+                console.log(data)
+                alert('Пользователь успешно обновлен.')
+                window.location.reload()
+            }).catch(err => {
+                console.log(err)
+                alert('Не удалось обновить пользователя.')
+            })
+        }
+
     }
 
     const makeCreateRequest = () => {
@@ -180,29 +201,32 @@ function UserEditor({user, mod = pageMods.viewer}) {
                     <input className={'editor-item-input'}
                            required
                            name={'email'}
-                           type={'text'}
+                           type={'email'}
                            value={email}
                            onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                {mod === pageMods.creator
-                    && <>
-                        <div className={'editor-item'}>
-                            <div className={'editor-item-text'}>
-                                Пароль
-                            </div>
-                            <input className={'editor-item-input'}
-                                   required
-                                   name={'email'}
-                                   type={'text'}
-                                   value={password}
-                                   onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
+                {/*{mod === pageMods.creator*/}
+                {/*    && <>*/}
+                <div className={'editor-item'}>
+                    <div className={'editor-item-text'}>
+                        Пароль
+                    </div>
+                    <input className={'editor-item-input'}
+                           required={mod === pageMods.creator}
+                           name={'password'}
+                           type={'text'}
+                           value={password}
+                           onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <br/>
+                    * Оставить пустым, если не хотите менять пароль
+                </div>
 
 
-                    </>
-                }
+                {/*    </>*/}
+                {/*}*/}
+
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>
                         Роль

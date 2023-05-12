@@ -1,14 +1,14 @@
 import React from 'react';
-import {ORDER_CALCULATION_ROUTE, ORDER_EDIT_ROUTE} from "../../utils/consts";
+import {ORDER_CALCULATION_ROUTE, ORDER_EDIT_ROUTE, pageMods} from "../../utils/consts";
 import {useNavigate, useParams} from "react-router-dom";
 import Button from "../../components/Button/Button";
 import {buttonProps} from "../../components/Button/ButtonProps";
 import {searchFieldProps} from "../../components/searchField/searchFieldProps";
 import SearchField from "../../components/searchField/searchField";
-import {createOrder} from "../../http/orderApi";
+import {createOrder, updateOrder} from "../../http/orderApi";
 
 function OrderEditor({
-                         type = 'editor', order, onUpdate = (obj) => {
+                         mod = pageMods.viewer, order, onUpdate = (obj) => {
     }
                      }) {
     const [orderName, setOrderName] = React.useState(order.order_name)
@@ -17,12 +17,12 @@ function OrderEditor({
     const [customerPhone, setCustomerPhone] = React.useState(order.phone_customer)
     const [customerEmail, setCustomerEmail] = React.useState(order.email_customer)
     const [orderDescription, setOrderDescription] = React.useState(order.description)
-    const [managers, setManagers] = React.useState(order.manager ? [order.manager] : []) // contains 1 object
+    const [managers, setManagers] = React.useState(order.manager_user ? [order.manager_user] : []) // contains 1 object
 
-    const makeCreateRequest =  () => {
+    const makeUpdateRequest =  () => {
         // e.preventDefault()
-        order.start_date = new Date()
-        createOrder(
+        // order.start_date = new Date()
+        updateOrder(
             order
         ).then(data => {
             console.log(data)
@@ -30,6 +30,10 @@ function OrderEditor({
             console.log(err)
         })
     }
+
+    // React.useEffect(() => {
+    //
+    // }, order.)
 
     return (
         <div className={'editor-container'}
@@ -226,14 +230,15 @@ function OrderEditor({
                 {/*    </div>*/}
                 {/*</div>*/}
 
-                {/*{type === 'editor' &&*/}
-                {/*    <Button text={'Сохранить'}*/}
-                {/*            size={buttonProps.size.small}*/}
-                {/*            color={buttonProps.color.light}*/}
-                {/*            bgColor={buttonProps.background_color.dark_v1}*/}
-                {/*            type={'submit'}*/}
-                {/*    />*/}
-                {/*}*/}
+                {mod === pageMods.editor &&
+                    <Button text={'Сохранить'}
+                            size={buttonProps.size.small}
+                            color={buttonProps.color.light}
+                            bgColor={buttonProps.background_color.dark_v1}
+                            type={'submit'}
+                            onClck={() => updateOrder(order)}
+                    />
+                }
                 {/*{type === 'creator' &&*/}
                 {/*    <Button text={'Перейти к калькуляции'}*/}
                 {/*            size={buttonProps.size.small}*/}

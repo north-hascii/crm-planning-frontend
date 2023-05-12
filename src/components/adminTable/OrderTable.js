@@ -4,6 +4,9 @@ import {useNavigate} from "react-router-dom";
 import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
 import {appRoutes} from "../../utils/consts";
+import {getAllWorkerTasksInInterval} from "../../http/calendarApi";
+import {getOrderEndDateById} from "../../http/orderApi";
+import {formatDate, formatDateTime} from "../../utils/util";
 
 function OrderTable({tableItems = []}) {
     const navigate = useNavigate()
@@ -15,6 +18,16 @@ function OrderTable({tableItems = []}) {
 
     const redirectToEditor = (item) => {
         navigate(`${appRoutes.admin.ADMIN_SPECIALTY_ROUTE}/${item.id}`)
+    }
+
+    const getOrderEndDate = (item, orderId) => {
+        getOrderEndDateById(orderId).then(data => {
+            console.log('order id end date',orderId, data)
+            item.end = data
+        }).catch(err => {
+            console.log("Error while getting data", err)
+            // alert('Не удалось найти задачи.')
+        })
     }
 
     // console.log(tableItems)
@@ -57,12 +70,16 @@ function OrderTable({tableItems = []}) {
                         {item.customer_company}
                     </th>
                     <th className={'admin-table-col'}>
-                        <Button
-                            size={buttonProps.size.small}
-                            bgColor={buttonProps.background_color.dark_v1}
-                            color={buttonProps.color.light}
-                            text={'Сформировать дату'}
-                        />
+                        {/*<Button*/}
+                        {/*    size={buttonProps.size.small}*/}
+                        {/*    bgColor={buttonProps.background_color.dark_v1}*/}
+                        {/*    color={buttonProps.color.light}*/}
+                        {/*    text={'Сформировать дату'}*/}
+                        {/*    onClck={() => {*/}
+                        {/*        getOrderEndDate(item, item.id)*/}
+                        {/*    }}*/}
+                        {/*/>*/}
+                        {formatDate(item.end_date)}
                     </th>
                     <th className={'admin-table-col medium'}>
                         <Button

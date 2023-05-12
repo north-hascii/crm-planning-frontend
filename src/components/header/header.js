@@ -53,6 +53,12 @@ const Header = observer(() => {
             }).section)
             return
         }
+        if (appRoutesArray.order.includes(location.pathname)) {
+            setSelectedTab(headerNavigationArray.find((item, index) => {
+                return item.section === pages.order
+            }).section)
+            return
+        }
         setSelectedTab('')
 
     }, [location.pathname])
@@ -84,7 +90,7 @@ const Header = observer(() => {
                 LOGO
             </div>
             <div className={'header-container-items'}>
-                {userRolesArray.includes(user.userRole) && headerNavigationOnRole[user.userRole].map((item, index) => {
+                {userRolesArray.includes(user.userRole) && user.userRole in headerNavigationOnRole && headerNavigationOnRole[user.userRole].map((item, index) => {
                     return (<div
                         className={`header-container-item ${item.section === selectedTab ? 'selected' : ''}`}
                         onClick={() => selectHeaderSection(item.section, item.route)} key={index}>

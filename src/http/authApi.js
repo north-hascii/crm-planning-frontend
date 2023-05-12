@@ -15,7 +15,10 @@ export const signIn = async (email, password) => {
             "email": email, "password": password
         })
         localStorage.setItem(localStorageParams.user_token, data.user_token)
-        localStorage.setItem(localStorageParams.user_role, data.user_role)
+        localStorage.setItem(localStorageParams.user_role, data.user.user_role)
+        localStorage.setItem(localStorageParams.user_email, data.user.email)
+        localStorage.setItem(localStorageParams.user_second_name, data.user.second_name)
+        localStorage.setItem(localStorageParams.user_id, data.user.id)
     } catch (err) {
         if (err.response) {
             return err.response.status

@@ -42,8 +42,10 @@ function OperationEditor({operation, mod = pageMods.viewer}) {
             specsIdList,
         ).then(data => {
             console.log(data)
+            alert('Операция успешно обновлена.')
         }).catch(err => {
             console.log(err)
+            alert('Не удалось обновить операцию.')
         })
     }
 
@@ -55,8 +57,10 @@ function OperationEditor({operation, mod = pageMods.viewer}) {
             specsIdList,
         ).then(data => {
             console.log(data)
+            alert('Операция успешно создана.')
         }).catch(err => {
             console.log(err)
+            alert('Не удалось создать операцию.')
         })
     }
 

@@ -124,7 +124,6 @@ function AdminPage(props) {
                                 onClck={() => {
                                     navigate(ADMIN_ROUTE + '/' + section + '/' + 'create')
                                 }}
-                                type={'submit'}
                         />
                     </div>
                 }

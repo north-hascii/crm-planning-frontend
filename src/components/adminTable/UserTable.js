@@ -10,8 +10,10 @@ function UserTable({tableItems = []}) {
     const deleteTableItem = (item) => {
         deleteUserById(item.id).then(data => {
             window.location.reload()
+            alert('Пользователь успешно удален.')
         }).catch(err => {
             console.log(err)
+            alert('Не удалось удалить пользователя. Возможно он задействован в производстве.')
         })
     }
 

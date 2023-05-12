@@ -41,11 +41,15 @@ export const formTypes = {
 export const localStorageParams = {
     user_token: 'user_token',
     user_role: 'user_role',
+    user_email: 'email',
+    user_second_name: 'second_name',
+    user_id: 'user_id'
 }
 
 export const userRoles = {
     admin: 'admin',
     manager: 'manager',
+    worker: 'worker',
     user: 'user',
 }
 

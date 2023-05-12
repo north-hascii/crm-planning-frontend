@@ -29,8 +29,10 @@ function MaterialEditor({material, mod = pageMods.viewer}) {
             materialUnits,
         ).then(data => {
             console.log(data)
+            alert('Материал успешно обновлен.')
         }).catch(err => {
             console.log(err)
+            alert('Не удалось обновить материал.')
         })
     }
 
@@ -40,8 +42,10 @@ function MaterialEditor({material, mod = pageMods.viewer}) {
             materialUnits,
         ).then(data => {
             console.log(data)
+            alert('Материал успешно создан.')
         }).catch(err => {
             console.log(err)
+            alert('Не удалось создать материал.')
         })
     }
 

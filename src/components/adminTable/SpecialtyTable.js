@@ -10,8 +10,10 @@ function SpecialtyTable({tableItems = []}) {
     const deleteTableItem = (item) => {
         deleteSpecialtyById(item.id).then(data => {
             window.location.reload()
+            alert('Специальность успешно удалена.')
         }).catch(err => {
             console.log(err)
+            alert('Не удалось удалить специальность.')
         })
     }
 

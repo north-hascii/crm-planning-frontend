@@ -9,9 +9,11 @@ function OperationTable({tableItems = []}) {
 
     const deleteTableItem = (item) => {
         deleteOperationById(item.id).then(data => {
+            alert('Операция успешно удалена.')
             window.location.reload()
         }).catch(err => {
             console.log(err)
+            alert('Не удалось удалить операцию.')
         })
     }
     const redirectToEditor = (item) => {

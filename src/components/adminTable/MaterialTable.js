@@ -10,9 +10,11 @@ function MaterialTable({tableItems = []}) {
 
     const deleteTableItem = (item) => {
         deleteMaterialById(item.id).then(data => {
+            alert('Материал успешно удален.')
             window.location.reload()
         }).catch(err => {
             console.log(err)
+            alert('Не удалось удалить материал.')
         })
     }
 

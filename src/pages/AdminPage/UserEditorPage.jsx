@@ -20,6 +20,7 @@ function UserEditorPage({mod = pageMods.viewer}) {
                 setUser(data)
             }).catch(err => {
                 console.log("Error while getting data", err)
+                // alert('Не удалось получить данные пользователя.')
             }).finally(() => {
                 setIsLoading(false)
             })

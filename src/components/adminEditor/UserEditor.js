@@ -11,6 +11,7 @@ import SearchField from "../searchField/searchField";
 import {pageMods, userRoles, userStatuses} from "../../utils/consts";
 
 function UserEditor({user, mod = pageMods.viewer}) {
+    const [userId, setUserId] = React.useState(user ? user.id : -1)
     const [firstName, setFirstName] = React.useState(user ? user.first_name : '')
     const [secondName, setSecondName] = React.useState(user ? user.second_name : '')
     const [thirdName, setThirdName] = React.useState(user ? user.third_name : '')
@@ -46,7 +47,7 @@ function UserEditor({user, mod = pageMods.viewer}) {
 
     const makeUpdateRequest = () => {
         updateUser(
-            user.id,
+            userId,
             email,
             firstName,
             secondName,
@@ -56,8 +57,11 @@ function UserEditor({user, mod = pageMods.viewer}) {
             specialtyIdList
         ).then(data => {
             console.log(data)
+            alert('Пользователь успешно обновлен.')
+            window.location.reload()
         }).catch(err => {
             console.log(err)
+            alert('Не удалось обновить пользователя.')
         })
     }
 
@@ -73,8 +77,10 @@ function UserEditor({user, mod = pageMods.viewer}) {
             specialtyIdList
         ).then(data => {
             console.log(data)
+            alert('Пользователь успешно создан.')
         }).catch(err => {
             console.log(err)
+            alert('Не удалось создать пользователя.')
         })
     }
 

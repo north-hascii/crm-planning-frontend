@@ -5,12 +5,12 @@ import Button from "../../components/Button/Button";
 import {buttonProps} from "../../components/Button/ButtonProps";
 import {searchFieldProps} from "../../components/searchField/searchFieldProps";
 import SearchField from "../../components/searchField/searchField";
+import {createOrder} from "../../http/orderApi";
 
 function OrderEditor({
                          type = 'editor', order, onUpdate = (obj) => {
     }
                      }) {
-    // const []
     const [orderName, setOrderName] = React.useState(order.order_name)
     const [customerName, setCustomerName] = React.useState(order.customer_name)
     const [customerCompany, setCustomerCompany] = React.useState(order.customer_company)
@@ -19,11 +19,18 @@ function OrderEditor({
     const [orderDescription, setOrderDescription] = React.useState(order.description)
     const [managers, setManagers] = React.useState(order.manager ? [order.manager] : []) // contains 1 object
 
-    // React.useEffect(() => {
-    //     // order.order_name = orderName
-    //     // onUpdate(order)
-    //     console.log(managers)
-    // }, [managers])
+    const makeCreateRequest =  () => {
+        // e.preventDefault()
+        order.start_date = new Date()
+        createOrder(
+            order
+        ).then(data => {
+            console.log(data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     return (
         <div className={'editor-container'}
             // onSubmit={(e) => makeUpdateRequest(e)}

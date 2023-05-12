@@ -38,7 +38,11 @@ const AuthForm = observer(({formType = formTypes.loginForm}) => {
 
             user.setUserToken(localStorage.getItem(localStorageParams.user_token))
             user.setUserRole(localStorage.getItem(localStorageParams.user_role))
+            user.setUserEmail(localStorage.getItem(localStorageParams.user_email))
+            user.setUserSecondName(localStorage.getItem(localStorageParams.user_second_name))
+            user.setUserId(localStorage.getItem(localStorageParams.user_id))
             user.setIsAuth(true)
+            console.log(user.userId)
         }
         if (responseCode === HTTP_STATUS_CODES.INTERNAL_SERVER_ERR) {
             setIsRequestFailed(false)

@@ -30,8 +30,11 @@ function SpecialtyEditor({specialty, mod = pageMods.viewer}) {
             usersIdList
         ).then(data => {
             console.log(data)
+            alert('Специальность успешно обновлена.')
+            window.location.reload()
         }).catch(err => {
             console.log(err)
+            alert('Не удалось обновить специальность.')
         })
     }
 
@@ -41,8 +44,10 @@ function SpecialtyEditor({specialty, mod = pageMods.viewer}) {
             usersIdList
         ).then(data => {
             console.log(data)
+            alert('Специальность успешно создана.')
         }).catch(err => {
             console.log(err)
+            alert('Не удалось создать специальность.')
         })
     }
 

@@ -16,9 +16,10 @@ const App = observer(() => {
             if (user_token) {
                 user.setUserToken(user_token)
                 user.setIsAuth(true)
+                user.setUserEmail(localStorage.getItem(localStorageParams.user_email))
+                user.setUserSecondName(localStorage.getItem(localStorageParams.user_second_name))
                 const user_role = localStorage.getItem(localStorageParams.user_role)
                 user.setUserRole(user_role)
-
             }
             setIsLoading(false)
     }, [])

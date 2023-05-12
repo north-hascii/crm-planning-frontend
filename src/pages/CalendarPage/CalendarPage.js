@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './CalendarPage.scss'
 import Calendar from "./Calendar";
 import {getAllMaterials} from "../../http/materialApi";
@@ -6,10 +6,11 @@ import {getAllOrderTasksInInterval, getAllTasksInInterval, getAllWorkerTasksInIn
 import CalendarTaskWindow from "./CalendarTaskWindow";
 import {formatDateTime} from './script'
 import {buttonProps} from "../../components/Button/ButtonProps";
-import {ORDER_CREATE_ROUTE} from "../../utils/consts";
+import {ORDER_CREATE_ROUTE, userRoles} from "../../utils/consts";
 import Button from "../../components/Button/Button";
 import SearchField from "../../components/searchField/searchField";
 import {searchFieldProps} from "../../components/searchField/searchFieldProps";
+import {StoreContext} from "../../index";
 
 // const tasks = [
 //     {
@@ -147,8 +148,9 @@ import {searchFieldProps} from "../../components/searchField/searchFieldProps";
 // ]
 
 function CalendarPage(props) {
+    const {user} = useContext(StoreContext)
     const [dateState, setDateState] = React.useState(null)
-    const [isWidgetVisible, setIsWidgetVisigle] = React.useState(false)
+    const [isWidgetVisible, setIsWidgetVisible] = React.useState(false)
     const [weekDaysState, setWeekDaysState] = React.useState([])
 
     const [weekDayAndTasksState, setWeekDayAndTasksState] = React.useState([])
@@ -268,7 +270,7 @@ function CalendarPage(props) {
             {/*}*/}
             <div className={'calendar-date-selector-container'}>
                 <div className={'calendar-widget-label green-border'}
-                     onClick={() => setIsWidgetVisigle(!isWidgetVisible)}>
+                     onClick={() => setIsWidgetVisible(!isWidgetVisible)}>
                     {dateState ? dateState.toLocaleDateString() : 'Выберите неделю'}
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -279,13 +281,50 @@ function CalendarPage(props) {
                 {isWidgetVisible && <div className={'calendar-widget-container'}>
                     <Calendar onChange={(date) => handleDateChanged(date)}/>
                 </div>}
+                {user.userRole === userRoles.worker &&
+                    <div className={'calendar-date-selector-worker-container'}>
+                        <Button text={'Показать все задачи'}
+                                size={buttonProps.size.small}
+                                color={buttonProps.color.light}
+                                bgColor={buttonProps.background_color.dark_v1}
+                                onClck={() => {
+                                    if (!weekDaysState[0] || !weekDaysState[weekDaysState.length - 1]) {
+                                        alert('Выберите неделю для отображения.')
+                                        return
+                                    }
+                                    // if (selectedWorkerId === -1) {
+                                    //     alert('Выберите работника для отображения.')
+                                    //     return;
+                                    // }
+                                    getAllWorkerTasksInInterval(weekDaysState[0], weekDaysState[weekDaysState.length - 1], user.userId).then(data => {
+                                        console.log('calendar got', data)
+                                        if (data) {
+                                            parseTasks(data)
+                                        } else {
+                                            let weekDayAndTasks = [[], [], [], [], [], [], []]
+                                            setWeekDayAndTasksState(weekDayAndTasks)
+                                            // set
+                                        }
 
+                                    }).catch(err => {
+                                        console.log("Error while getting data", err)
+                                        alert('Не удалось найти задачи.')
+                                    })
+                                }}
+                        />
+                    </div>
+                }
+
+                {user.userRole === userRoles.admin || user.userRole === userRoles.manager &&
                 <div className={'calendar-date-selector-worker-container'}>
                     <Button text={'Показать все задачи'}
                             size={buttonProps.size.small}
                             color={buttonProps.color.light}
                             bgColor={buttonProps.background_color.dark_v1}
                             onClck={() => {
+                                if (!weekDaysState[0] || !weekDaysState[weekDaysState.length - 1]) {
+                                    alert('Выберите неделю для отображения.')
+                                }
                                 getAllTasksInInterval(weekDaysState[0], weekDaysState[weekDaysState.length - 1]).then(data => {
                                     console.log('calendar got', data)
                                     if (data) {
@@ -298,73 +337,94 @@ function CalendarPage(props) {
 
                                 }).catch(err => {
                                     console.log("Error while getting data", err)
+                                    alert('Не удалось найти задачи.')
                                 })
                             }}
                     />
                 </div>
+                }
                 {/*<div className={'calendar-date-selector-worker-container-outer'}>*/}
-                    <div className={'calendar-date-selector-worker-container'}>
-                        <SearchField type={searchFieldProps.worker} baseList={workers}
-                                     onUpdate={(items) => {
-                                         if (items[0]) {
-                                             setSelectedWorkerId(items[0].id)
-                                             console.log(items[0].id)
+                {user.userRole === userRoles.admin || user.userRole === userRoles.manager &&
+                    <>
+                        <div className={'calendar-date-selector-worker-container'}>
+                            <SearchField type={searchFieldProps.worker} baseList={workers}
+                                         onUpdate={(items) => {
+                                             if (items[0]) {
+                                                 setSelectedWorkerId(items[0].id)
+                                                 console.log(items[0].id)
+                                             }
+                                             setWorkers(items)
                                          }
-                                         setWorkers(items)
-                                     }
-                                     } listLimit={1}/>
-                        <Button text={'Показать все задачи работника'}
-                                size={buttonProps.size.small}
-                                color={buttonProps.color.light}
-                                bgColor={buttonProps.background_color.dark_v1}
-                                onClck={() => {
-                                    getAllWorkerTasksInInterval(weekDaysState[0], weekDaysState[weekDaysState.length - 1], selectedWorkerId).then(data => {
-                                        console.log('calendar got', data)
-                                        if (data) {
-                                            parseTasks(data)
-                                        } else {
-                                            let weekDayAndTasks = [[], [], [], [], [], [], []]
-                                            setWeekDayAndTasksState(weekDayAndTasks)
-                                            // set
+                                         } listLimit={1}/>
+                            <Button text={'Показать все задачи работника'}
+                                    size={buttonProps.size.small}
+                                    color={buttonProps.color.light}
+                                    bgColor={buttonProps.background_color.dark_v1}
+                                    onClck={() => {
+                                        if (!weekDaysState[0] || !weekDaysState[weekDaysState.length - 1]) {
+                                            alert('Выберите неделю для отображения.')
+                                            return
                                         }
+                                        if (selectedWorkerId === -1) {
+                                            alert('Выберите работника для отображения.')
+                                            return;
+                                        }
+                                        getAllWorkerTasksInInterval(weekDaysState[0], weekDaysState[weekDaysState.length - 1], selectedWorkerId).then(data => {
+                                            console.log('calendar got', data)
+                                            if (data) {
+                                                parseTasks(data)
+                                            } else {
+                                                let weekDayAndTasks = [[], [], [], [], [], [], []]
+                                                setWeekDayAndTasksState(weekDayAndTasks)
+                                                // set
+                                            }
 
-                                    }).catch(err => {
-                                        console.log("Error while getting data", err)
-                                    })
-                                }}
-                        />
-                    </div>
-                    <div className={'calendar-date-selector-worker-container'}>
-                        <SearchField type={searchFieldProps.order} baseList={orders}
-                                     onUpdate={(items) => {
-                                         if (items[0]) {
-                                             setSelectedOrderId(items[0].id)
-                                             console.log(items[0].id)
+                                        }).catch(err => {
+                                            console.log("Error while getting data", err)
+                                            alert('Не удалось найти задачи.')
+                                        })
+                                    }}
+                            />
+                        </div>
+                        <div className={'calendar-date-selector-worker-container'}>
+                            <SearchField type={searchFieldProps.order} baseList={orders}
+                                         onUpdate={(items) => {
+                                             if (items[0]) {
+                                                 setSelectedOrderId(items[0].id)
+                                                 console.log(items[0].id)
+                                             }
+                                             setOrders(items)
                                          }
-                                         setOrders(items)
-                                     }
-                                     } listLimit={1}/>
-                        <Button text={'Показать все задачи заказа'}
-                                size={buttonProps.size.small}
-                                color={buttonProps.color.light}
-                                bgColor={buttonProps.background_color.dark_v1}
-                                onClck={() => {
-                                    getAllOrderTasksInInterval(weekDaysState[0], weekDaysState[weekDaysState.length - 1], selectedOrderId).then(data => {
-                                        console.log('calendar got', data)
-                                        if (data) {
-                                            parseTasks(data)
-                                        } else {
-                                            let weekDayAndTasks = [[], [], [], [], [], [], []]
-                                            setWeekDayAndTasksState(weekDayAndTasks)
-                                            // set
+                                         } listLimit={1}/>
+                            <Button text={'Показать все задачи заказа'}
+                                    size={buttonProps.size.small}
+                                    color={buttonProps.color.light}
+                                    bgColor={buttonProps.background_color.dark_v1}
+                                    onClck={() => {
+                                        if (!weekDaysState[0] || !weekDaysState[weekDaysState.length - 1]) {
+                                            alert('Выберите неделю для отображения.')
                                         }
+                                        getAllOrderTasksInInterval(weekDaysState[0], weekDaysState[weekDaysState.length - 1], selectedOrderId).then(data => {
+                                            console.log('calendar got', data)
+                                            if (data) {
+                                                parseTasks(data)
+                                            } else {
+                                                let weekDayAndTasks = [[], [], [], [], [], [], []]
+                                                setWeekDayAndTasksState(weekDayAndTasks)
+                                                // set
+                                            }
 
-                                    }).catch(err => {
-                                        console.log("Error while getting data", err)
-                                    })
-                                }}
-                        />
-                    </div>
+                                        }).catch(err => {
+                                            console.log("Error while getting data", err)
+                                            alert('Не удалось найти задачи.')
+                                        })
+                                    }}
+                            />
+                        </div>
+                    </>
+                }
+
+
                 {/*</div>*/}
                 {/*<div>*/}
                 {/*    <SearchField type={searchFieldProps.manager} baseList={managers}*/}

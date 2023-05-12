@@ -44,14 +44,14 @@ function OrderProductViewer(
                         {productState.product_name}
                     </div>
                 </div>
-                <div className={'viewer-item'}>
-                    <div className={'viewer-item-text'}>
-                        Количество
-                    </div>
-                    <div className={'viewer-item-input small green-border'}>
-                        {productState.count}
-                    </div>
-                </div>
+                {/*<div className={'viewer-item'}>*/}
+                {/*    <div className={'viewer-item-text'}>*/}
+                {/*        Количество*/}
+                {/*    </div>*/}
+                {/*    <div className={'viewer-item-input small green-border'}>*/}
+                {/*        {productState.count}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
             </div>
             {tasksArray && tasksArray.map((item, index) => {

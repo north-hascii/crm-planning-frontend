@@ -174,8 +174,8 @@ function CalendarPage(props) {
         //     if (data) {
         //         parseTasks(data)
         //     } else {
-        //         let weekDayAndTasks = [[], [], [], [], [], [], []]
-        //         setWeekDayAndTasksState(weekDayAndTasks)
+                let weekDayAndTasks = [[], [], [], [], [], [], []]
+                setWeekDayAndTasksState(weekDayAndTasks)
         //         // set
         //     }
         //
@@ -191,7 +191,7 @@ function CalendarPage(props) {
         console.log(startOfWeek)
 
         let weekDays = [startOfWeek]
-        for (let i = 1; i < 8; i++) {
+        for (let i = 1; i < 7; i++) {
             const date = new Date(startOfWeek)
             date.setDate(date.getDate() + i)
             weekDays.push(date)

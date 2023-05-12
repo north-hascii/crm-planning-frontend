@@ -1,13 +1,14 @@
 import React, {useContext, useState} from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
 import {
+    adminRoutes,
     appRoutes,
     AUTH_ROUTE,
-    HOME_ROUTE,
+    HOME_ROUTE, managerRoutes,
     NOTFOUND_ROUTE,
-    userRoles
+    userRoles, workerRoutes
 } from "../utils/consts";
-import {adminRoutes, authRoutes, managerRoutes, publicRoutes, workerRoutes} from "./routes";
+import {authRoutes, publicRoutes} from "../utils/consts";
 import {StoreContext} from "../index";
 import {observer} from "mobx-react-lite";
 
@@ -27,8 +28,6 @@ const AppRouter = observer(() => {
 
         {user.isAuth && user.userRole === userRoles.worker && workerRoutes.map(({path, Component}) =>
             <Route key={path} path={path} element={Component} exact/>)}
-
-
 
         {publicRoutes.map(({path, Component}) =>
             <Route key={path} path={path} element={Component} exact/>)}

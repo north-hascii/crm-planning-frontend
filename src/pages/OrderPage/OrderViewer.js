@@ -1,10 +1,11 @@
 import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import {ORDER_EDIT_ROUTE, ORDER_VIEW_ROUTE} from "../../utils/consts";
+// import {ORDER_EDIT_ROUTE, ORDER_VIEW_ROUTE} from "../../utils/consts";
 import Button from "../../components/Button/Button";
 import {buttonProps} from "../../components/Button/ButtonProps";
 import {updateUser} from "../../http/userApi";
 import {getSpecialtiesByPartName} from "../../http/specialtyApi";
+import {appRoutes} from "../../utils/consts";
 
 function OrderViewer({order, manager}) {
     const {id} = useParams()
@@ -90,7 +91,7 @@ function OrderViewer({order, manager}) {
             <svg className={'navigate-to-editor-button'}
                  onClick={() => {
                      console.log('click on edit')
-                     navigate(ORDER_EDIT_ROUTE + '/' + id)}
+                     navigate(appRoutes.order.ORDER_EDIT_ROUTE + '/' + id)}
             }
                  width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" clipRule="evenodd"

@@ -2,12 +2,12 @@ import React, {useContext} from 'react';
 import './header.scss'
 import {
     ADMIN_ROUTE, ADMIN_USER_ROUTE, adminSections, appRoutes, appRoutesArray,
-    AUTH_ROUTE, CALENDAR_ROUTE, headerNavigationArray,
+    AUTH_ROUTE, CALENDAR_ROUTE, headerNavigationArray, headerNavigationOnRole,
     HOME_ROUTE,
     localStorageParams,
     ORDER_INFO_ROUTE,
     ORDER_ROUTE, pages,
-    userRoles
+    userRoles, userRolesArray
 } from "../../utils/consts";
 import {useLocation, useNavigate} from "react-router-dom";
 import {observer} from 'mobx-react-lite'
@@ -29,28 +29,6 @@ const Header = observer(() => {
         // clear()
     }
 
-
-    // const tabNamesAndTexts = [
-    //     {
-    //         name: 'calendar',
-    //         text: 'Календарь',
-    //     },
-    //     {
-    //         name: 'order',
-    //         text: 'Заказы',
-    //     },
-    //     {
-    //         name: 'admin',
-    //         text: 'Админ панель',
-    //     }
-    // ]
-    //
-    // const tabsAndRoutes = {
-    //     'calendar': CALENDAR_ROUTE,
-    //     'order': ORDER_ROUTE,
-    //     'admin': ADMIN_ROUTE,
-    // }
-
     const [selectedTab, setSelectedTab] = React.useState('')
     const navigate = useNavigate()
 
@@ -67,12 +45,15 @@ const Header = observer(() => {
             setSelectedTab(headerNavigationArray.find((item, index) => {
                 return item.section === pages.admin
             }).section)
-
-            if (location.pathname === appRoutes.admin.ADMIN_SPECIALTY_ROUTE) {
-                navigate(appRoutes.admin.ADMIN_ROUTE + '/' + adminSections.specialty.section)
-            }
-
+            return
         }
+        if (appRoutesArray.calendar.includes(location.pathname)) {
+            setSelectedTab(headerNavigationArray.find((item, index) => {
+                return item.section === pages.calendar
+            }).section)
+            return
+        }
+        setSelectedTab('')
 
     }, [location.pathname])
 
@@ -81,13 +62,7 @@ const Header = observer(() => {
         navigate(route)
     }
 
-
-
-
-    // console.log(location.pathname)
-
     const [isUserProfileVisible, setIsUserProfileVisible] = React.useState(false)
-
 
     return (<header>
         {!user.isAuth && <div className={`header-container auth`}>
@@ -109,7 +84,7 @@ const Header = observer(() => {
                 LOGO
             </div>
             <div className={'header-container-items'}>
-                {headerNavigationArray.map((item, index) => {
+                {userRolesArray.includes(user.userRole) && headerNavigationOnRole[user.userRole].map((item, index) => {
                     return (<div
                         className={`header-container-item ${item.section === selectedTab ? 'selected' : ''}`}
                         onClick={() => selectHeaderSection(item.section, item.route)} key={index}>

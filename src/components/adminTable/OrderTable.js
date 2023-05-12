@@ -1,8 +1,9 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
-import {ADMIN_SPECIALTY_ROUTE, appRoutes, ORDER_ROUTE, ORDER_VIEW_ROUTE} from "../../utils/consts";
+// import {ADMIN_SPECIALTY_ROUTE, appRoutes, ORDER_ROUTE, ORDER_VIEW_ROUTE} from "../../utils/consts";
 import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
+import {appRoutes} from "../../utils/consts";
 
 function OrderTable({tableItems = []}) {
     const navigate = useNavigate()
@@ -69,7 +70,7 @@ function OrderTable({tableItems = []}) {
                             bgColor={buttonProps.background_color.dark_v1}
                             color={buttonProps.color.light}
                             text={'Открыть'}
-                            onClck={() => navigate(ORDER_VIEW_ROUTE + '/' + item.id)}
+                            onClck={() => navigate(appRoutes.order.ORDER_VIEW_ROUTE + '/' + item.id)}
                         />
                     </th>
                 </tr>)

@@ -6,13 +6,14 @@ import {getAllSpecialties} from "../../http/specialtyApi";
 import {getAllSOperations} from "../../http/operationApi";
 import {getAllMaterials} from "../../http/materialApi";
 import AdminSectionBar from "../../components/optionsBar/AdminSectionBar";
-import {ADMIN_ROUTE, ORDER_CREATE_ROUTE, pageMods} from "../../utils/consts";
+// import {ADMIN_ROUTE, ORDER_CREATE_ROUTE, pageMods} from "../../utils/consts";
 import AdminTable from "../../components/adminTable/adminTable";
 import OrderTable from "../../components/adminTable/OrderTable";
 import MaterialTable from "../../components/adminTable/MaterialTable";
 import {getAllOrders} from "../../http/orderApi";
 import Button from "../../components/Button/Button";
 import {buttonProps} from "../../components/Button/ButtonProps";
+import {appRoutes} from "../../utils/consts";
 
 // const tableItems = [
 //     {
@@ -113,7 +114,7 @@ function OrderPage(props) {
                             color={buttonProps.color.light}
                             bgColor={buttonProps.background_color.dark_v1}
                             onClck={() => {
-                                navigate(ORDER_CREATE_ROUTE)
+                                navigate(appRoutes.order.ORDER_CREATE_ROUTE)
                             }}
                             type={'submit'}
                     />

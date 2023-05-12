@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './AdminPage.scss'
 import AdminSectionBar from "../../components/optionsBar/AdminSectionBar";
 import AdminTable from "../../components/adminTable/adminTable";
 import {adminOptions} from "./adminOptions";
-import {adminSections, adminSectionsArray, appRoutes} from "../../utils/consts";
+import {adminSections, adminSectionsArray, appRoutes, userRoles} from "../../utils/consts";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {getAllUsers} from "../../http/userApi";
 import {getAllSpecialties} from "../../http/specialtyApi";
@@ -11,8 +11,11 @@ import {getAllMaterials} from "../../http/materialApi";
 import {getAllSOperations} from "../../http/operationApi";
 import {buttonProps} from "../../components/Button/ButtonProps";
 import Button from "../../components/Button/Button";
+import {StoreContext} from "../../index";
 
 function AdminPage(props) {
+    const {user} = useContext(StoreContext)
+
     const {section} = useParams()
     const navigate = useNavigate()
     const location = useLocation()
@@ -118,14 +121,17 @@ function AdminPage(props) {
                         <div className={'page-title'}>
                             {adminSections[selectedSection].title}
                         </div>
-                        <Button text={'Создать'}
-                                size={buttonProps.size.small}
-                                color={buttonProps.color.light}
-                                bgColor={buttonProps.background_color.dark_v1}
-                                onClck={() => {
-                                    navigate(appRoutes.admin.ADMIN_ROUTE + '/' + section + '/' + 'create')
-                                }}
-                        />
+                        {((user.userRole === userRoles.manager && selectedSection !== adminSections.user.section) ||
+                            (user.userRole === userRoles.admin))&&
+                            <Button text={'Создать'}
+                                    size={buttonProps.size.small}
+                                    color={buttonProps.color.light}
+                                    bgColor={buttonProps.background_color.dark_v1}
+                                    onClck={() => {
+                                        navigate(appRoutes.admin.ADMIN_ROUTE + '/' + section + '/' + 'create')
+                                    }}
+                            />
+                        }
                     </div>
                 }
                 {isTableLoading &&

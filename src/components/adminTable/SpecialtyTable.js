@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
-import {ADMIN_SPECIALTY_ROUTE} from "../../utils/consts";
+import {ADMIN_SPECIALTY_ROUTE, appRoutes} from "../../utils/consts";
 import {deleteUserById} from "../../http/userApi";
 import {deleteSpecialtyById} from "../../http/specialtyApi";
 
@@ -18,7 +18,7 @@ function SpecialtyTable({tableItems = []}) {
     }
 
     const redirectToEditor = (item) => {
-        navigate(`${ADMIN_SPECIALTY_ROUTE}/${item.id}`)
+        navigate(`${appRoutes.admin.ADMIN_SPECIALTY_ROUTE}/${item.id}`)
     }
 
     return (

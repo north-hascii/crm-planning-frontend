@@ -1,5 +1,5 @@
 import React from 'react';
-import {ADMIN_OPERATION_ROUTE} from "../../utils/consts";
+import {ADMIN_OPERATION_ROUTE, appRoutes} from "../../utils/consts";
 import {useNavigate} from "react-router-dom";
 import {deleteMaterialById} from "../../http/materialApi";
 import {deleteOperationById} from "../../http/operationApi";
@@ -17,8 +17,8 @@ function OperationTable({tableItems = []}) {
         })
     }
     const redirectToEditor = (item) => {
-        console.log(`${ADMIN_OPERATION_ROUTE}/${item.id}`)
-        navigate(`${ADMIN_OPERATION_ROUTE}/${item.id}`)
+        // console.log(`${ADMIN_OPERATION_ROUTE}/${item.id}`)
+        navigate(`${appRoutes.admin.ADMIN_OPERATION_ROUTE}/${item.id}`)
     }
 
     return (

@@ -5,7 +5,7 @@ import {getAllUsers} from "../../http/userApi";
 import {getAllSpecialties} from "../../http/specialtyApi";
 import {getAllSOperations} from "../../http/operationApi";
 import {getAllMaterials} from "../../http/materialApi";
-import SectionBar from "../../components/optionsBar/SectionBar";
+import AdminSectionBar from "../../components/optionsBar/AdminSectionBar";
 import {ADMIN_ROUTE, ORDER_CREATE_ROUTE, pageMods} from "../../utils/consts";
 import AdminTable from "../../components/adminTable/adminTable";
 import OrderTable from "../../components/adminTable/OrderTable";

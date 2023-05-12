@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
-import {ADMIN_SPECIALTY_ROUTE, ORDER_ROUTE, ORDER_VIEW_ROUTE} from "../../utils/consts";
+import {ADMIN_SPECIALTY_ROUTE, appRoutes, ORDER_ROUTE, ORDER_VIEW_ROUTE} from "../../utils/consts";
 import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
 
@@ -13,7 +13,7 @@ function OrderTable({tableItems = []}) {
     }
 
     const redirectToEditor = (item) => {
-        navigate(`${ADMIN_SPECIALTY_ROUTE}/${item.id}`)
+        navigate(`${appRoutes.admin.ADMIN_SPECIALTY_ROUTE}/${item.id}`)
     }
 
     // console.log(tableItems)

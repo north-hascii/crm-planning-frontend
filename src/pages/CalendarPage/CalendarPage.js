@@ -2,7 +2,12 @@ import React, {useContext} from 'react';
 import './CalendarPage.scss'
 import Calendar from "./Calendar";
 import {getAllMaterials} from "../../http/materialApi";
-import {getAllOrderTasksInInterval, getAllTasksInInterval, getAllWorkerTasksInInterval} from "../../http/calendarApi";
+import {
+    getAllOrderTasksInInterval,
+    getAllTasksInInterval,
+    getAllWorkerByIdTasksInInterval,
+    getAllWorkerTasksInInterval
+} from "../../http/calendarApi";
 import CalendarTaskWindow from "./CalendarTaskWindow";
 import {formatDateTime} from './script'
 import {buttonProps} from "../../components/Button/ButtonProps";
@@ -292,11 +297,7 @@ function CalendarPage(props) {
                                         alert('Выберите неделю для отображения.')
                                         return
                                     }
-                                    // if (selectedWorkerId === -1) {
-                                    //     alert('Выберите работника для отображения.')
-                                    //     return;
-                                    // }
-                                    getAllWorkerTasksInInterval(weekDaysState[0], weekDaysState[weekDaysState.length - 1], user.userId).then(data => {
+                                    getAllWorkerTasksInInterval(weekDaysState[0], weekDaysState[weekDaysState.length - 1]).then(data => {
                                         console.log('calendar got', data)
                                         if (data) {
                                             parseTasks(data)
@@ -315,7 +316,7 @@ function CalendarPage(props) {
                     </div>
                 }
 
-                {user.userRole === userRoles.admin || user.userRole === userRoles.manager &&
+                {(user.userRole === userRoles.admin || user.userRole === userRoles.manager) &&
                 <div className={'calendar-date-selector-worker-container'}>
                     <Button text={'Показать все задачи'}
                             size={buttonProps.size.small}
@@ -324,6 +325,7 @@ function CalendarPage(props) {
                             onClck={() => {
                                 if (!weekDaysState[0] || !weekDaysState[weekDaysState.length - 1]) {
                                     alert('Выберите неделю для отображения.')
+                                    return
                                 }
                                 getAllTasksInInterval(weekDaysState[0], weekDaysState[weekDaysState.length - 1]).then(data => {
                                     console.log('calendar got', data)
@@ -344,7 +346,7 @@ function CalendarPage(props) {
                 </div>
                 }
                 {/*<div className={'calendar-date-selector-worker-container-outer'}>*/}
-                {user.userRole === userRoles.admin || user.userRole === userRoles.manager &&
+                {(user.userRole === userRoles.admin || user.userRole === userRoles.manager) &&
                     <>
                         <div className={'calendar-date-selector-worker-container'}>
                             <SearchField type={searchFieldProps.worker} baseList={workers}
@@ -367,9 +369,9 @@ function CalendarPage(props) {
                                         }
                                         if (selectedWorkerId === -1) {
                                             alert('Выберите работника для отображения.')
-                                            return;
+                                            return
                                         }
-                                        getAllWorkerTasksInInterval(weekDaysState[0], weekDaysState[weekDaysState.length - 1], selectedWorkerId).then(data => {
+                                        getAllWorkerByIdTasksInInterval(weekDaysState[0], weekDaysState[weekDaysState.length - 1], selectedWorkerId).then(data => {
                                             console.log('calendar got', data)
                                             if (data) {
                                                 parseTasks(data)
@@ -403,6 +405,7 @@ function CalendarPage(props) {
                                     onClck={() => {
                                         if (!weekDaysState[0] || !weekDaysState[weekDaysState.length - 1]) {
                                             alert('Выберите неделю для отображения.')
+                                            return
                                         }
                                         getAllOrderTasksInInterval(weekDaysState[0], weekDaysState[weekDaysState.length - 1], selectedOrderId).then(data => {
                                             console.log('calendar got', data)
@@ -423,30 +426,6 @@ function CalendarPage(props) {
                         </div>
                     </>
                 }
-
-
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*    <SearchField type={searchFieldProps.manager} baseList={managers}*/}
-                {/*                 onUpdate={(items) => {*/}
-                {/*                     if (items[0]) {*/}
-                {/*                         order.manager = items[0]*/}
-                {/*                         order.manager_id = items[0].id*/}
-                {/*                     }*/}
-
-                {/*                     setManagers(items)*/}
-                {/*                     onUpdate(order)*/}
-                {/*                 }*/}
-                {/*                 } listLimit={1}/>*/}
-                {/*    <Button text={'Показать все задачи заказа'}*/}
-                {/*            size={buttonProps.size.small}*/}
-                {/*            color={buttonProps.color.light}*/}
-                {/*            bgColor={buttonProps.background_color.dark_v1}*/}
-                {/*            onClck={() => {*/}
-                {/*            }}*/}
-                {/*    />*/}
-                {/*</div>*/}
-
             </div>
 
             <div className={'timetable-container'}>

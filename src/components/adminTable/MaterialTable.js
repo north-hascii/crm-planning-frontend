@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
-import {ADMIN_MATERIAL_ROUTE} from "../../utils/consts";
+import {ADMIN_MATERIAL_ROUTE, appRoutes} from "../../utils/consts";
 import {deleteSpecialtyById} from "../../http/specialtyApi";
 import {deleteMaterialById} from "../../http/materialApi";
 
@@ -19,7 +19,7 @@ function MaterialTable({tableItems = []}) {
     }
 
     const redirectToEditor = (item) => {
-        navigate(`${ADMIN_MATERIAL_ROUTE}/${item.id}`)
+        navigate(`${appRoutes.admin.ADMIN_MATERIAL_ROUTE}/${item.id}`)
     }
 
     return (

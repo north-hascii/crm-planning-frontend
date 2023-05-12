@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
 import './header.scss'
 import {
-    ADMIN_ROUTE,
-    AUTH_ROUTE, CALENDAR_ROUTE,
+    ADMIN_ROUTE, ADMIN_USER_ROUTE, adminSections, appRoutes, appRoutesArray,
+    AUTH_ROUTE, CALENDAR_ROUTE, headerNavigationArray,
     HOME_ROUTE,
     localStorageParams,
     ORDER_INFO_ROUTE,
-    ORDER_ROUTE,
+    ORDER_ROUTE, pages,
     userRoles
 } from "../../utils/consts";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -29,50 +29,59 @@ const Header = observer(() => {
         // clear()
     }
 
-    const clearCache = autorun(() => {
-        // Clear all MobX cache
-        // Object.keys(mobx.keys).forEach(key => delete mobx.data[key]);
-    })
 
-    const tabNamesAndTexts = [
-        {
-            name: 'calendar',
-            text: 'Календарь',
-        },
-        {
-            name: 'order',
-            text: 'Заказы',
-        },
-        {
-            name: 'admin',
-            text: 'Админ панель',
-        }
-    ]
-
-    const tabsAndRoutes = {
-        'calendar': CALENDAR_ROUTE,
-        'order': ORDER_ROUTE,
-        'admin': ADMIN_ROUTE,
-    }
+    // const tabNamesAndTexts = [
+    //     {
+    //         name: 'calendar',
+    //         text: 'Календарь',
+    //     },
+    //     {
+    //         name: 'order',
+    //         text: 'Заказы',
+    //     },
+    //     {
+    //         name: 'admin',
+    //         text: 'Админ панель',
+    //     }
+    // ]
+    //
+    // const tabsAndRoutes = {
+    //     'calendar': CALENDAR_ROUTE,
+    //     'order': ORDER_ROUTE,
+    //     'admin': ADMIN_ROUTE,
+    // }
 
     const [selectedTab, setSelectedTab] = React.useState('')
     const navigate = useNavigate()
 
     React.useEffect(() => {
-        if (selectedTab) {
-            navigate(tabsAndRoutes[selectedTab])
-        }
+        // if (selectedTab) {
+        //     navigate(tabsAndRoutes[selectedTab])
+        // }
     }, [selectedTab])
-
-    React.useEffect(() => {
-        if (location.pathname === ADMIN_ROUTE) {
-            setSelectedTab(tabNamesAndTexts.find((item, index) => {
-                return item.name === 'admin'
-            }).name)
-        }
-    }, [])
-
     const location = useLocation()
+    React.useEffect(() => {
+        console.log('location=', location.pathname)
+
+        if (appRoutesArray.admin.includes(location.pathname)) {
+            setSelectedTab(headerNavigationArray.find((item, index) => {
+                return item.section === pages.admin
+            }).section)
+
+            if (location.pathname === appRoutes.admin.ADMIN_SPECIALTY_ROUTE) {
+                navigate(appRoutes.admin.ADMIN_ROUTE + '/' + adminSections.specialty.section)
+            }
+
+        }
+
+    }, [location.pathname])
+
+    const selectHeaderSection = (section, route) => {
+        setSelectedTab(section)
+        navigate(route)
+    }
+
+
 
 
     // console.log(location.pathname)
@@ -100,11 +109,11 @@ const Header = observer(() => {
                 LOGO
             </div>
             <div className={'header-container-items'}>
-                {tabNamesAndTexts.map((item, index) => {
+                {headerNavigationArray.map((item, index) => {
                     return (<div
-                        className={`header-container-item ${item.name === selectedTab ? 'selected' : ''}`}
-                        onClick={() => setSelectedTab(item.name)} key={index}>
-                        {item.text}
+                        className={`header-container-item ${item.section === selectedTab ? 'selected' : ''}`}
+                        onClick={() => selectHeaderSection(item.section, item.route)} key={index}>
+                        {item.label}
                     </div>)
                 })}
             </div>

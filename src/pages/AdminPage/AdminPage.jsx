@@ -1,10 +1,10 @@
 import React from 'react';
 import './AdminPage.scss'
-import SectionBar from "../../components/optionsBar/SectionBar";
+import AdminSectionBar from "../../components/optionsBar/AdminSectionBar";
 import AdminTable from "../../components/adminTable/adminTable";
 import {adminOptions} from "./adminOptions";
-import {ADMIN_ROUTE, ORDER_CREATE_ROUTE} from "../../utils/consts";
-import {useNavigate, useParams} from "react-router-dom";
+import {adminSections, adminSectionsArray, appRoutes} from "../../utils/consts";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {getAllUsers} from "../../http/userApi";
 import {getAllSpecialties} from "../../http/specialtyApi";
 import {getAllMaterials} from "../../http/materialApi";
@@ -15,6 +15,7 @@ import Button from "../../components/Button/Button";
 function AdminPage(props) {
     const {section} = useParams()
     const navigate = useNavigate()
+    const location = useLocation()
 
     const [isPageLoading, setIsPageLoading] = React.useState(true)
     const [isTableLoading, setIsTableLoading] = React.useState(true)
@@ -27,7 +28,7 @@ function AdminPage(props) {
             setSelectedSection(section)
         }
         setIsPageLoading(false)
-    }, [])
+    }, [location])
 
     React.useEffect(() => {
         setIsTableLoading(true)
@@ -73,41 +74,41 @@ function AdminPage(props) {
         }
     }, [selectedSection])
 
-    const adminOptionsArray = [
-        {
-            type: adminOptions.user,
-            text: 'Пользователи',
-        },
-        {
-            type: adminOptions.specialty,
-            text: 'Специальности',
-        },
-        {
-            type: adminOptions.operation,
-            text: 'Операции',
-        },
-        {
-            type: adminOptions.material,
-            text: 'Материалы',
-        }
-    ]
-
-    const adminPageTitles = {
-        user: 'Список пользователей',
-        specialty: 'Список специальностей',
-        operation: 'Список операций',
-        material: 'Список материалов',
-    }
+    // const adminOptionsArray = [
+    //     {
+    //         type: adminOptions.user,
+    //         text: 'Пользователи',
+    //     },
+    //     {
+    //         type: adminOptions.specialty,
+    //         text: 'Специальности',
+    //     },
+    //     {
+    //         type: adminOptions.operation,
+    //         text: 'Операции',
+    //     },
+    //     {
+    //         type: adminOptions.material,
+    //         text: 'Материалы',
+    //     }
+    // ]
+    //
+    // const adminPageTitles = {
+    //     user: 'Список пользователей',
+    //     specialty: 'Список специальностей',
+    //     operation: 'Список операций',
+    //     material: 'Список материалов',
+    // }
 
 
     return (
         <div className={'admin-page'}>
             {!isPageLoading &&
                 <>
-                    <SectionBar type={'admin'} sections={adminOptionsArray} selectedSection={selectedSection}
-                                onPress={(section) => {
+                    <AdminSectionBar type={'admin'} sections={adminSectionsArray} selectedSection={selectedSection}
+                                     onPress={(section) => {
                                     setSelectedSection(section)
-                                    navigate(ADMIN_ROUTE + '/' + section)
+                                    navigate(appRoutes.admin.ADMIN_ROUTE + '/' + section)
                                 }}/>
                 </>
             }
@@ -115,14 +116,14 @@ function AdminPage(props) {
                 {!isPageLoading &&
                     <div className={'page-title-container'}>
                         <div className={'page-title'}>
-                            {adminPageTitles[selectedSection]}
+                            {adminSections[selectedSection].title}
                         </div>
                         <Button text={'Создать'}
                                 size={buttonProps.size.small}
                                 color={buttonProps.color.light}
                                 bgColor={buttonProps.background_color.dark_v1}
                                 onClck={() => {
-                                    navigate(ADMIN_ROUTE + '/' + section + '/' + 'create')
+                                    navigate(appRoutes.admin.ADMIN_ROUTE + '/' + section + '/' + 'create')
                                 }}
                         />
                     </div>

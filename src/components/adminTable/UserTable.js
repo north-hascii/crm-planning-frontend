@@ -1,5 +1,5 @@
 import React from 'react';
-import {ADMIN_USER_ROUTE} from "../../utils/consts";
+import {ADMIN_USER_ROUTE, appRoutes} from "../../utils/consts";
 import {useNavigate} from "react-router-dom";
 import {deleteUserById} from "../../http/userApi";
 
@@ -18,7 +18,7 @@ function UserTable({tableItems = []}) {
     }
 
     const redirectToEditor = (item) => {
-        navigate(`${ADMIN_USER_ROUTE}/${item.id}`)
+        navigate(`${appRoutes.admin.ADMIN_USER_ROUTE}/${item.id}`)
     }
 
     return (

@@ -5,15 +5,9 @@ import {formatDateTime} from './script'
 function CalendarTaskWindow({isVisible = false, onClose = Function.prototype, task = null}) {
     React.useEffect(() => {
         console.log('task:', task)
-        // if (!task) {
-        //     task = {
-        //         'task_name': ''
-        //     }
-        // }
+
     }, [])
     return (
-        // <div className={`calendar-task-window-container ${isVisible ? 'visible' : 'hidden'}`}>
-
         <div className={`calendar-task-window ${isVisible ? 'visible' : 'hidden'}`}>
             <svg className="close-calendar-task-window"
                  onClick={onClose}
@@ -66,26 +60,6 @@ function CalendarTaskWindow({isVisible = false, onClose = Function.prototype, ta
                     <div className={'viewer-item-text'}>
                         Ресурсы:
                     </div>
-                    {/*{task.operation.resource_list && task.operation.resource_list.map((resource, index) => {*/}
-                    {/*    return (*/}
-                    {/*        <div className={'viewer-item-input'}>*/}
-                    {/*            {resource.material.material_name} {resource.amount} ({resource.material.units})*/}
-                    {/*        </div>*/}
-                    {/*    )*/}
-                    {/*})}*/}
-                    {/*<div className={'viewer-item-input'}>*/}
-                    {/*    {task.operation.resource_list && task.operation.resource_list.map((resource, index) => {*/}
-                    {/*        return (*/}
-                    {/*            <>*/}
-                    {/*                <div key={index}>*/}
-                    {/*                    {resource.material.material_name} {resource.amount} ({resource.material.units})*/}
-
-                    {/*                </div>*/}
-                    {/*                <br/>*/}
-                    {/*            </>*/}
-                    {/*        )*/}
-                    {/*    })}*/}
-                    {/*</div>*/}
                     <div className={'viewer-item-input'}>
                         {task.operation.resource_list && task.operation.resource_list.map((resource, index) => {
                             return (
@@ -100,10 +74,8 @@ function CalendarTaskWindow({isVisible = false, onClose = Function.prototype, ta
                         })}
                     </div>
                 </div>
-
             </div>
         </div>
-        // </div>
     );
 }
 

@@ -4,4 +4,6 @@ export const searchFieldProps = {
     operation: 'operation',
     material: 'material',
     manager: 'manager',
+    worker: 'worker',
+    order: 'order',
 }

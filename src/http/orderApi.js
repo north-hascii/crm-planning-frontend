@@ -11,6 +11,11 @@ export const getOrderById = async (id) => {
     return data
 }
 
+export const getAllOrdersByPartName = async (orderName) => {
+    const {data} = await $authHost.get('/manual/order/get-all-by-part-name?order_name=' + orderName)
+    return data
+}
+
 export const createOrder = async (order) => {
     console.log('before POST', order)
     const {response} = await $authHost.post('/manual/order/create', order

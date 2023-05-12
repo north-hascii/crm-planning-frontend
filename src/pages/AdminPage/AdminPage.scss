@@ -12,12 +12,18 @@
 
 .admin-page-container {
   position: relative;
+  // TODO: 1500
   max-width: 1500px;
   width: 100%;
   margin: 0 auto;
   padding: 60px 90px;
 
   //padding: 100px 0 0 0;
+
+  &.calendar {
+    max-width: 2000px;
+  }
+
 }
 
 .page-title-container {

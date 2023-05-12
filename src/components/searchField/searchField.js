@@ -1,11 +1,12 @@
 import React from 'react';
 import {searchFieldProps} from "./searchFieldProps";
-import {getAllUsersByPartSecondName} from "../../http/userApi";
+import {getAllUsersByPartSecondName, getAllWorkersByPartSecondName} from "../../http/userApi";
 import {getSpecialtiesByPartName} from "../../http/specialtyApi";
 import CounterField from "./CounterField";
 import {getAllMaterialsByPartName} from "../../http/materialApi";
 import counterField from "./CounterField";
 import {getAllOperationsByPartName, getOperationById} from "../../http/operationApi";
+import {getAllOrdersByPartName} from "../../http/orderApi";
 
 function SearchField({
                          type = searchFieldProps.user, baseList = [], onUpdate = (items) => Function.prototype,
@@ -115,6 +116,24 @@ function SearchField({
                 setIsListVisible(true)
             })
         }
+        if (type === searchFieldProps.worker) {
+            getAllWorkersByPartSecondName(itemInSearch).then(data => {
+                setAvailableItemsList(data)
+            }).catch(err => {
+                console.log("Error while getting data", err)
+            }).finally(() => {
+                setIsListVisible(true)
+            })
+        }
+        if (type === searchFieldProps.order) {
+            getAllOrdersByPartName(itemInSearch).then(data => {
+                setAvailableItemsList(data)
+            }).catch(err => {
+                console.log("Error while getting data", err)
+            }).finally(() => {
+                setIsListVisible(true)
+            })
+        }
     }
 
     const getFieldTitle = () => {
@@ -133,6 +152,12 @@ function SearchField({
             }
             case searchFieldProps.operation: {
                 return 'Операция'
+            }
+            case searchFieldProps.worker: {
+                return 'Работник'
+            }
+            case searchFieldProps.order: {
+                return 'Заказ'
             }
             default: {
                 return 'Заголовок не задан'
@@ -157,6 +182,12 @@ function SearchField({
             case searchFieldProps.operation: {
                 return 'Введите название операции'
             }
+            case searchFieldProps.worker: {
+                return 'Введите фамилию работника'
+            }
+            case searchFieldProps.order: {
+                return 'Введите название заказа'
+            }
             default: {
                 return 'Placeholder не задан'
             }
@@ -179,6 +210,12 @@ function SearchField({
             }
             case searchFieldProps.operation: {
                 return item.operation_name + ' (' + item.duration + ' мин)'
+            }
+            case searchFieldProps.worker: {
+                return item.second_name + ' ' + item.first_name + ' ' + item.third_name + ' (' + item.email + ')'
+            }
+            case searchFieldProps.order: {
+                return item.order_name +  ' (id=' + item.id + ')'
             }
             default: {
                 return 'Формат вывода не задан'

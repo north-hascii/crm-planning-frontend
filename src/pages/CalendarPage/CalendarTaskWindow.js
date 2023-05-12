@@ -1,6 +1,6 @@
 import React from 'react';
 import './CalendarTaskWindow.scss'
-import {formatDateTime} from '../../utils/util'
+import {formatDate, formatDateTime, formatDateWithTime} from '../../utils/util'
 
 function CalendarTaskWindow({isVisible = false, onClose = Function.prototype, task = null}) {
     React.useEffect(() => {
@@ -42,10 +42,18 @@ function CalendarTaskWindow({isVisible = false, onClose = Function.prototype, ta
                 </div>
                 <div className={'viewer-item'}>
                     <div className={'viewer-item-text'}>
-                        Интервал:
+                        Время начала задачи:
                     </div>
                     <div className={'viewer-item-input'}>
-                        {formatDateTime(task.start_date)} - {formatDateTime(task.end_date)}
+                        {formatDateWithTime(task.start_date)}
+                    </div>
+                </div>
+                <div className={'viewer-item'}>
+                    <div className={'viewer-item-text'}>
+                        Время завершения задачи:
+                    </div>
+                    <div className={'viewer-item-input'}>
+                       {formatDateWithTime(task.end_date)}
                     </div>
                 </div>
                 <div className={'viewer-item'}>

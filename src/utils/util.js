@@ -12,3 +12,18 @@ export const formatDate = (date) => {
 
     return date.toLocaleDateString('ru-RU', options)
 }
+
+export const formatDateWithTime = (date) => {
+    date = new Date(date)
+    const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+    };
+
+    return date.toLocaleDateString('ru-RU', options)
+}
+

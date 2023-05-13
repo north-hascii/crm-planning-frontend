@@ -20,6 +20,23 @@
   //padding: 100px 0 0 0;
 }
 
+.calendar-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.timetable-container {
+  float: left;
+  width: 70%;
+}
+
+.calendar-selector-container {
+ float: right;
+  &>div {
+    margin-bottom: 10px;
+  }
+}
+
 .calendar-widget-label {
   cursor: pointer;
   display: flex;
@@ -54,12 +71,12 @@
   }
 }
 
-.calendar-date-selector-container {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  //justify-content: center;
-}
+//.calendar-date-selector-container {
+//  position: relative;
+//  display: flex;
+//  flex-direction: row;
+//  //justify-content: center;
+//}
 
 .calendar-date-selector-worker-container-outer {
   //display: flex;
@@ -75,7 +92,7 @@
   height: fit-content;
 
   &:not(:last-of-type) {
-    margin-right: 10px;
+    //margin-right: 10px;
   }
 }
 
@@ -118,10 +135,11 @@
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  //flex-wrap: wrap;
   align-items: flex-start;
 
-  background: #F5F5F5;
+  background: rgba(245, 245, 245, 0.5);
+  //background: #F5F5F5;
   //box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
   //border: 1px solid rgba(76, 76, 76, 0.5);
 
@@ -131,9 +149,28 @@
 
   padding: 12px 16px;
 
+  margin-left: 40px;
+
   &:not(:last-of-type) {
     margin-bottom: 10px;
   }
+  &:hover {
+    background-color: #F5F5F5;
+  }
+}
+
+.timetable-item-point {
+  display: flex;
+
+  margin-bottom: 5px;
+
+  &>svg {
+    margin-right: 10px;
+  }
+}
+
+.task-executor-icon, .task-name-icon {
+  //margin-right: 10px;
 }
 
 .timetable-item-left {
@@ -141,12 +178,17 @@
 
   font-family: "SF Pro Display", sans-serif;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
   line-height: 19px;
-  color: #4C4C4C;
+  //color: #4C4C4C;
+  color: #9C9C9C;
 
   margin-right: 20px;
+}
+
+.timetable-item-start_time {
+  margin-bottom: 5px;
 }
 
 .timetable-item-right {

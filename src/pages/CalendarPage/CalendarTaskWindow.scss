@@ -1,48 +1,52 @@
 .calendar-task-window-container {
-  //background: rgba(0,0,0,.7);
-  //height: 100vh;
-  //position: fixed;
-  //width: 100vw;
-  //z-index: 10;
+  background: rgba(0, 0, 0, 0.3);
+  height: 100vh;
+  left: 0;
+  top: 0;
+  position: fixed;
+  width: 100vw;
+  z-index: 10;
+
+  //&.hidden {
+  //  display: none;
+  //  //opacity: 0;
+  //}
   //
-  //top: 0;
-
-  &.hidden {
-    display: none;
-    //opacity: 0;
-  }
-
-  &.visible {
-    //opacity: 1;
-    display: initial;
-  }
+  //&.visible {
+  //  //opacity: 1;
+  //  display: initial;
+  //}
 }
 
 .calendar-task-window {
-  align-items: center;
+  //align-items: center;
   background: #F5F5F5;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  //justify-content: center;
   margin: 0 auto;
-  padding: 20px 20px;
-  top: 30%;
-  width: 600px;
-  z-index: 10;
-  transform: translate(50%, 0%);
+  padding: 20px 40px;
+  //width: 800px;
+  width: fit-content;
+  z-index: 50;
 
-  position: fixed;
+  //top: 0;
+  //left: 0;
+  //transform: translate(50%, 0%);
+
+  transform: translateY(100px);
+
+
+  //position: fixed;
 
   box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
   &.hidden {
     display: none;
-    //opacity: 0;
   }
 
   &.visible {
-    //opacity: 1;
-    display: initial;
+    display: flex;
   }
 
 }
@@ -60,10 +64,28 @@
 
   color: #4C4C4C;
 
+  margin-bottom: 30px;
+
 }
 
+//.calendar-task-window-content {
+//  padding: 50px 0;
+//  display: flex;
+//  flex-direction: column;
+//  justify-content: center;
+//}
+
 .calendar-task-window-content {
-  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.calendar-task-window-content-top {
+
+}
+
+.calendar-task-window-content-bottom {
+
 }
 
 .close-calendar-task-window{

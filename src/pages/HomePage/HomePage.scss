@@ -1,0 +1,41 @@
+.home-page-items {
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+  grid-template-rows: repeat(2, 200px);
+}
+
+.home-page-item {
+  cursor: pointer;
+
+  width: 300px;
+  height: 165px;
+  border-radius: 12px;
+
+  padding: 10px 20px 20px 20px;
+  //background-color: red;
+
+  display: flex;
+  align-items: flex-end;
+
+  box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
+
+  background: rgba(245, 245, 245, 0.5);
+
+  &:hover {
+    background-color: #F5F5F5;
+  }
+
+
+}
+
+.home-page-item-label {
+  display: flex;
+  font-family: "SF Pro Display", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #4C4C4C;
+}

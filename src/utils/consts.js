@@ -1,7 +1,7 @@
 import app from "../App";
 import {adminOptions} from "../pages/AdminPage/adminOptions";
 // import {adminRoutes} from "../router/routes";
-import HomePage from "../pages/HomePage";
+import HomePage from "../pages/HomePage/HomePage";
 import AdminPage from "../pages/AdminPage/AdminPage";
 import UserEditorPage from "../pages/AdminPage/UserEditorPage";
 import SpecialtyEditorPage from "../pages/AdminPage/SpecialtyEditorPage";

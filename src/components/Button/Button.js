@@ -14,14 +14,8 @@ function Button({
                     // status= buttonProps.status.inactive,
                     type = 'button'
                 }) {
-
-    const customStyles = {
-        // backgroundColor: bgColor,
-        // color: color,
-    }
     return (
         <button className={`button ${size} ${color} ${bgColor} ${isActive ? 'active' : ''}`} onClick={() => onClck()}
-             style={customStyles}
         type={type}
         >
             {text}

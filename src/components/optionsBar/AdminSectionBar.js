@@ -38,10 +38,10 @@ function AdminSectionBar(
         <div className={`section-bar ${type}`}>
             <div className={'section-bar-container'}>
                 {sections.map((item, index) => {
-                    return (<div className={`section-bar-item ${item.section === activeSection ? 'selected' : ''}`}
+                    return (<div className={`section-bar-item ${item?.section === activeSection ? 'selected' : ''}`}
                                  onClick={() => {
-                                     setActiveSection(item.section)
-                                     onPress(item.section)
+                                     setActiveSection(item?.section)
+                                     onPress(item?.section)
                                  }}
                                  key={index}>
                         {item.label}

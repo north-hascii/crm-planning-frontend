@@ -1,14 +1,14 @@
 import React, {useContext} from 'react';
 import './authForm.scss'
 import {useNavigate} from "react-router-dom";
-import {AUTH_ROUTE, formTypes, HOME_ROUTE, localStorageParams, RESET_PASSWORD_ROUTE} from "../../utils/consts";
+import {AUTH_ROUTE, formTypes, localStorageParams, RESET_PASSWORD_ROUTE} from "../../utils/consts";
 import {resetPassword, signIn} from "../../http/authApi";
 import {HTTP_STATUS_CODES} from "../../http/HttpStatus";
 import {StoreContext} from "../../index";
 import {observer} from "mobx-react-lite";
 import SubLine from "../SubLine/SubLine";
 
-
+// TODO: REFACTOR
 const AuthForm = observer(({formType = formTypes.loginForm}) => {
 
     const {user} = useContext(StoreContext)
@@ -59,16 +59,9 @@ const AuthForm = observer(({formType = formTypes.loginForm}) => {
             {formType === formTypes.loginForm && <div className={'auth-form-title'}>Вход в систему</div>}
             {formType === formTypes.resetPasswordForm && <div className={'auth-form-title'}>Сброс пароля</div>}
 
-
             <form className={'auth-form-container'} onSubmit={(e) => completeForm(e)}>
                 <SubLine/>
-                {/*<svg width="100px" height="2" viewBox="0 0 604 2" fill="none" xmlns="http://www.w3.org/2000/svg">*/}
-                {/*    <path d="M0 1H604" stroke="#4C4C4C" strokeWidth="0.7"/>*/}
-                {/*</svg>*/}
                 <div className={'auth-form-field'}>
-                    {/*<div className={'auth-form-field-title'}>*/}
-                    {/*    Логин*/}
-                    {/*</div>*/}
                     <div className={'auth-form-field-input-container'}>
                         <input className={'auth-form-field-input'}
                                required
@@ -80,9 +73,6 @@ const AuthForm = observer(({formType = formTypes.loginForm}) => {
                     </div>
                 </div>
                 {formType === formTypes.loginForm && <div className={'auth-form-field'}>
-                    {/*<div className={'auth-form-field-title'}>*/}
-                    {/*    Пароль*/}
-                    {/*</div>*/}
                     <input className={'auth-form-field-input'}
                            required
                            name={'user_password'}

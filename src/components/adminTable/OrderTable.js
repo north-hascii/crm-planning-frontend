@@ -1,12 +1,10 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
-// import {ADMIN_SPECIALTY_ROUTE, appRoutes, ORDER_ROUTE, ORDER_VIEW_ROUTE} from "../../utils/consts";
 import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
 import {appRoutes} from "../../utils/consts";
-import {getAllWorkerTasksInInterval} from "../../http/calendarApi";
 import {getOrderEndDateById} from "../../http/orderApi";
-import {formatDate, formatDateTime} from "../../utils/util";
+import {formatDate} from "../../utils/util";
 
 function OrderTable({tableItems = []}) {
     const navigate = useNavigate()
@@ -17,7 +15,7 @@ function OrderTable({tableItems = []}) {
     }
 
     const redirectToEditor = (item) => {
-        navigate(`${appRoutes.admin.ADMIN_SPECIALTY_ROUTE}/${item.id}`)
+        navigate(`${appRoutes.admin.ADMIN_SPECIALTY_ROUTE}/${item?.id}`)
     }
 
     const getOrderEndDate = (item, orderId) => {
@@ -29,8 +27,6 @@ function OrderTable({tableItems = []}) {
             // alert('Не удалось найти задачи.')
         })
     }
-
-    // console.log(tableItems)
 
     return (
         <table className={`admin-table rounded-corners`}>
@@ -58,16 +54,16 @@ function OrderTable({tableItems = []}) {
             {tableItems && tableItems.map((item, index) => {
                 return (<tr key={index}>
                     <th className={'admin-table-col small'}>
-                        {item.id}
+                        {item?.id}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.order_name}
+                        {item?.order_name}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.status}
+                        {item?.status}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.customer_company}
+                        {item?.customer_company}
                     </th>
                     <th className={'admin-table-col'}>
                         {/*<Button*/}
@@ -79,7 +75,7 @@ function OrderTable({tableItems = []}) {
                         {/*        getOrderEndDate(item, item.id)*/}
                         {/*    }}*/}
                         {/*/>*/}
-                        {formatDate(item.end_date)}
+                        {formatDate(item?.end_date)}
                     </th>
                     <th className={'admin-table-col medium'}>
                         <Button
@@ -87,7 +83,7 @@ function OrderTable({tableItems = []}) {
                             bgColor={buttonProps.background_color.dark_v1}
                             color={buttonProps.color.light}
                             text={'Открыть'}
-                            onClck={() => navigate(appRoutes.order.ORDER_VIEW_ROUTE + '/' + item.id)}
+                            onClck={() => navigate(appRoutes.order.ORDER_VIEW_ROUTE + '/' + item?.id)}
                         />
                     </th>
                 </tr>)

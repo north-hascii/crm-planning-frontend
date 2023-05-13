@@ -20,13 +20,11 @@ import {getUserById} from "../../http/userApi";
 
 const Header = observer(() => {
     const {user} = useContext(StoreContext)
-    // const [user]
     const [isLoading, setIsLoading] = React.useState(true)
 
     const logOut = () => {
         localStorage.clear()
         user.clearCache()
-        // clear()
     }
 
     const [selectedTab, setSelectedTab] = React.useState('')
@@ -43,20 +41,20 @@ const Header = observer(() => {
 
         if (appRoutesArray.admin.includes(location.pathname)) {
             setSelectedTab(headerNavigationArray.find((item, index) => {
-                return item.section === pages.admin
-            }).section)
+                return item?.section === pages.admin
+            })?.section)
             return
         }
         if (appRoutesArray.calendar.includes(location.pathname)) {
             setSelectedTab(headerNavigationArray.find((item, index) => {
-                return item.section === pages.calendar
-            }).section)
+                return item?.section === pages.calendar
+            })?.section)
             return
         }
         if (appRoutesArray.order.includes(location.pathname)) {
             setSelectedTab(headerNavigationArray.find((item, index) => {
-                return item.section === pages.order
-            }).section)
+                return item?.section === pages.order
+            })?.section)
             return
         }
         setSelectedTab('')
@@ -92,9 +90,9 @@ const Header = observer(() => {
             <div className={'header-container-items'}>
                 {userRolesArray.includes(user.userRole) && user.userRole in headerNavigationOnRole && headerNavigationOnRole[user.userRole].map((item, index) => {
                     return (<div
-                        className={`header-container-item ${item.section === selectedTab ? 'selected' : ''}`}
-                        onClick={() => selectHeaderSection(item.section, item.route)} key={index}>
-                        {item.label}
+                        className={`header-container-item ${item?.section === selectedTab ? 'selected' : ''}`}
+                        onClick={() => selectHeaderSection(item?.section, item?.route)} key={index}>
+                        {item?.label}
                     </div>)
                 })}
             </div>

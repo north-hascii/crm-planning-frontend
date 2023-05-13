@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import '../DefaultPage.scss'
 import './AuthPage.scss'
 import Header from "../../components/header/header";
-import AuthForm from "../../components/authForm/authForm";
+import AuthForm from "../../components/AuthForm/AuthForm";
 import {useNavigate} from "react-router-dom";
 import {AUTH_ROUTE, HOME_ROUTE, localStorageParams} from "../../utils/consts";
 import {StoreContext} from "../../index";

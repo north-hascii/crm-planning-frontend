@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import './authForm.scss'
+import './AuthForm.scss'
 import {useNavigate} from "react-router-dom";
 import {AUTH_ROUTE, formTypes, localStorageParams, RESET_PASSWORD_ROUTE} from "../../utils/consts";
 import {resetPassword, signIn} from "../../http/authApi";
@@ -8,7 +8,6 @@ import {StoreContext} from "../../index";
 import {observer} from "mobx-react-lite";
 import SubLine from "../SubLine/SubLine";
 
-// TODO: REFACTOR
 const AuthForm = observer(({formType = formTypes.loginForm}) => {
 
     const {user} = useContext(StoreContext)
@@ -18,6 +17,7 @@ const AuthForm = observer(({formType = formTypes.loginForm}) => {
     const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
     const [isDataInvalid, setIsDataInvalid] = React.useState(false)
     const [isRequestFailed, setIsRequestFailed] = React.useState(false)
+    const [isPasswordSent, setIsPasswordSent] = React.useState(false)
 
     const navigate = useNavigate()
 
@@ -36,23 +36,29 @@ const AuthForm = observer(({formType = formTypes.loginForm}) => {
             setIsDataInvalid(false)
             setIsRequestFailed(false)
 
-            user.setUserToken(localStorage.getItem(localStorageParams.user_token))
-            user.setUserRole(localStorage.getItem(localStorageParams.user_role))
-            user.setUserEmail(localStorage.getItem(localStorageParams.user_email))
-            user.setUserSecondName(localStorage.getItem(localStorageParams.user_second_name))
-            user.setUserId(localStorage.getItem(localStorageParams.user_id))
-            user.setIsAuth(true)
-            console.log(user.userId)
+            if (formType === formTypes.loginForm) {
+                user.setUserToken(localStorage.getItem(localStorageParams.user_token))
+                user.setUserRole(localStorage.getItem(localStorageParams.user_role))
+                user.setIsAuth(true)
+            }
+
+            if (formType === formTypes.resetPasswordForm) {
+                setIsPasswordSent(true)
+            }
         }
-        if (responseCode === HTTP_STATUS_CODES.INTERNAL_SERVER_ERR) {
+        if (responseCode === HTTP_STATUS_CODES.INTERNAL_SERVER_ERR || responseCode === HTTP_STATUS_CODES.BAD_REQUEST_ERR) {
             setIsRequestFailed(false)
             setIsDataInvalid(true)
         }
         if (responseCode === HTTP_STATUS_CODES.NETWORK_ERR) {
-            setIsDataInvalid(false)
             setIsRequestFailed(true)
+            setIsDataInvalid(false)
         }
     }
+
+    React.useEffect(() => {
+        setIsPasswordSent(false)
+    }, [])
 
     return (
         <div className={'auth-form'}>
@@ -105,9 +111,10 @@ const AuthForm = observer(({formType = formTypes.loginForm}) => {
                         </svg>)}
                 </div>}
 
-                {formType === formTypes.loginForm && isDataInvalid && <div className={'auth-form-error-message'}>
-                    Неправильный логин или пароль
-                </div>}
+                {formType === formTypes.loginForm && isDataInvalid &&
+                    <div className={'auth-form-error-message'}>
+                        Неправильный логин или пароль
+                    </div>}
 
                 {formType === formTypes.resetPasswordForm && isDataInvalid &&
                     <div className={'auth-form-error-message'}>
@@ -124,14 +131,20 @@ const AuthForm = observer(({formType = formTypes.loginForm}) => {
                         пароль
                     </div>
                 </>}
+
                 {formType === formTypes.resetPasswordForm && <>
                     <button className={'auth-form-button'} type={'submit'}>Сбросить
                         пароль
                     </button>
+
                     <div className={'reset-password'} onClick={() => navigate(AUTH_ROUTE)}>
                         Войти
                     </div>
                 </>}
+
+                {formType === formTypes.resetPasswordForm && isPasswordSent && <div className={'auth-form-message'}>
+                    Пароль выслан
+                </div>}
             </form>
         </div>
     );

@@ -13,12 +13,14 @@ function HomePage(props) {
         //     navigate(AUTH_ROUTE)
         // }
     // }, [])
-    return (<div className={'home-page'}>
+    return (
+        <div className={'home-page'}>
         {/*<Header/>*/}
         <div>
             HOME PAGE
         </div>
-    </div>);
+    </div>
+    );
 }
 
 export default HomePage;

@@ -1,7 +1,6 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
-import {ADMIN_MATERIAL_ROUTE, appRoutes} from "../../utils/consts";
-import {deleteSpecialtyById} from "../../http/specialtyApi";
+import {appRoutes} from "../../utils/consts";
 import {deleteMaterialById} from "../../http/materialApi";
 
 function MaterialTable({tableItems = []}) {
@@ -9,7 +8,7 @@ function MaterialTable({tableItems = []}) {
     const navigate = useNavigate()
 
     const deleteTableItem = (item) => {
-        deleteMaterialById(item.id).then(data => {
+        deleteMaterialById(item?.id).then(data => {
             alert('Материал успешно удален.')
             window.location.reload()
         }).catch(err => {
@@ -19,7 +18,7 @@ function MaterialTable({tableItems = []}) {
     }
 
     const redirectToEditor = (item) => {
-        navigate(`${appRoutes.admin.ADMIN_MATERIAL_ROUTE}/${item.id}`)
+        navigate(`${appRoutes.admin.ADMIN_MATERIAL_ROUTE}/${item?.id}`)
     }
 
     return (
@@ -42,13 +41,13 @@ function MaterialTable({tableItems = []}) {
             {tableItems && tableItems.map((item, index) => {
                 return (<tr key={index}>
                     <th className={'admin-table-col small'}>
-                        {item.id}
+                        {item?.id}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.material_name}
+                        {item?.material_name}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.units}
+                        {item?.units}
                     </th>
                     <th className={'admin-table-col medium'}>
                         <div className={'col-buttons-container'}>
@@ -72,7 +71,7 @@ function MaterialTable({tableItems = []}) {
             }
             </tbody>
         </table>
-    );
+    )
 }
 
 export default MaterialTable;

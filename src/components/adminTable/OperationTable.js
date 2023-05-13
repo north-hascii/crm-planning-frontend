@@ -1,14 +1,13 @@
 import React from 'react';
-import {ADMIN_OPERATION_ROUTE, appRoutes} from "../../utils/consts";
+import {appRoutes} from "../../utils/consts";
 import {useNavigate} from "react-router-dom";
-import {deleteMaterialById} from "../../http/materialApi";
 import {deleteOperationById} from "../../http/operationApi";
 
 function OperationTable({tableItems = []}) {
     const navigate = useNavigate()
 
     const deleteTableItem = (item) => {
-        deleteOperationById(item.id).then(data => {
+        deleteOperationById(item?.id).then(data => {
             alert('Операция успешно удалена.')
             window.location.reload()
         }).catch(err => {
@@ -17,8 +16,7 @@ function OperationTable({tableItems = []}) {
         })
     }
     const redirectToEditor = (item) => {
-        // console.log(`${ADMIN_OPERATION_ROUTE}/${item.id}`)
-        navigate(`${appRoutes.admin.ADMIN_OPERATION_ROUTE}/${item.id}`)
+        navigate(`${appRoutes.admin.ADMIN_OPERATION_ROUTE}/${item?.id}`)
     }
 
     return (
@@ -47,19 +45,19 @@ function OperationTable({tableItems = []}) {
             {tableItems && tableItems.map((item, index) => {
                 return (<tr key={index}>
                     <th className={'admin-table-col small'}>
-                        {item.id}
+                        {item?.id}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.operation_name}
+                        {item?.operation_name}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.resource_list && item.resource_list.map(resource => resource.material.material_name).join('; ')}
+                        {item?.resource_list?.map(resource => resource?.material?.material_name).join('; ')}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.specialty_list && item.specialty_list.map(resource => resource.specialty_name).join('; ')}
+                        {item?.specialty_list?.map(resource => resource?.specialty_name).join('; ')}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.duration}
+                        {item?.duration}
                     </th>
                     <th className={'admin-table-col medium'}>
                         <div className={'col-buttons-container'}>
@@ -82,7 +80,7 @@ function OperationTable({tableItems = []}) {
             }
             </tbody>
         </table>
-    );
+    )
 }
 
 export default OperationTable;

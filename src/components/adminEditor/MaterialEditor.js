@@ -1,16 +1,12 @@
 import React from 'react';
-import {updateSpecialty} from "../../http/specialtyApi";
 import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
-import SearchField from "../searchField/searchField";
-import {searchFieldProps} from "../searchField/searchFieldProps";
 import {createMaterial, updateMaterial} from "../../http/materialApi";
 import {pageMods} from "../../utils/consts";
-import {createUser} from "../../http/userApi";
 
 function MaterialEditor({material, mod = pageMods.viewer}) {
-    const [materialName, setMaterialName] = React.useState(material ? (material.material_name ? material.material_name : '') : '')
-    const [materialUnits, setMaterialUnits] = React.useState(material ? (material.units ? material.units : '') : '')
+    const [materialName, setMaterialName] = React.useState(material?.material_name || '')
+    const [materialUnits, setMaterialUnits] = React.useState(material?.units || '')
 
     const clickOnSave = async (e) => {
         e.preventDefault()
@@ -24,7 +20,7 @@ function MaterialEditor({material, mod = pageMods.viewer}) {
 
     const makeUpdateRequest = () => {
         updateMaterial(
-            material.id,
+            material?.id,
             materialName,
             materialUnits,
         ).then(data => {
@@ -75,7 +71,6 @@ function MaterialEditor({material, mod = pageMods.viewer}) {
                            value={materialUnits}
                            onChange={(e) => setMaterialUnits(e.target.value)}
                     />
-
                 </div>
                 <Button text={'Сохранить'}
                         size={buttonProps.size.small}
@@ -84,8 +79,6 @@ function MaterialEditor({material, mod = pageMods.viewer}) {
                         type={'submit'}
                 />
             </div>
-
-
             <div className={'editor-container-right'}>
 
             </div>

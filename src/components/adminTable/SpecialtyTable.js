@@ -1,14 +1,13 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
-import {ADMIN_SPECIALTY_ROUTE, appRoutes} from "../../utils/consts";
-import {deleteUserById} from "../../http/userApi";
+import {appRoutes} from "../../utils/consts";
 import {deleteSpecialtyById} from "../../http/specialtyApi";
 
 function SpecialtyTable({tableItems = []}) {
     const navigate = useNavigate()
 
     const deleteTableItem = (item) => {
-        deleteSpecialtyById(item.id).then(data => {
+        deleteSpecialtyById(item?.id).then(data => {
             window.location.reload()
             alert('Специальность успешно удалена.')
         }).catch(err => {
@@ -18,7 +17,7 @@ function SpecialtyTable({tableItems = []}) {
     }
 
     const redirectToEditor = (item) => {
-        navigate(`${appRoutes.admin.ADMIN_SPECIALTY_ROUTE}/${item.id}`)
+        navigate(`${appRoutes.admin.ADMIN_SPECIALTY_ROUTE}/${item?.id}`)
     }
 
     return (
@@ -35,13 +34,13 @@ function SpecialtyTable({tableItems = []}) {
                 </th>
             </tr>
 
-            {tableItems && tableItems.map((item, index) => {
+            {tableItems?.map((item, index) => {
                 return (<tr key={index}>
                     <th className={'admin-table-col small'}>
-                        {item.id}
+                        {item?.id}
                     </th>
                     <th className={'admin-table-col'} >
-                        {item.specialty_name}
+                        {item?.specialty_name}
                     </th>
                     <th className={'admin-table-col medium'} >
                         <div className={'col-buttons-container'}>

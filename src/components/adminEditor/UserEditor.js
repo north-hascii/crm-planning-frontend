@@ -2,32 +2,23 @@ import React from 'react';
 import './UserEditor.scss'
 import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
-import InputItems from "./InputItems";
-import {useNavigate} from "react-router-dom";
-import {createUser, getUserById, updateUser, updateUserWithPassword} from "../../http/userApi";
-import {getAllSpecialties, getSpecialtiesByPartName} from "../../http/specialtyApi";
+import {createUser, updateUser, updateUserWithPassword} from "../../http/userApi";
 import {searchFieldProps} from "../searchField/searchFieldProps";
 import SearchField from "../searchField/searchField";
 import {pageMods, userRoles, userStatuses} from "../../utils/consts";
 
-function UserEditor({user, mod = pageMods.viewer}) {
-    const [userId, setUserId] = React.useState(user ? user.id : -1)
-    const [firstName, setFirstName] = React.useState(user ? user.first_name : '')
-    const [secondName, setSecondName] = React.useState(user ? user.second_name : '')
-    const [thirdName, setThirdName] = React.useState(user ? user.third_name : '')
-    const [email, setEmail] = React.useState(user ? user.email : '')
+function UserEditor({user = null, mod = pageMods.viewer}) {
+    const [userId, setUserId] = React.useState(user?.id || -1)
+    const [firstName, setFirstName] = React.useState(user?.first_name || '')
+    const [secondName, setSecondName] = React.useState(user?.second_name || '')
+    const [thirdName, setThirdName] = React.useState(user?.third_name || '')
+    const [email, setEmail] = React.useState(user?.email || '')
     const [password, setPassword] = React.useState('')
-    const [status, setStatus] = React.useState(user ? user.status : userStatuses.working)
-    const [role, setRole] = React.useState(user ? user.user_role : userRoles.user)
-    const [specInSearch, setSpecInSearch] = React.useState('')
+    const [status, setStatus] = React.useState(user?.status || userStatuses.working)
+    const [role, setRole] = React.useState(user?.user_role || userRoles.user)
 
-    const [isSpecInputValid, setIsSpecInputValid] = React.useState(true)
-
-    const [isSpecialtyListVisible, setIsSpecialtyListVisible] = React.useState(false)
-
-    const [specialtyList, setSpecialtyList] = React.useState(user ? (user.specialties ? user.specialties : []) : [])
-    const [specialtyIdList, setSpecialtyIdList] = React.useState(user ? (user.specialties ? user.specialties.map(obj => obj.id) : []) : [])
-    const [availableSpecialtiesList, setAvailableSpecialtiesList] = React.useState([])
+    const [specialtyList, setSpecialtyList] = React.useState(user?.specialties || [])
+    const [specialtyIdList, setSpecialtyIdList] = React.useState(user?.specialties?.map(obj => obj.id) || [])
 
     const [isLoading, setIsLoading] = React.useState(true)
 
@@ -104,27 +95,6 @@ function UserEditor({user, mod = pageMods.viewer}) {
             alert('Не удалось создать пользователя.')
         })
     }
-
-    // const clckOnSearchButton = () => {
-    //     if (specInSearch.length > 0) {
-    //         setIsSpecInputValid(true)
-    //         makeSpecsSearch()
-    //         return
-    //     }
-    //     setIsSpecInputValid(false)
-    // }
-    //
-    // const makeSpecsSearch = () => {
-    //     getSpecialtiesByPartName(specInSearch).then(data => {
-    //         setAvailableSpecialtiesList(data)
-    //         setIsSpecialtyListVisible(true)
-    //         setIsLoading(false)
-    //     }).catch(err => {
-    //         console.log("Error while getting data", err)
-    //         setIsSpecialtyListVisible(true)
-    //         setIsLoading(false)
-    //     })
-    // }
 
     const statusKeyValue = [
         {
@@ -206,8 +176,6 @@ function UserEditor({user, mod = pageMods.viewer}) {
                            onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                {/*{mod === pageMods.creator*/}
-                {/*    && <>*/}
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>
                         Пароль
@@ -219,14 +187,13 @@ function UserEditor({user, mod = pageMods.viewer}) {
                            value={password}
                            onChange={(e) => setPassword(e.target.value)}
                     />
-                    <br/>
-                    * Оставить пустым, если не хотите менять пароль
+                    {mod === pageMods.editor &&
+                        <>
+                            <br/>
+                            * Оставить пустым, если не хотите менять пароль
+                        </>
+                    }
                 </div>
-
-
-                {/*    </>*/}
-                {/*}*/}
-
                 <div className={'editor-item'}>
                     <div className={'editor-item-text'}>
                         Роль
@@ -250,7 +217,7 @@ function UserEditor({user, mod = pageMods.viewer}) {
                     >
                         {statusKeyValue.map((item, index) => {
                             return (
-                                <option value={item.name} key={index}>{item.text}</option>
+                                <option value={item?.name} key={index}>{item?.text}</option>
                             )
                         })}
                     </select>
@@ -269,7 +236,6 @@ function UserEditor({user, mod = pageMods.viewer}) {
             </div>
         </form>
     )
-        ;
 }
 
 export default UserEditor;

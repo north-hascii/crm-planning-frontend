@@ -5,13 +5,12 @@ import {buttonProps} from "../Button/ButtonProps";
 import SearchField from "../searchField/searchField";
 import {searchFieldProps} from "../searchField/searchFieldProps";
 import {pageMods} from "../../utils/consts";
-import {createUser} from "../../http/userApi";
 
-function SpecialtyEditor({specialty, mod = pageMods.viewer}) {
-    const [specName, setSpecName] = React.useState(specialty ? specialty.specialty_name : '')
+function SpecialtyEditor({specialty = null, mod = pageMods.viewer}) {
+    const [specName, setSpecName] = React.useState(specialty?.specialty_name)
 
-    const [usersList, setUsersList] = React.useState(specialty ? (specialty.specialty_users ? specialty.specialty_users : []) : [])
-    const [usersIdList, setUsersIdList] = React.useState(specialty ? (specialty.specialty_users ? specialty.specialty_users.map(obj => obj.id) : []) : [])
+    const [usersList, setUsersList] = React.useState(specialty?.specialty_users || [])
+    const [usersIdList, setUsersIdList] = React.useState(specialty?.specialty_users?.map(obj => obj.id) || [])
 
     const clickOnSave = async (e) => {
         e.preventDefault()
@@ -25,7 +24,7 @@ function SpecialtyEditor({specialty, mod = pageMods.viewer}) {
 
     const makeUpdateRequest = () => {
         updateSpecialty(
-            specialty.id,
+            specialty?.id,
             specName,
             usersIdList
         ).then(data => {

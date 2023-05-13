@@ -1,9 +1,7 @@
 import React, {useContext} from 'react';
-import {ADMIN_USER_ROUTE, adminSections, appRoutes, userRoles} from "../../utils/consts";
+import {appRoutes, userRoles} from "../../utils/consts";
 import {useNavigate} from "react-router-dom";
 import {deleteUserById} from "../../http/userApi";
-import Button from "../Button/Button";
-import {buttonProps} from "../Button/ButtonProps";
 import {StoreContext} from "../../index";
 
 function UserTable({tableItems = []}) {
@@ -11,7 +9,7 @@ function UserTable({tableItems = []}) {
     const navigate = useNavigate()
 
     const deleteTableItem = (item) => {
-        deleteUserById(item.id).then(data => {
+        deleteUserById(item?.id).then(data => {
             window.location.reload()
             alert('Пользователь успешно удален.')
         }).catch(err => {
@@ -21,7 +19,7 @@ function UserTable({tableItems = []}) {
     }
 
     const redirectToEditor = (item) => {
-        navigate(`${appRoutes.admin.ADMIN_USER_ROUTE}/${item.id}`)
+        navigate(`${appRoutes.admin.ADMIN_USER_ROUTE}/${item?.id}`)
     }
 
     return (
@@ -53,22 +51,22 @@ function UserTable({tableItems = []}) {
             {tableItems && tableItems.map((item, index) => {
                 return (<tr key={index}>
                     <th className={'admin-table-col small'}>
-                        {item.id}
+                        {item?.id}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.second_name + ' ' + item.first_name + ' ' + item.third_name}
+                        {item?.second_name + ' ' + item?.first_name + ' ' + item?.third_name}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.email}
+                        {item?.email}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.specialties && item.specialties.map(item => item.specialty_name).join('; ')}
+                        {item?.specialties?.map(item => item?.specialty_name).join('; ')}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.status}
+                        {item?.status}
                     </th>
                     <th className={'admin-table-col'}>
-                        {item.user_role}
+                        {item?.user_role}
                     </th>
                     <th className={'admin-table-col medium'}>
                         {

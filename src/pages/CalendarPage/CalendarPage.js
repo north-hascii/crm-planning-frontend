@@ -345,7 +345,7 @@ function CalendarPage(props) {
 
                 }
                 <div className={'calendar-selector-container'}>
-                    {/*<div className={'calendar-date-selector-container'}>*/}
+                    <div className={'calendar-date-selector-container'}>
                         <div className={'calendar-widget-label green-border'}
                              onClick={() => setIsWidgetVisible(!isWidgetVisible)}>
                             {dateState ? dateState.toLocaleDateString() : 'Выберите неделю'}
@@ -359,6 +359,7 @@ function CalendarPage(props) {
                         {isWidgetVisible && <div className={'calendar-widget-container'}>
                             <Calendar onChange={(date) => handleDateChanged(date)}/>
                         </div>}
+                    </div>
                         {user.userRole === userRoles.worker &&
                             <div className={'calendar-date-selector-worker-container'}>
                                 <Button text={'Показать все задачи'}

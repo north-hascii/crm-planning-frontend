@@ -1,27 +1,17 @@
 import React from 'react';
-import {updateSpecialty} from "../../http/specialtyApi";
-import {getAllUsersByPartSecondName} from "../../http/userApi";
 import Button from "../Button/Button";
 import {buttonProps} from "../Button/ButtonProps";
 import SearchField from "../searchField/searchField";
 import {searchFieldProps} from "../searchField/searchFieldProps";
 import {createOperation, updateOperation} from "../../http/operationApi";
 import {pageMods} from "../../utils/consts";
-import {createMaterial} from "../../http/materialApi";
 
-function OperationEditor({operation, mod = pageMods.viewer}) {
-    const [operationName, setOperationName] = React.useState(operation ? (operation.operation_name ? operation.operation_name : '') : '')
-    const [operationDuration, setOperationDuration] = React.useState(operation ? (operation.duration ? operation.duration : '') : '')
-    const [specsIdList, setSpecsIdList] = React.useState(operation ? operation.specialty_list ? operation.specialty_list.map(obj => obj.id) : [] : [])
-    const [specsList, setSpecsList] = React.useState(operation ? operation.specialty_list ? operation.specialty_list : [] : [])
-    // const [resourcesList, setResourcesList] = React.useState(operation ? operation.resource_list ? (
-    //     operation.resource_list.map(obj => { return {
-    //             "material_id": obj.material.id,
-    //             "amount": obj.amount,
-    //         }}
-    //     )) : [] : [])
-    const [resourcesList, setResourcesList] = React.useState(operation ? operation.resource_list ? (
-        operation.resource_list) : [] : [])
+function OperationEditor({operation = null, mod = pageMods.viewer}) {
+    const [operationName, setOperationName] = React.useState(operation?.operation_name)
+    const [operationDuration, setOperationDuration] = React.useState(operation?.duration)
+    const [specsIdList, setSpecsIdList] = React.useState(operation?.specialty_list?.map(obj => obj.id))
+    const [specsList, setSpecsList] = React.useState(operation?.specialty_list || [])
+    const [resourcesList, setResourcesList] = React.useState(operation?.resource_list || [])
 
     const clickOnSave = async (e) => {
         e.preventDefault()
@@ -35,7 +25,7 @@ function OperationEditor({operation, mod = pageMods.viewer}) {
 
     const makeUpdateRequest = () => {
         updateOperation(
-            operation.id,
+            operation?.id,
             operationName,
             operationDuration,
             resourcesList,
@@ -43,6 +33,7 @@ function OperationEditor({operation, mod = pageMods.viewer}) {
         ).then(data => {
             console.log(data)
             alert('Операция успешно обновлена.')
+            window.location.reload()
         }).catch(err => {
             console.log(err)
             alert('Не удалось обновить операцию.')

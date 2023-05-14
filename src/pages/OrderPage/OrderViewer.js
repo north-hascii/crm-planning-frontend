@@ -105,7 +105,7 @@ function OrderViewer({order, manager}) {
                     </div>
                     <div className={'viewer-item-input'}>
                         {orderState.order_name}
-                        {/*Светофор fdfdsfdsfsd fafdsfdsfsdfsdf fadfdsfdsfds fadfadfafad fadfadfafad fadfadfafad*/}
+                        {/*Светофор */}
                     </div>
                 </div>
 

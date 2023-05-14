@@ -33,14 +33,14 @@ function OrderCalculationViewer({
                     />
                 )
             })}
-            <div className={'button-container'}>
-                <Button text={'Добавить продукт'}
-                        size={buttonProps.size.small}
-                        color={buttonProps.color.light}
-                        bgColor={buttonProps.background_color.dark_v1}
-                        // onClck={() => setProductList([...productList, createEmptyProduct()])}
-                        type={'submit'}/>
-            </div>
+            {/*<div className={'button-container'}>*/}
+            {/*    <Button text={'Добавить продукт'}*/}
+            {/*            size={buttonProps.size.small}*/}
+            {/*            color={buttonProps.color.light}*/}
+            {/*            bgColor={buttonProps.background_color.dark_v1}*/}
+            {/*            // onClck={() => setProductList([...productList, createEmptyProduct()])}*/}
+            {/*            type={'submit'}/>*/}
+            {/*</div>*/}
         </>
     );
 }

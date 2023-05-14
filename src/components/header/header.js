@@ -75,7 +75,7 @@ const Header = observer(() => {
                 navigate(AUTH_ROUTE)
             }
             }>
-                LOGO
+                ОРЕНЗНАКЪ
             </div>
         </div>
         }
@@ -85,7 +85,7 @@ const Header = observer(() => {
                 navigate(HOME_ROUTE)
             }
             }>
-                LOGO
+                ОРЕНЗНАКЪ
             </div>
             <div className={'header-container-items'}>
                 {userRolesArray.includes(user.userRole) && user.userRole in headerNavigationOnRole && headerNavigationOnRole[user.userRole].map((item, index) => {

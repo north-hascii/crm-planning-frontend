@@ -188,7 +188,7 @@ function CalendarPage(props) {
         const dayOfWeek = date.getDay()
         const diff = date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)
         const startOfWeek = new Date(date.setDate(diff))
-        console.log(startOfWeek)
+        console.log('week start date:', startOfWeek)
 
         let weekDays = [startOfWeek]
         for (let i = 1; i < 7; i++) {
@@ -212,8 +212,9 @@ function CalendarPage(props) {
                 operation: tasks[i].operation,
                 // executor_name: tasks[i].executor.second_name + ' (' + tasks[i].executor.email + ')',
             }
-            weekDayAndTasks[startDate.getDay()].push(parsedTask)
+            weekDayAndTasks[startDate.getDay() - 1].push(parsedTask)
         }
+        // console.log('weekDayAndTask:', weekDayAndTasks)
         for (let i = 0; i < 7; i++) {
             weekDayAndTasks[i].sort((a, b) => {
                 if (a.start_date.getTime() === b.start_date.getTime()) {

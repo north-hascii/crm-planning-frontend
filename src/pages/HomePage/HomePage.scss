@@ -25,6 +25,15 @@
     background-color: #F5F5F5;
   }
 
+  position: relative;
+
+  &>svg {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    width: 65px;
+    height: 65px;
+  }
 
 }
 

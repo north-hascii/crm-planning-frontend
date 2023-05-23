@@ -18,6 +18,8 @@ export const signIn = async (email, password) => {
         localStorage.setItem(localStorageParams.user_role, data.user.user_role)
         localStorage.setItem(localStorageParams.user_email, data.user.email)
         localStorage.setItem(localStorageParams.user_second_name, data.user.second_name)
+        localStorage.setItem(localStorageParams.user_first_name, data.user.first_name)
+        localStorage.setItem(localStorageParams.user_third_name, data.user.third_name)
         localStorage.setItem(localStorageParams.user_id, data.user.id)
     } catch (err) {
         if (err.response) {

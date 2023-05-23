@@ -2,9 +2,26 @@ import {makeAutoObservable} from "mobx";
 import {localStorageParams} from "../utils/consts";
 
 export default class UserStore {
+    get userFirstName() {
+        return this._userFirstName;
+    }
+
+    setUserFirstName(value) {
+        this._userFirstName = value;
+    }
+
+    get userThirdName() {
+        return this._userThirdName;
+    }
+
+    setUserThirdName(value) {
+        this._userThirdName = value;
+    }
+
     get userId() {
         return this._userId;
     }
+
     get userToken() {
         return this._userToken;
     }
@@ -21,6 +38,8 @@ export default class UserStore {
         this._user = {}
         this._userEmail = ''
         this._userSecondName = ''
+        this._userFirstName = ''
+        this._userThirdName = ''
         this._userId = -1
         makeAutoObservable(this)
     }

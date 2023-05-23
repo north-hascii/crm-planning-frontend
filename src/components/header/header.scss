@@ -149,7 +149,7 @@ header {
 .header-user-profile-window-name {
   font-family: 'SF Pro Display', sans-serif;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 16px;
   line-height: 19px;
   /* identical to box height */
@@ -158,14 +158,23 @@ header {
 
   color: #4C4C4C;
 
-  //border: 1px solid rgba(76, 76, 76, 0.5);
-
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: flex-start;
 
   margin-bottom: 16px;
+
+  &>span {
+    font-family: "SF Pro Display", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: -0.017em;
+    color: #4C4C4C;
+    margin-right: 5px;
+  }
 }
 
 .header-user-profile-window-item-container {
@@ -193,10 +202,21 @@ header {
   //  margin-top: 16px;
   //}
 
+  &>span {
+    font-family: "SF Pro Display", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: -0.017em;
+    color: #4C4C4C;
+    margin-right: 5px;
+  }
+
 }
 
 .header-user-profile-window-item {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .header-user-profile-window-item {

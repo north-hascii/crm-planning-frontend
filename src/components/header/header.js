@@ -110,15 +110,23 @@ const Header = observer(() => {
                 </div>
                 <div className={`header-user-profile-window ${isUserProfileVisible ? 'visible' : 'hidden'}`}>
                     <div className={'header-user-profile-window-name'}>
-                        User: {user.userSecondName}
+                         <span>
+                            Пользователь:
+                         </span>
+                        {user.userSecondName + ' ' + user.userFirstName + ' ' + user.userThirdName}
                     </div>
                     <SubLine/>
                     <div className={'header-user-profile-window-item-container'}>
                         <div className={'header-user-profile-window-item'}>
-                            Почта: {user.userEmail}
+                            <span>
+                                Почта:
+                            </span> {user.userEmail}
                         </div>
                         <div className={'header-user-profile-window-item'}>
-                            Уровень доступа: {user.userRole}
+                             <span>
+                                Уровень доступа:
+                            </span>
+                            {user.userRole}
                         </div>
                     </div>
                     <Button text={'Выйти'} size={buttonProps.size.small}

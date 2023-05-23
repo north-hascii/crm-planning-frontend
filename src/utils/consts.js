@@ -74,6 +74,8 @@ export const localStorageParams = {
     user_role: 'user_role',
     user_email: 'email',
     user_second_name: 'second_name',
+    user_third_name: 'third_name',
+    user_first_name: 'first_name',
     user_id: 'user_id'
 }
 

@@ -215,7 +215,7 @@ function SearchField({
                 return item.second_name + ' ' + item.first_name + ' ' + item.third_name + ' (' + item.email + ')'
             }
             case searchFieldProps.order: {
-                return item.order_name +  ' (id=' + item.id + ')'
+                return 'Заказ №' + item.id + ' ' + item.order_name
             }
             default: {
                 return 'Формат вывода не задан'

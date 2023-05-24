@@ -82,7 +82,7 @@ function CalendarTaskWindow({isVisible = false, onClose = Function.prototype, ta
                             <div className={'editor-selected-item-container'}>
                                 {task.operation.resource_list && task.operation.resource_list.map((resource, index) => {
                                     return (
-                                        <div className={'editor-selected-item'}>
+                                        <div className={'editor-selected-item'} key={index}>
                                             {`${resource.material.material_name} ${resource.amount} (${resource.material.units})`}
                                         </div>
                                     )

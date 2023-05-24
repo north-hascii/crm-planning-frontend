@@ -39,6 +39,10 @@ const AuthForm = observer(({formType = formTypes.loginForm}) => {
             if (formType === formTypes.loginForm) {
                 user.setUserToken(localStorage.getItem(localStorageParams.user_token))
                 user.setUserRole(localStorage.getItem(localStorageParams.user_role))
+                user.setUserEmail(localStorage.getItem(localStorageParams.user_email))
+                user.setUserSecondName(localStorage.getItem(localStorageParams.user_second_name))
+                user.setUserFirstName(localStorage.getItem(localStorageParams.user_first_name))
+                user.setUserThirdName(localStorage.getItem(localStorageParams.user_third_name))
                 user.setIsAuth(true)
             }
 

@@ -23,7 +23,7 @@ export const getUserById = async (id) => {
 }
 
 export const updateUser = async (id, email, first_name, second_name, third_name, role, status, specsIds) => {
-    const {response} = await $authHost.put('/admin/user/update', {
+    const {response} = await $authHost.put('/admin/user/update-without-password', {
             "id": id,
             "email": email,
             "first_name": first_name,
